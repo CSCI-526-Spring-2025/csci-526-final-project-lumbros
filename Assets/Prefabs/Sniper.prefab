@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5999875819943144269}
   - component: {fileID: -2012626923977821580}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: Sniper
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,9 +206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6947373763395278133, guid: 209abd1876100d0438ed6a8b26714443, type: 3}
-  attackRange: 3
+  attackRange: 5
   attackCooldown: 1
-  damage: 1
+  damage: 2
 --- !u!114 &5999875819943144269
 MonoBehaviour:
   m_ObjectHideFlags: 0
