@@ -23,6 +23,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
+
     public int maxTowerCount;
     public int curTowerCount;
     public int maxWorkerCount;
@@ -31,6 +32,7 @@ public class CustomSceneManager : MonoBehaviour
     public TMP_Text mTowerCountUI;
     public TMP_Text mEnemyCountUI;
     public bool shouldSpawnMine = true;
+
     private static int GAME_SCREEN_INDEX = 1;
     // private static int UPGRADE_SCREEN_INDEX = 2;
     private List<GameObject> nonDestoryObjects;
@@ -101,6 +103,7 @@ public class CustomSceneManager : MonoBehaviour
         curTowerCount = 0;
         maxWorkerCount = 5;
         curWorkerCount = 0;
+
         nonDestoryObjects = new List<GameObject>();
 
         //gameOverUI = Instantiate(uiPrefab);
@@ -228,8 +231,7 @@ public class CustomSceneManager : MonoBehaviour
         shouldSpawnMine = true;
         curWorkerCount = 0;
         gameOverUI.SetActive(false);
-        maxTowerCount = 2;
-        curTowerCount = 0;
+        TowerManager.instance.Reset();
         Time.timeScale = 1; // start the game again
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();

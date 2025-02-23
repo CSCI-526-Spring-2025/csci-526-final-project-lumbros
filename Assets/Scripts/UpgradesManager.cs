@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
-public class Upgrades : MonoBehaviour
+public class UpgradesManager : MonoBehaviour
 {
     public TextMeshProUGUI[] upgradeTexts;
     public Button[] upgradeButtons;
@@ -23,6 +23,7 @@ public class Upgrades : MonoBehaviour
     {
         hero = GameObject.FindGameObjectWithTag("Player");
         manager = GameObject.FindGameObjectWithTag("Manager");
+
         // Hero Upgrades
         AddUpgrade(heroUpgrades, "Hero Damage", "+1 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 1);
         AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2);

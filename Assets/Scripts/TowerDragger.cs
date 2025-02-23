@@ -18,7 +18,6 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     void Start()
     {
-
         manager = GameObject.FindGameObjectWithTag("Manager");
         if (mImage == null) 
         {
