@@ -10,6 +10,8 @@ TagManager:
   - Hero
   - GameOverUI
   - Tower
+  - Worker
+  - Mine
   layers:
   - Default
   - TransparentFX
