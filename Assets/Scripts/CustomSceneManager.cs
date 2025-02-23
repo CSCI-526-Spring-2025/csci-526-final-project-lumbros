@@ -10,8 +10,6 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
-    public int maxTowerCount;
-    public int curTowerCount;
     private static int GAME_SCREEN_INDEX = 1;
     private static int UPGRADE_SCREEN_INDEX = 2;
     private List<GameObject> nonDestoryObjects;
@@ -39,8 +37,6 @@ public class CustomSceneManager : MonoBehaviour
     void Start() {
         Debug.Log("starting");
         totalKills = 0;
-        maxTowerCount = 2;
-        curTowerCount = 0;
         nonDestoryObjects = new List<GameObject>();
         gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
         //gameOverUI = Instantiate(uiPrefab);
@@ -58,26 +54,6 @@ public class CustomSceneManager : MonoBehaviour
             // Load the main scene (assuming the main scene is at build index 0)
             LoadScene(0);
         }
-    }
-
-    public void IncreaseTowerCount()
-    {
-        maxTowerCount++;
-    }
-
-    public void AddTower()
-    {
-        curTowerCount++;
-    }
-
-    public void DestoryTower()
-    {
-        curTowerCount--;
-    }
-
-    public bool CanAddTower()
-    {
-        return curTowerCount < maxTowerCount;
     }
 
     public void AddKill()
@@ -104,8 +80,7 @@ public class CustomSceneManager : MonoBehaviour
             if(go != null) Destroy(go);
         }
         gameOverUI.SetActive(false);
-        maxTowerCount = 2;
-        curTowerCount = 0;
+        TowerManager.instance.Reset();
         Time.timeScale = 1; // start the game again
         LoadScene(0);
     }

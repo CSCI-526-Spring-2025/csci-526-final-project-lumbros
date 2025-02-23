@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrades : MonoBehaviour
+public class UpgradesManager : MonoBehaviour
 {
-    GameObject hero, manager;
+    GameObject hero, manager, towerManager, core, minersManager;
     // Start is called before the first frame update
     void Start()
     {
         hero = GameObject.FindGameObjectWithTag("Player");
         manager = GameObject.FindGameObjectWithTag("Manager");
+        core = GameObject.FindGameObjectWithTag("Core");
+        // towerManager = GameObject.FindGameObjectWithTag("TowerManager");
+        // minersManager = GameObject.FindGameObjectWithTag("Miner");
     }
 
     // Update is called once per frame
@@ -23,7 +26,7 @@ public class Upgrades : MonoBehaviour
     }
 
     public void UpgradeMaxTowerCount(){
-        manager.GetComponent<CustomSceneManager>().maxTowerCount++;
+        TowerManager.instance.maxTowerCount++;
     }
 
     public void UpgradeHeroHP(){
