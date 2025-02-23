@@ -24,4 +24,17 @@ public class Core : MonoBehaviour
         // Set this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Worker"))
+        {
+            Worker worker = collision.gameObject.GetComponent<Worker>();
+            if (worker.HasGold())
+            {
+                // TODO: Add gold to count
+            }
+            worker.SetTargetMine();
+        }
+    }
 }
