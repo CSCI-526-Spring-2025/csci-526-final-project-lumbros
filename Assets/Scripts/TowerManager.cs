@@ -8,7 +8,7 @@ public class TowerManager : MonoBehaviour
     public static TowerManager instance;
     public int maxTowerCount;
     public int curTowerCount;
-    public static int DEFAULT_MAX = 2;
+    public static int DEFAULT_MAX = 3;
     public static int DEFAULT_CUR = 0;
 
     private void Awake()

@@ -11,7 +11,7 @@ public class UpgradesManager : MonoBehaviour
         hero = GameObject.FindGameObjectWithTag("Player");
         manager = GameObject.FindGameObjectWithTag("Manager");
         core = GameObject.FindGameObjectWithTag("Core");
-        // towerManager = GameObject.FindGameObjectWithTag("TowerManager");
+        //towerManager = GameObject.FindGameObjectWithTag("TowerManager");
         // minersManager = GameObject.FindGameObjectWithTag("Miner");
     }
 
@@ -21,17 +21,32 @@ public class UpgradesManager : MonoBehaviour
         
     }
 
-    public void UpgradeHeroDamage(){
-        hero.GetComponent<AutoAttack>().damage++;
+    // hero related upgrades
+    public void UpgradeHeroDamage(int damage = 1){
+        hero.GetComponent<AutoAttack>().damage += damage;
     }
 
-    public void UpgradeMaxTowerCount(){
-        TowerManager.instance.maxTowerCount++;
-    }
-
-    public void UpgradeHeroHP(){
+    public void UpgradeHeroHP(int incBy = 1)
+    {
         Health hp = hero.GetComponent<Health>();
-        hp.maxHealth++;
-        hp.currentHealth++;
+        hp.maxHealth += incBy;
+        hp.currentHealth += incBy;
     }
+
+    public void UpgradeHeroAttkSpd(float value = 0.1f)
+    {
+        hero.GetComponent<AutoAttack>().attackCooldown -= value;
+    }
+
+    public void UpgradeHeroAttkRange(float value = 0.5f)
+    {
+        hero.GetComponent<AutoAttack>().attackRange += value;
+    }
+
+    // Tower related upgrade
+    public void UpgradeMaxTowerCount(int incBy = 1){
+        TowerManager.instance.maxTowerCount += incBy;
+    }
+
+
 }
