@@ -119,6 +119,7 @@ public class CustomSceneManager : MonoBehaviour
             if(go != null) Destroy(go);
         }
         shouldSpawnMine = true;
+        curWorkerCount = 0;
         gameOverUI.SetActive(false);
         maxTowerCount = 2;
         curTowerCount = 0;
