@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8126026953933692042}
   - component: {fileID: 872007728857571396}
   - component: {fileID: 2089366822705537239}
-  - component: {fileID: -8123633864728026242}
-  m_Layer: 10
-  m_Name: Enemy
+  - component: {fileID: 7741952854358576496}
+  m_Layer: 11
+  m_Name: EnemyPhantom
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0025580227, y: 0}
   serializedVersion: 2
   m_Radius: 0.13804212
---- !u!114 &-8123633864728026242
+--- !u!114 &7741952854358576496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 712027675066443393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93af27ec3f8342a469e6d88c0a16b361, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d91f7b52cec78c40b33c6df5ebb84ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   health: 3
   attackDamage: 1
-  attackRange: 0.5
+  attackRange: 0.29
   attackCooldown: 1
 --- !u!1 &6640638025385805139
 GameObject:
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6126667126572661335}
   - component: {fileID: 1590838031102180686}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,8 +187,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.735849, g: 0.11107155, b: 0.11107155, a: 1}
+  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
+  m_Color: {r: 0.9245283, g: 0.5800107, b: 0.9192934, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8126026953933692042}
   - component: {fileID: 872007728857571396}
   - component: {fileID: 2089366822705537239}
-  - component: {fileID: -8123633864728026242}
+  - component: {fileID: 2078236300986494204}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: Enemy_Stalker
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0025580227, y: 0}
   serializedVersion: 2
   m_Radius: 0.13804212
---- !u!114 &-8123633864728026242
+--- !u!114 &2078236300986494204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,12 +106,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 712027675066443393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93af27ec3f8342a469e6d88c0a16b361, type: 3}
+  m_Script: {fileID: 11500000, guid: 8469ce1f6333f6b4abb3b4c884e5b717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  normalSpeed: 1.5
+  chargeSpeed: 10
+  detectionRange: 5
+  chargeDelay: 1.5
+  chargeCooldown: 2
+  rotationSpeed: 500
+  rotationOffset: 0
   health: 3
-  attackDamage: 1
+  attackDamage: 2
   attackRange: 0.5
   attackCooldown: 1
 --- !u!1 &6640638025385805139
@@ -187,8 +193,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.735849, g: 0.11107155, b: 0.11107155, a: 1}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Color: {r: 0.36862746, g: 0.9019608, b: 0.7372549, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

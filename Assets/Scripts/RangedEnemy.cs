@@ -16,13 +16,15 @@ public class RangedEnemy : MonoBehaviour, IDamageable
     public float attackCooldown = 2f;
     private bool canAttack = true;
     private Rigidbody2D rb;
-    public float acceleration = 5f;  
-    public float maxSpeed = 2f;   
+    // public float acceleration = 5f;  
+    // public float maxSpeed = 2f;   
     void Start()
     {
         // Initialize reference to core
         core = GameObject.FindGameObjectWithTag("Core").transform;
         target = FindClosestTarget(); // Instead of directly targeting core
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 2f; 
     }
@@ -54,28 +56,32 @@ public class RangedEnemy : MonoBehaviour, IDamageable
         }
     }
 
-    void FixedUpdate()
-        {
-            if (target != null)
-            {
+    // void FixedUpdate()
+    //     {
+    //         if (target != null)
+    //         {
                 
-                rb.velocity = Vector2.zero;
+    //             rb.velocity = Vector2.zero;
 
                 
-                Vector2 direction = (target.position - transform.position).normalized;
-                rb.AddForce(direction * acceleration, ForceMode2D.Force);
+    //             Vector2 direction = (target.position - transform.position).normalized;
+    //             rb.AddForce(direction * acceleration, ForceMode2D.Force);
 
-                if (rb.velocity.magnitude > maxSpeed)
-                {
-                    rb.velocity = rb.velocity.normalized * maxSpeed;
-                }
-                // TryAttack();
-            }
-        }
+    //             if (rb.velocity.magnitude > maxSpeed)
+    //             {
+    //                 rb.velocity = rb.velocity.normalized * maxSpeed;
+    //             }
+    //             // TryAttack();
+    //         }
+    //     }
 
     // New method to find closest target
     Transform FindClosestTarget()
     {
+        if (GameObject.FindGameObjectWithTag("Core") == null)
+        {
+            return null;
+        }
         // Create a list of possible targets
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         float minDistance = float.MaxValue;

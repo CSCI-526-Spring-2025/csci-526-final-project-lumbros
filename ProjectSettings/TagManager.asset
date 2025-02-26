@@ -23,11 +23,11 @@ TagManager:
   - 
   - NormalLayer
   - DoorLayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyEnCol
+  - EnemyDisCol
+  - Hero
+  - Tower
+  - Obstacle
   - 
   - 
   - 
