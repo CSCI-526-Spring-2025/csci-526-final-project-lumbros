@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class AutoAttack : MonoBehaviour
 {
     public GameObject projectilePrefab; 
@@ -9,6 +6,7 @@ public class AutoAttack : MonoBehaviour
     public float attackCooldown = 1f;
     private float lastAttackTime;
     public int damage = 1;
+    public int heroBounces = 0; 
 
     void Update()
     {
@@ -39,12 +37,10 @@ public class AutoAttack : MonoBehaviour
         return closest;
     }
 
-
     void Shoot(Transform target)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<Projectile>().SetTarget(target, transform);
-        projectile.GetComponent<Projectile>().damage = damage; // damage of bullet
+        projectile.GetComponent<Projectile>().SetTarget(target, transform, heroBounces); 
+        projectile.GetComponent<Projectile>().damage = damage; 
     }
-
 }

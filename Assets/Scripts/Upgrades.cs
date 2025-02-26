@@ -39,8 +39,8 @@ public class Upgrades : MonoBehaviour
             hp.currentHealth += 2;
         });
 
-        AddUpgradeCategory("Auto Heal", "Increase Auto Heal +1", () => hero.GetComponent<Health>().autoHeal += 1);
-        AddUpgradeCategory("Auto Heal", "Increase Auto Heal +2", () => hero.GetComponent<Health>().autoHeal += 2);
+        AddUpgradeCategory("Hero Auto Heal", "Increase Hero Auto Heal +1", () => hero.GetComponent<Health>().autoHeal += 1);
+        AddUpgradeCategory("Hero Auto Heal", "Increase Hero Auto Heal +2", () => hero.GetComponent<Health>().autoHeal += 2);
 
         AddUpgradeCategory("Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1);
         AddUpgradeCategory("Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2);
@@ -98,6 +98,8 @@ public class Upgrades : MonoBehaviour
             foreach (var tower in towers)
                 tower.GetComponent<Health>().autoHeal += 2;
         });
+        AddUpgradeCategory("Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1);
+        AddUpgradeCategory("Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2);
 
         AssignRandomUpgrades();
     }
