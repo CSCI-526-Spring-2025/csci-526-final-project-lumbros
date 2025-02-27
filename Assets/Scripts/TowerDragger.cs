@@ -37,7 +37,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         mImage.raycastTarget = false;
-        mGridManager.ShowGrid();
+        if(mGridManager != null) mGridManager.ShowGrid();
         // Create a preview instance of the tower
         currentTowerPreview = Instantiate(towerPrefab);
         Destroy(currentTowerPreview.GetComponent<AutoAttack>());
