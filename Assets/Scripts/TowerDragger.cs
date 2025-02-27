@@ -24,7 +24,10 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             mImage = GetComponent<Image>(); 
         }
         GridManager[] GridArray = FindObjectsOfType<GridManager>();
-        mGridManager = GridArray[0];
+        if(GridArray.Length > 0)
+        {
+            mGridManager = GridArray[0];
+        }
         mCost = towerPrefab.GetComponent<Tower>().GetCost();
     }
 
@@ -33,27 +36,30 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (manager.GetComponent<CustomSceneManager>().CanAddTower() && MoneyManager.Instance.mMoney > mCost)
         {
-             // Grid 
-            parentAfterDrag = transform.parent;
-            transform.SetParent(transform.root);
-            transform.SetAsLastSibling();
+            // Grid 
             mImage.raycastTarget = false;
-            mGridManager.ShowGrid();
+            if(mGridManager != null)
+            {
+                mGridManager.ShowGrid();
+            }
+                
+
             // Create a preview instance of the tower
             currentTowerPreview = Instantiate(towerPrefab);
-            // Destroy(currentTowerPreview.GetComponent<AutoAttack>());
-            // Destroy(currentTowerPreview.GetComponent<Health>());
-            // Destroy(currentTowerPreview.GetComponent<Rigidbody2D>());
-            // Destroy(currentTowerPreview.GetComponent<BoxCollider2D>());
-
+            Destroy(currentTowerPreview.GetComponent<AutoAttack>());
+            Destroy(currentTowerPreview.GetComponent<Health>());
+            Destroy(currentTowerPreview.GetComponent<Rigidbody2D>());
+            Destroy(currentTowerPreview.GetComponent<BoxCollider2D>());
+            // Adjust scale
+            currentTowerPreview.transform.localScale = new Vector3(0.1f, 0.1f, 1f);  
             // Make the preview semi-transparent to distinguish it from actual towers
-            Image image = currentTowerPreview.GetComponent<Image>();
-            if (image != null)
+            SpriteRenderer sr = currentTowerPreview.GetComponent<SpriteRenderer>();
+            if (sr != null)
             {
                 Debug.Log("render * 50%");
-                Color color = image.color;
+                Color color = sr.color;
                 color.a = 0.5f;  // Set to 50% opacity
-                image.color = color;
+                sr.color = color;
             }
         }
     }
@@ -61,32 +67,23 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called every frame while dragging
     public void OnDrag(PointerEventData eventData)
     {
-        if (currentTowerPreview != null)
+       if (currentTowerPreview != null)
         {
             // Convert screen position (mouse) to world position
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPos.z = 0;  // Ensure tower stays in 2D plane
-            currentTowerPreview.transform.position = Input.mousePosition; 
+            worldPos.z = 0;
+            currentTowerPreview.transform.position = worldPos;
         }
     }
 
     // Called when player releases the mouse button
     public void OnEndDrag(PointerEventData eventData)
-    {
-       
-        if (manager.GetComponent<CustomSceneManager>().CanAddTower() && currentTowerPreview != null && MoneyManager.Instance.mMoney > mCost)
+    {   
+        Destroy(currentTowerPreview);
+        mImage.raycastTarget = true;
+        if (manager.GetComponent<CustomSceneManager>().CanAddTower() && currentTowerPreview != null)
         {
-            // // Get the final position where player wants to place the tower
-            // Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // worldPos.z = 0;
-
-            // // Create the actual tower at the chosen position
-            // Instantiate(towerPrefab, worldPos, Quaternion.identity);
-
-            // Clean up by destroying the preview
-            Destroy(currentTowerPreview);
-
-            mImage.raycastTarget = true;
+            // Instantiate in inventory slot
             TimerManager.StartTimer(0.15f,  mGridManager.HideGrid, true);
         }
         else

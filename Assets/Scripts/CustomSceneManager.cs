@@ -67,9 +67,10 @@ public class CustomSceneManager : MonoBehaviour
             // Load the main scene (assuming the main scene is at build index 0)
             LoadScene(0);
         }
-
-        mTowerCountUI.text = "Towers: " + curTowerCount.ToString() + "/" + maxTowerCount.ToString();
-        mEnemyCountUI.text = "Enemies: " + totalKills.ToString() + "/ 5";
+        if(mTowerCountUI != null)
+            mTowerCountUI.text = "Towers: " + curTowerCount.ToString() + "/" + maxTowerCount.ToString();
+        if(mEnemyCountUI != null)
+            mEnemyCountUI.text = "Enemies: " + totalKills.ToString() + "/5";
     }
 
     public void IncreaseTowerCount()
