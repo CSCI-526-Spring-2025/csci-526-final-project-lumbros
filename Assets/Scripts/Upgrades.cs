@@ -8,6 +8,8 @@ public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI[] upgradeTexts;
     public Button[] upgradeButtons;
+
+    public TMP_Text[] costsUI;
     private GameObject hero;
     private GameObject manager;
     private GameObject[] towers;
