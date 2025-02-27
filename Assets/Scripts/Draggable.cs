@@ -9,7 +9,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Image mImage;
     private GridManager mGridManager;
     [HideInInspector] public Transform parentAfterDrag; 
-    private bool mSpawner = true;
 
 
     void Awake()
