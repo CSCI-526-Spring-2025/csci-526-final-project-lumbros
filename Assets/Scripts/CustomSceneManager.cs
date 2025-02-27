@@ -70,7 +70,7 @@ public class CustomSceneManager : MonoBehaviour
         if(mTowerCountUI != null)
             mTowerCountUI.text = "Towers: " + curTowerCount.ToString() + "/" + maxTowerCount.ToString();
         if(mEnemyCountUI != null)
-            mEnemyCountUI.text = "Enemies: " + totalKills.ToString() + "/5";
+            mEnemyCountUI.text = "Enemies: " + totalKills.ToString() + "/" + killLimit;
     }
 
     public void IncreaseTowerCount()
