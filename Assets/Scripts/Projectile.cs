@@ -6,11 +6,13 @@ public class Projectile : MonoBehaviour
     private Transform target;
     public Transform shooter;
     public int damage = 1;
+    public int bouncesLeft = 0; 
 
-    public void SetTarget(Transform newTarget, Transform shooter)
+    public void SetTarget(Transform newTarget, Transform shooter, int extraBounces)
     {
         target = newTarget;
-        this.shooter = shooter; // Store the attacker
+        this.shooter = shooter;
+        bouncesLeft = extraBounces; 
     }
 
     void Update()
@@ -25,13 +27,50 @@ public class Projectile : MonoBehaviour
 
         if (Vector2.Distance(transform.position, target.position) < 0.1f)
         {
-            // New damage handling system - looks for anything that can take damage
-            var damageable = target.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage, shooter);
-            }
-            Destroy(gameObject);
+            HitTarget();
         }
+    }
+
+    void HitTarget()
+    {
+        var damageable = target.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage, shooter);
+        }
+
+        if (bouncesLeft > 0)
+        {
+            Transform nextTarget = FindNextEnemy(target);
+            if (nextTarget != null)
+            {
+                target = nextTarget;
+                bouncesLeft--; 
+                return;
+            }
+        }
+
+        Destroy(gameObject); 
+    }
+
+    Transform FindNextEnemy(Transform previousTarget)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Transform bestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy.transform == previousTarget) continue; 
+
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                bestTarget = enemy.transform;
+            }
+        }
+
+        return bestTarget;
     }
 }

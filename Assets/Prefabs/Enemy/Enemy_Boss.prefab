@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8126026953933692042}
   - component: {fileID: 872007728857571396}
   - component: {fileID: 2089366822705537239}
-  - component: {fileID: 7741952854358576496}
-  m_Layer: 0
-  m_Name: Enemy
+  - component: {fileID: 7705900898547442024}
+  m_Layer: 10
+  m_Name: Enemy_Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0025580227, y: 0}
   serializedVersion: 2
   m_Radius: 0.13804212
---- !u!114 &7741952854358576496
+--- !u!114 &7705900898547442024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,14 +106,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 712027675066443393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d91f7b52cec78c40b33c6df5ebb84ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c69e04e84f3b9943aa42d03debf792d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  health: 3
+  detectionRange: 10
+  speed: 1
+  maxHealth: 10
+  health: 0
   attackDamage: 1
-  attackRange: 0.29
-  attackCooldown: 1
+  attackRange: 1
+  attackCooldown: 1.5
+  canAttack: 1
+  projectilePrefab: {fileID: 6947373763395278133, guid: 1c46ebb1bc8c4d042be4a6ec5b948102, type: 3}
+  fanAngle: 60
+  bulletCount: 6
+  shootCooldown: 1
+  enemyPrefabs:
+  - {fileID: 712027675066443393, guid: 1346f14e8afd73a4580b9bede59d705a, type: 3}
+  - {fileID: 712027675066443393, guid: 64cbde09b560f2e4c9c1a0d757fb4605, type: 3}
+  summonCount: 3
+  summonRadius: 3
+  enemySpawnChance: 0.7
+  rangedEnemySpawnChance: 0.3
 --- !u!1 &6640638025385805139
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6126667126572661335}
   - component: {fileID: 1590838031102180686}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,8 +201,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.735849, g: 0.11107155, b: 0.11107155, a: 1}
+  m_Sprite: {fileID: -9095717837082945937, guid: 34587324d412940a79d530020c957dc0, type: 3}
+  m_Color: {r: 0.9339623, g: 0.6245576, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

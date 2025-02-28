@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
     // Basic health settings - can be adjusted in Unity Inspector
     public int maxHealth = 5; 
     public int currentHealth;
+    public int autoHeal = 0;
     private static GameObject manager; // manage the game state
 
     // Reference to the health bar slider
@@ -35,6 +36,7 @@ public class Health : MonoBehaviour
                 }
             }
         }
+        InvokeRepeating("AutoHeal", 5f, 5f);
     }
 
     void Update()
@@ -69,5 +71,21 @@ public class Health : MonoBehaviour
         if(tag == "Player" || tag == "Core") manager.GetComponent<CustomSceneManager>().GameOver();
         if(tag == "Tower") TowerManager.instance.DestoryTower();
         Destroy(gameObject);
+    }
+
+    void AutoHeal()
+    {
+        if (currentHealth > 0 && currentHealth < maxHealth) 
+        {
+            currentHealth += autoHeal;
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
+
+            if (healthSlider != null)
+            {
+                healthSlider.value = currentHealth;
+            }
+
+            
+        }
     }
 }

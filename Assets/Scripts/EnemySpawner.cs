@@ -5,7 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemyPrefabs; // Array of different enemy prefabs
     public Transform spawnPoint;      // The central spawn position
-    public float spawnInterval = 3f;  // Time interval between enemy spawns
+    public float spawnInterval = 10f;  // Time interval between enemy spawns
 
     [Range(0, 1)]
     public float rangedEnemySpawnChance = 0.3f; // 30% chance to spawn a ranged enemy
@@ -35,6 +35,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
             }
+            //enemyToSpawn = enemyPrefabs[4];
 
             // **Instantiate the enemy at the chosen spawn position**
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
