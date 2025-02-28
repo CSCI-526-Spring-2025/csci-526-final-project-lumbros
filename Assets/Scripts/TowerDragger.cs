@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;  // Required for handling UI events
+using UnityEngine.UI;
 
 public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -9,10 +10,19 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Used to show semi-transparent preview while dragging
     private GameObject currentTowerPreview;
     private static GameObject manager; // manage the game state
-
+    private GridManager mGridManager;
+    [HideInInspector] public Transform parentAfterDrag; 
+    private Image mImage;
+     public int mCost;
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager");
+        if (mImage == null) 
+        {
+            mImage = GetComponent<Image>(); 
+        }
+        GridManager[] GridArray = FindObjectsOfType<GridManager>();
+        mGridManager = GridArray[0];
     }
 
     // Called when player starts dragging from the UI button
@@ -22,7 +32,12 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         {
             return;
         }
-
+        // Grid 
+        parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
+        mImage.raycastTarget = false;
+        if(mGridManager != null) mGridManager.ShowGrid();
         // Create a preview instance of the tower
         currentTowerPreview = Instantiate(towerPrefab);
         Destroy(currentTowerPreview.GetComponent<AutoAttack>());
@@ -55,6 +70,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called when player releases the mouse button
     public void OnEndDrag(PointerEventData eventData)
     {
+       
         if (currentTowerPreview != null)
         {
             // Get the final position where player wants to place the tower
@@ -68,6 +84,10 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             Destroy(currentTowerPreview);
 
             manager.GetComponent<CustomSceneManager>().AddTower();
+
+            mImage.raycastTarget = true;
+            TimerManager.StartTimer(0.15f,  mGridManager.HideGrid, true);
+            MoneyManager.Instance.UpdateMoney(mCost * -1);
         }
     }
 }

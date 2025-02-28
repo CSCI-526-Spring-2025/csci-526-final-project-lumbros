@@ -27,6 +27,7 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
     private Transform target; // 当前攻击目标
     private Transform core; // `Core` 位置
+    private Transform player; // `Player` 位置
     private static GameObject manager; // 游戏管理器
 
     private bool summonedAt50 = false;
@@ -45,6 +46,11 @@ public class BossEnemy : MonoBehaviour, IDamageable
         {
             Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！");
         }
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
 
         // **初始化血量**
         health = maxHealth;
@@ -57,17 +63,17 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (target == null) return;
+        if (core == null) return;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, FindClosestPlayerPosition());
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         // **如果 Player 在 detectionRange 内，切换目标为 Player**
         if (distanceToPlayer <= detectionRange)
         {
-            target = FindClosestPlayer();
+            target = player;
         }
         // **如果 Player 离开 detectionRange，切换回 Core**
-        else if (GameObject.FindGameObjectWithTag("Core") != null)
+        else
         {
             target = core;
         }
@@ -97,38 +103,6 @@ public class BossEnemy : MonoBehaviour, IDamageable
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
         TryAttack();
-    }
-
-    // **寻找最近的 Player**
-    Transform FindClosestPlayer()
-    {
-        if (GameObject.FindGameObjectWithTag("Core") == null)
-        {
-            return null;
-        }
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        float minDistance = float.MaxValue;
-        
-        Transform closestPlayer;
-        closestPlayer = core; // 默认目标是 Core
-
-        foreach (GameObject player in players)
-        {
-            float distance = Vector2.Distance(transform.position, player.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closestPlayer = player.transform;
-            }
-        }
-
-        return closestPlayer;
-    }
-
-    Vector2 FindClosestPlayerPosition()
-    {
-        Transform closestPlayer = FindClosestPlayer();
-        return closestPlayer != null ? (Vector2)closestPlayer.position : (Vector2)core.position;
     }
 
     void SummonMinions()
