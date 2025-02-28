@@ -45,7 +45,7 @@ public class Upgrades : MonoBehaviour
         AddUpgradeCategory("Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1);
         AddUpgradeCategory("Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2);
 
-        AddUpgradeCategory("Tower Count", "Increase Max Towers +1", () => manager.GetComponent<CustomSceneManager>().maxTowerCount++);
+        AddUpgradeCategory("Tower Count", "Increase Max Towers +1", () => TowerManager.instance.maxTowerCount++);
 
         AddUpgradeCategory("Tower Attack Range", "Increase All Towers Attack Range +1", () =>
         {
