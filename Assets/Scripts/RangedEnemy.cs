@@ -56,25 +56,6 @@ public class RangedEnemy : MonoBehaviour, IDamageable
         }
     }
 
-    // void FixedUpdate()
-    //     {
-    //         if (target != null)
-    //         {
-                
-    //             rb.velocity = Vector2.zero;
-
-                
-    //             Vector2 direction = (target.position - transform.position).normalized;
-    //             rb.AddForce(direction * acceleration, ForceMode2D.Force);
-
-    //             if (rb.velocity.magnitude > maxSpeed)
-    //             {
-    //                 rb.velocity = rb.velocity.normalized * maxSpeed;
-    //             }
-    //             // TryAttack();
-    //         }
-    //     }
-
     // New method to find closest target
     Transform FindClosestTarget()
     {

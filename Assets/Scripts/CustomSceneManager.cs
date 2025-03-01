@@ -37,6 +37,16 @@ public class CustomSceneManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnEnable()
+    {
+        EnemyAbstract.enemyKill += AddKill;
+    }
+
+    private void OnDisable()
+    {
+        EnemyAbstract.enemyKill -= AddKill;
+    }
+
     void Start() {
         Debug.Log("starting");
         totalKills = 0;

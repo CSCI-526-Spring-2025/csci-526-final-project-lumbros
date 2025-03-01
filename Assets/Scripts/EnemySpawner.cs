@@ -27,15 +27,16 @@ public class EnemySpawner : MonoBehaviour
 
             // **Randomly select an enemy type to spawn**
             GameObject enemyToSpawn;
-            if (Random.value < rangedEnemySpawnChance)
-            {
-                enemyToSpawn = enemyPrefabs[1]; // Spawn a ranged enemy
-            }
-            else
-            {
-                enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
-            }
+            // if (Random.value < rangedEnemySpawnChance)
+            // {
+            //     enemyToSpawn = enemyPrefabs[1]; // Spawn a ranged enemy
+            // }
+            // else
+            // {
+            //     enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
+            // }
             //enemyToSpawn = enemyPrefabs[4];
+            enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
 
             // **Instantiate the enemy at the chosen spawn position**
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
