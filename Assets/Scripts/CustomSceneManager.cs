@@ -84,6 +84,15 @@ public class CustomSceneManager : MonoBehaviour
         }
         instance.curState = gs;
         gameStateChange?.Invoke(gs);
+
+    private void OnEnable()
+    {
+        EnemyAbstract.enemyKill += AddKill;
+    }
+
+    private void OnDisable()
+    {
+        EnemyAbstract.enemyKill -= AddKill;
     }
 
     void Start() {

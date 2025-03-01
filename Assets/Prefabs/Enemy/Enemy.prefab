@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8126026953933692042}
   - component: {fileID: 872007728857571396}
   - component: {fileID: 2089366822705537239}
-  - component: {fileID: 4236949325911652727}
+  - component: {fileID: 5065410841442070906}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -48,7 +48,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 5
-  m_LinearDrag: 2
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0025580227, y: 0}
   serializedVersion: 2
   m_Radius: 0.13804212
---- !u!114 &4236949325911652727
+--- !u!114 &5065410841442070906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 712027675066443393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d91f7b52cec78c40b33c6df5ebb84ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a1f11c0700de4edbbb812b9a9622990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
