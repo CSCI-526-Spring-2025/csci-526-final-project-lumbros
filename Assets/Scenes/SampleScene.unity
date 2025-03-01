@@ -158,6 +158,8 @@ MonoBehaviour:
   curTowerCount: 0
   maxWorkerCount: 0
   curWorkerCount: 0
+  mTowerCountUI: {fileID: 0}
+  mEnemyCountUI: {fileID: 0}
   shouldSpawnMine: 1
 --- !u!4 &67992160
 Transform:
@@ -599,7 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &376308427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1525,7 +1526,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &708095378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3018359703589546229, guid: 8d7980b40401f8c459afaf93bb84a726, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &748488166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,7 +2061,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 755a67344d429294f91b08773f409955, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &964829293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3648,7 +3646,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 6585363735888694454, guid: d5611d501aeda6f47844531d4d9490c3, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &1651510468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3972,7 +3969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3378725082094908501, guid: bd95728523e24a84b9cc39387e6519a8, type: 3}
   parentAfterDrag: {fileID: 0}
-  mCost: 0
 --- !u!114 &1734552368
 MonoBehaviour:
   m_ObjectHideFlags: 0

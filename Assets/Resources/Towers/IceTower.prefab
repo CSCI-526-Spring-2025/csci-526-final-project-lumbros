@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7298231807329404793}
   - component: {fileID: 7759819581181022853}
   - component: {fileID: 6692925153382943676}
+  - component: {fileID: -4272441801870431337}
   m_Layer: 0
   m_Name: IceTower
   m_TagString: Tower
@@ -125,6 +126,7 @@ MonoBehaviour:
   attackRange: 3
   attackCooldown: 1
   damage: 1
+  heroBounces: 0
 --- !u!114 &7759819581181022853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
+  autoHeal: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &6692925153382943676
@@ -154,6 +157,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aInstance: {fileID: 0}
+--- !u!114 &-4272441801870431337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378725082094908501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4213bf8f8f5407794111a5de6c28ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cost: 100
 --- !u!1 &4373974231478185706
 GameObject:
   m_ObjectHideFlags: 0
