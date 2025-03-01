@@ -35,8 +35,7 @@ public class EnemySpawner : MonoBehaviour
             // {
             //     enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
             // }
-            //enemyToSpawn = enemyPrefabs[4];
-            enemyToSpawn = enemyPrefabs[0]; // Spawn a melee enemy
+            enemyToSpawn = enemyPrefabs[4];
 
             // **Instantiate the enemy at the chosen spawn position**
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);

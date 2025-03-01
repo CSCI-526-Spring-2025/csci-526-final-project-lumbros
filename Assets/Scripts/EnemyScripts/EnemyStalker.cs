@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyStalker : MonoBehaviour, IDamageable
+public class EnemyStalker : EnemyAbstract
 {
     public float normalSpeed = 1.5f;  // 初始移动速度
     public float chargeSpeed = 10f;   // 冲刺速度
@@ -14,28 +14,17 @@ public class EnemyStalker : MonoBehaviour, IDamageable
     private bool canCharge = true;    // 是否可以进行冲刺
     private Vector2 chargeTargetPos;  // 记录冲刺目标位置
 
-    public int health = 3;           // 敌人生命值
-    public int attackDamage = 2;     // 近战攻击伤害
-    public float attackRange = 0.5f; // 近战攻击范围
-    public float attackCooldown = 1f; // 攻击冷却时间
-    private bool canAttack = true;    // 是否可以攻击
-
-    private Transform target;         // 目标（默认为Player）
-    private static GameObject manager; // 游戏管理器
     private Vector2 lastPosition;
 
-    void Start()
+    protected override void StartCall()
     {
+        enemyType = "Enemy - Stalker";
+        attackDamage = 2;
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        manager = GameObject.FindGameObjectWithTag("Manager");
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
     }
 
-    void Update()
+    protected override void Move()
     {
-        if (target == null) return;
-
         // **计算移动方向**
         Vector2 movementDirection = ((Vector2)transform.position - lastPosition).normalized;
 
@@ -72,9 +61,6 @@ public class EnemyStalker : MonoBehaviour, IDamageable
                 StopCharge();
             }
         }
-
-        // 进行攻击检测
-        TryAttack();
     }
 
     void RotateTowardsMovementDirection(Vector2 direction)
@@ -110,34 +96,13 @@ public class EnemyStalker : MonoBehaviour, IDamageable
         canCharge = true; // 冲刺冷却结束，可以再次冲刺
     }
 
-    void TryAttack()
+    protected override void PostDamage(int damage, Transform attacker)
     {
-        if (!canAttack) return;
-
-        if (Vector2.Distance(transform.position, target.position) <= attackRange)
-        {
-            StartCoroutine(AttackTarget());
-        }
+        // do nothing
     }
 
-    IEnumerator AttackTarget()
+    public override void SetAggroTarget(Transform newTarget)
     {
-        canAttack = false;
-        if (target.GetComponent<Health>() != null)
-        {
-            target.GetComponent<Health>().TakeDamage(attackDamage, target.tag);
-        }
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
-
-    public void TakeDamage(int damage, Transform attacker)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            manager.GetComponent<CustomSceneManager>().AddKill();
-        }
+        throw new System.NotImplementedException();
     }
 }
