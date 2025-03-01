@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class CustomSceneManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class CustomSceneManager : MonoBehaviour
     public int curTowerCount;
     public int maxWorkerCount;
     public int curWorkerCount;
+
+    public TMP_Text mTowerCountUI;
+    public TMP_Text mEnemyCountUI;
     public bool shouldSpawnMine = true;
     private static int GAME_SCREEN_INDEX = 1;
     private static int UPGRADE_SCREEN_INDEX = 2;
@@ -63,6 +67,10 @@ public class CustomSceneManager : MonoBehaviour
             // Load the main scene (assuming the main scene is at build index 0)
             LoadScene(0);
         }
+        if(mTowerCountUI != null)
+            mTowerCountUI.text = "Towers: " + curTowerCount.ToString() + "/" + maxTowerCount.ToString();
+        if(mEnemyCountUI != null)
+            mEnemyCountUI.text = "Enemies: " + totalKills.ToString() + "/" + killLimit;
     }
 
     public void IncreaseTowerCount()

@@ -10,7 +10,6 @@ public class TowerSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private Image mImage;
     private GridManager mGridManager;
     [HideInInspector] public Transform parentAfterDrag; 
-    private bool mSpawner = true;
     public int mCost;
 
     public GameObject towerPrefab;
