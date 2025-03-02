@@ -4,17 +4,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+
 public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI[] upgradeTexts;
     public Button[] upgradeButtons;
-
-    public TMP_Text[] costsUI;
     private GameObject hero;
+    public TMP_Text[] costsUI;
     private GameObject manager;
     private GameObject[] towers;
 
-    private Dictionary<string, List<(string, System.Action)>> upgradeCategories = new Dictionary<string, List<(string, System.Action)>>();
+    private Dictionary<string, List<(string, System.Action)>> heroUpgrades = new Dictionary<string, List<(string, System.Action)>>();
+    private Dictionary<string, List<(string, System.Action)>> towerUpgrades = new Dictionary<string, List<(string, System.Action)>>();
+    private int phase = 1; // 1 = Hero Upgrades, 2 = Tower Upgrades
+    private System.Action selectedUpgrade; 
 
     void Start()
     {
@@ -22,56 +25,52 @@ public class Upgrades : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("Manager");
         towers = GameObject.FindGameObjectsWithTag("Tower");
 
-        AddUpgradeCategory("Hero Damage", "Increase Hero Damage +1", () => hero.GetComponent<AutoAttack>().damage += 1);
-        AddUpgradeCategory("Hero Damage", "Increase Hero Damage +2", () => hero.GetComponent<AutoAttack>().damage += 2);
-        
-        AddUpgradeCategory("Attack Speed", "Increase Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f);
-        AddUpgradeCategory("Attack Speed", "Increase Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f);
-        
-        AddUpgradeCategory("Max HP", "Increase Max HP +1", () =>
+        // Hero Upgrades
+        AddUpgrade(heroUpgrades, "Hero Damage", "+1 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 1);
+        AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2);
+
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f);
+
+        AddUpgrade(heroUpgrades, "Hero HP", "+1 to Hero HP", () =>
         {
             Health hp = hero.GetComponent<Health>();
             hp.maxHealth++;
             hp.currentHealth++;
         });
-        AddUpgradeCategory("Max HP", "Increase Max HP +2", () =>
+        AddUpgrade(heroUpgrades, "Hero HP", "+2 to Hero HP", () =>
         {
             Health hp = hero.GetComponent<Health>();
             hp.maxHealth += 2;
             hp.currentHealth += 2;
         });
 
-        AddUpgradeCategory("Hero Auto Heal", "Increase Hero Auto Heal +1", () => hero.GetComponent<Health>().autoHeal += 1);
-        AddUpgradeCategory("Hero Auto Heal", "Increase Hero Auto Heal +2", () => hero.GetComponent<Health>().autoHeal += 2);
+        // Tower Upgrades
+        AddUpgrade(towerUpgrades, "Tower Count", "+1 to Max Tower Count", () => manager.GetComponent<CustomSceneManager>().maxTowerCount++);
 
-        AddUpgradeCategory("Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1);
-        AddUpgradeCategory("Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2);
-
-        AddUpgradeCategory("Tower Count", "Increase Max Towers +1", () => manager.GetComponent<CustomSceneManager>().maxTowerCount++);
-
-        AddUpgradeCategory("Tower Attack Range", "Increase All Towers Attack Range +1", () =>
+        AddUpgrade(towerUpgrades, "Tower Range", "+1 to Tower Attack Range", () =>
         {
             foreach (var tower in towers)
                 tower.GetComponent<AutoAttack>().attackRange += 1;
         });
-        AddUpgradeCategory("Tower Attack Range", "Increase All Towers Attack Range +2", () =>
+        AddUpgrade(towerUpgrades, "Tower Range", "+2 to Tower Attack Range", () =>
         {
             foreach (var tower in towers)
                 tower.GetComponent<AutoAttack>().attackRange += 2;
         });
-        
-        AddUpgradeCategory("Tower Damage", "Increase All Towers Damage +1", () =>
+
+        AddUpgrade(towerUpgrades, "Tower Damage", "+1 to Tower Damage", () =>
         {
             foreach (var tower in towers)
                 tower.GetComponent<AutoAttack>().damage += 1;
         });
-        AddUpgradeCategory("Tower Damage", "Increase All Towers Damage +2", () =>
+        AddUpgrade(towerUpgrades, "Tower Damage", "+2 to Tower Damage", () =>
         {
             foreach (var tower in towers)
                 tower.GetComponent<AutoAttack>().damage += 2;
         });
-        
-        AddUpgradeCategory("Tower HP", "Increase All Towers HP +1", () =>
+
+        AddUpgrade(towerUpgrades, "Tower HP", "+1 to Tower HP", () =>
         {
             foreach (var tower in towers)
             {
@@ -80,7 +79,7 @@ public class Upgrades : MonoBehaviour
                 hp.currentHealth++;
             }
         });
-        AddUpgradeCategory("Tower HP", "Increase All Towers HP +2", () =>
+        AddUpgrade(towerUpgrades, "Tower HP", "+2 to Tower HP", () =>
         {
             foreach (var tower in towers)
             {
@@ -89,35 +88,22 @@ public class Upgrades : MonoBehaviour
                 hp.currentHealth += 2;
             }
         });
-        
-        AddUpgradeCategory("Tower Auto Heal", "Increase All Towers Auto Heal +1", () =>
-        {
-            foreach (var tower in towers)
-                tower.GetComponent<Health>().autoHeal += 1;
-        });
-        AddUpgradeCategory("Tower Auto Heal", "Increase All Towers Auto Heal +2", () =>
-        {
-            foreach (var tower in towers)
-                tower.GetComponent<Health>().autoHeal += 2;
-        });
-        AddUpgradeCategory("Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1);
-        AddUpgradeCategory("Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2);
 
-        AssignRandomUpgrades();
+        AssignUpgrades(heroUpgrades);
     }
 
-    void AddUpgradeCategory(string category, string description, System.Action upgradeAction)
+    void AddUpgrade(Dictionary<string, List<(string, System.Action)>> upgradeList, string category, string description, System.Action upgradeAction)
     {
-        if (!upgradeCategories.ContainsKey(category))
+        if (!upgradeList.ContainsKey(category))
         {
-            upgradeCategories[category] = new List<(string, System.Action)>();
+            upgradeList[category] = new List<(string, System.Action)>();
         }
-        upgradeCategories[category].Add((description, upgradeAction));
+        upgradeList[category].Add((description, upgradeAction));
     }
 
-    void AssignRandomUpgrades()
+    void AssignUpgrades(Dictionary<string, List<(string, System.Action)>> upgradeList)
     {
-        List<string> availableCategories = new List<string>(upgradeCategories.Keys);
+        List<string> availableCategories = new List<string>(upgradeList.Keys);
         List<(string, System.Action)> selectedUpgrades = new List<(string, System.Action)>();
 
         while (selectedUpgrades.Count < upgradeButtons.Length && availableCategories.Count > 0)
@@ -125,7 +111,7 @@ public class Upgrades : MonoBehaviour
             int categoryIndex = Random.Range(0, availableCategories.Count);
             string chosenCategory = availableCategories[categoryIndex];
 
-            var upgradesInCategory = upgradeCategories[chosenCategory];
+            var upgradesInCategory = upgradeList[chosenCategory];
             var selectedUpgrade = upgradesInCategory[Random.Range(0, upgradesInCategory.Count)];
 
             selectedUpgrades.Add(selectedUpgrade);
@@ -138,13 +124,39 @@ public class Upgrades : MonoBehaviour
             upgradeTexts[i].text = selectedUpgrades[index].Item1;
 
             upgradeButtons[i].onClick.RemoveAllListeners();
-            upgradeButtons[i].onClick.AddListener(() => selectedUpgrades[index].Item2.Invoke());
-            upgradeButtons[i].onClick.AddListener(() => LoadMainScene());
+            upgradeButtons[i].onClick.AddListener(() =>
+            {
+                selectedUpgrade = selectedUpgrades[index].Item2;
+                ApplyUpgrade();
+            });
+        }
+    }
+
+    public void ApplyUpgrade()
+    {
+        if (selectedUpgrade != null)
+        {
+            selectedUpgrade.Invoke(); 
+            Debug.Log("Upgrade Applied!");
+        }
+
+        if (phase == 1)
+        {
+            phase = 2; 
+            AssignUpgrades(towerUpgrades);
+        }
+        else
+        {
+            LoadMainScene(); 
         }
     }
 
     void LoadMainScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SimpleScene");
+        Debug.Log("load scene");
+        int maxKill = manager.GetComponent<CustomSceneManager>().killLimit;
+        if(CustomSceneManager.instance == null) UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        else manager.GetComponent<CustomSceneManager>().ResetAndLoad(maxKill+3);
+        
     }
 }
