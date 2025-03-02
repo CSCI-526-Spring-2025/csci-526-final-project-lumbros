@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 20
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 893374519}
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 641351827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02464c095110bb24bb15499360bcd385, type: 3}
+  m_Script: {fileID: 11500000, guid: 122d0503cab2b1b47ae288515e384aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
@@ -1523,10 +1523,10 @@ MonoBehaviour:
   spawnPoint: {fileID: 641351829}
   spawnRadius: 2
   EnemySpawnChance: 0.3
-  rangedEnemySpawnChance: 0.3
+  rangedEnemySpawnChance: 0.2
   EnemyStalkerSpawnChance: 0.2
-  EnemyPhantomSpawnChance: 0.1
-  SpawnInterval: 2
+  EnemyPhantomSpawnChance: 0.2
+  SpawnInterval: 3
 --- !u!1 &708095375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,7 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 10
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 1535458981}
@@ -4169,7 +4169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844260904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02464c095110bb24bb15499360bcd385, type: 3}
+  m_Script: {fileID: 11500000, guid: 122d0503cab2b1b47ae288515e384aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
@@ -4181,10 +4181,10 @@ MonoBehaviour:
   spawnPoint: {fileID: 1844260906}
   spawnRadius: 2
   EnemySpawnChance: 0.3
-  rangedEnemySpawnChance: 0.3
+  rangedEnemySpawnChance: 0.2
   EnemyStalkerSpawnChance: 0.2
-  EnemyPhantomSpawnChance: 0.1
-  SpawnInterval: 1
+  EnemyPhantomSpawnChance: 0.2
+  SpawnInterval: 3
 --- !u!4 &1844260906
 Transform:
   m_ObjectHideFlags: 0
