@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 641351827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122d0503cab2b1b47ae288515e384aa2, type: 3}
+  m_Script: {fileID: 11500000, guid: 02464c095110bb24bb15499360bcd385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
@@ -4169,7 +4169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844260904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122d0503cab2b1b47ae288515e384aa2, type: 3}
+  m_Script: {fileID: 11500000, guid: 02464c095110bb24bb15499360bcd385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
