@@ -4,12 +4,11 @@ public class Mine : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("mine triggered");
         if (collision.CompareTag("Worker"))
         {
-            Debug.Log("worker entered mine");
             Worker worker = collision.GetComponent<Worker>();
-            worker.SetTargetCore();
+            // Return worker to core with 1 gold
+            worker.SetTargetCore(10);
         }
     }
 }

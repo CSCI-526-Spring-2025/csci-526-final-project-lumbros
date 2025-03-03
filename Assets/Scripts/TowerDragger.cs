@@ -35,7 +35,8 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called when player starts dragging from the UI button
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (manager.GetComponent<CustomSceneManager>().CanAddTower() && MoneyManager.Instance.mMoney > mCost)
+        if ((!towerPrefab.CompareTag("Tower") || manager.GetComponent<CustomSceneManager>().CanAddTower())
+            && MoneyManager.Instance.mMoney > mCost)
         {
             // Grid 
             mImage.raycastTarget = false;
@@ -115,7 +116,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     // Called when player releases the mouse button
     public void OnEndDrag(PointerEventData eventData)
-    {   
+    {
         Destroy(currentTowerPreview);
         mImage.raycastTarget = true;
         if (manager.GetComponent<CustomSceneManager>().CanAddTower() && currentTowerPreview != null)

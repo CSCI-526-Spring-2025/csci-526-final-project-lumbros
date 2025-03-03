@@ -9,6 +9,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     // Map object names/types to prefabs
     private Dictionary<string, GameObject> prefabLookup;
     private static GameObject GamerManager; // manage the game state
+    private bool containsItem;
 
     void Start()
     {
@@ -19,19 +20,24 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         foreach (GameObject prefab in prefabs)
         {
             // Use the name of the prefab as the key
-            Debug.Log("prefab name: " +  prefab.name);
+            //Debug.Log("prefab name: " +  prefab.name);
             prefabLookup[prefab.name] = prefab;  
         }
+        containsItem = false;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (containsItem)
+            return;
+
         // Get the name of the dropped object
         GameObject dropped = eventData.pointerDrag;
         string droppedItemName = eventData.pointerDrag.name;
         GameObject prefabToInstantiate = prefabLookup[droppedItemName];
 
-        if (GamerManager.GetComponent<CustomSceneManager>().CanAddTower())
+        if (!dropped.CompareTag("Tower") || 
+            GamerManager.GetComponent<CustomSceneManager>().CanAddTower())
         {
             // Instantiate new object   
             if (prefabLookup.ContainsKey(droppedItemName))
@@ -46,7 +52,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     newItem.transform.position = pos;
                     //Update Costs
                     MoneyManager.Instance.UpdateMoney(Cost * -1);
-                    GamerManager.GetComponent<CustomSceneManager>().AddTower();
+                    // Set contains item
+                    containsItem = true;
+
+                    // Check if the dropped object is a tower
+                    if (dropped.CompareTag("Tower"))
+                    {
+                        GamerManager.GetComponent<CustomSceneManager>().AddTower();
+                    }
                 }
             }
             else
@@ -54,5 +67,20 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 Debug.LogWarning("No matching prefab found for: " + droppedItemName);
             }
         }
+    }
+
+
+    public void AddItem(GameObject prefab)
+    {
+        GameObject newItem = Instantiate(prefab, transform.position, Quaternion.identity);
+        Vector3 pos = newItem.transform.position;
+        pos.z = 0;
+        newItem.transform.position = pos;
+        containsItem = true;
+    }
+
+    public bool CanAddItem()
+    {
+        return !containsItem;
     }
 }

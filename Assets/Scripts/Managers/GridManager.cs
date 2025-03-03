@@ -5,7 +5,19 @@ using UnityEngine.UI;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
-    private InventorySlot[] mSlots; 
+    private InventorySlot[] mSlots;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
+        Instance = this; // Assign the singleton instance
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +53,10 @@ public class GridManager : MonoBehaviour
             }
         }
 
+    }
+
+    public InventorySlot[] GetInventorySlots()
+    {
+        return mSlots;
     }
 }

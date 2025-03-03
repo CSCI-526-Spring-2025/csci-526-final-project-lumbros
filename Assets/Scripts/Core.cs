@@ -30,9 +30,10 @@ public class Core : MonoBehaviour
         if (collision.gameObject.CompareTag("Worker"))
         {
             Worker worker = collision.gameObject.GetComponent<Worker>();
-            if (worker.HasGold())
+            if (worker.GetGoldAmount() > 0)
             {
-                // TODO: Add gold to count
+                if(MoneyManager.Instance != null)
+                    MoneyManager.Instance.UpdateMoney(worker.GetGoldAmount());
             }
             worker.SetTargetMine();
         }

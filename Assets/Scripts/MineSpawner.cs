@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MineSpawner : MonoBehaviour
 {
@@ -12,6 +14,13 @@ public class MineSpawner : MonoBehaviour
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<CustomSceneManager>();
+        StartCoroutine(DelayedSpawn());
+    }
+
+    IEnumerator DelayedSpawn()
+    {
+        yield return new WaitForEndOfFrame(); // Ensures this runs AFTER all Start() methods
+
         if (manager.shouldSpawnMine)
         {
             manager.shouldSpawnMine = false;
@@ -21,14 +30,38 @@ public class MineSpawner : MonoBehaviour
 
     void SpawnMines()
     {
-        for (int i = 0; i < mineCount; i++)
-        {
-            Vector2 randomPosition = new Vector2(
-                Random.Range(minSpawnRange.x, maxSpawnRange.x),
-                Random.Range(minSpawnRange.y, maxSpawnRange.y)
-            );
+        string sceneName = SceneManager.GetActiveScene().name;
 
-            Instantiate(minePrefab, randomPosition, Quaternion.identity);
+        if (sceneName == "SampleScene")
+        {
+            /* Spawn in random positions */
+            for (int i = 0; i < mineCount; i++)
+            {
+                Vector2 randomPosition = new Vector2(
+                    Random.Range(minSpawnRange.x, maxSpawnRange.x),
+                    Random.Range(minSpawnRange.y, maxSpawnRange.y)
+                );
+
+                Instantiate(minePrefab, randomPosition, Quaternion.identity);
+            }
+        }
+        else if (sceneName == "MainScene")
+        {
+            /* Spawn in grid slots */
+            InventorySlot[] slots = GridManager.Instance.GetInventorySlots();
+            // Choose 3 unique random slots to spawn mines in
+            for (int i = 0; i < mineCount; i++)
+            {
+                int randomSlotIndex = Random.Range(0, slots.Length);
+                InventorySlot slot = slots[randomSlotIndex];
+                if (!slot.CanAddItem())
+                {
+                    i--;
+                    continue;
+                }
+
+                slot.AddItem(minePrefab);
+            }
         }
     }
 }

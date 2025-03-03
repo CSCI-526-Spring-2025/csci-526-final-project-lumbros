@@ -11,7 +11,8 @@ public class Worker : MonoBehaviour, IDamageable
     private Transform target; // Current target
     private static GameObject manager;
     private Rigidbody2D rb;
-    private bool hasGold = false;
+    private int goldAmount = 0;
+    private bool isMoving = true;
 
     void Start()
     {
@@ -22,29 +23,40 @@ public class Worker : MonoBehaviour, IDamageable
         rb.drag = 2f;
     }
 
-    public bool HasGold()
+    public int GetGoldAmount()
     {
-        return hasGold;
+        return goldAmount;
     }
 
     public void SetTargetMine()
     {
-        hasGold = false;
+        goldAmount = 0;
         GameObject[] mines = GameObject.FindGameObjectsWithTag("Mine");
 
         // Choose a random mine from mines
         target = mines[Random.Range(0, mines.Length)].transform;
     }
 
-    public void SetTargetCore()
+    public void SetTargetCore(int gold)
     {
         target = GameObject.FindGameObjectWithTag("Core").transform;
-        hasGold = true;
+        goldAmount = gold;
+    }
+
+    public void StopMovement()
+    {
+        // TODO: call this when game is paused / on upgrades scene
+        isMoving = false;
+    }
+
+    public void ResumeMovement()
+    {
+        isMoving = true;
     }
 
     void Update()
     {
-        if (target != null)
+        if (target != null && isMoving)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
