@@ -11528,7 +11528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 20
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 569604904}
@@ -18971,7 +18971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50000
+  maxHealth: 100
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 1354620276}
