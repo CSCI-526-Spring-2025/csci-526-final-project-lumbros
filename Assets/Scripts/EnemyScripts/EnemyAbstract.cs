@@ -23,7 +23,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     // do not overwrite
     private void OnDisable()
     {
-        enemyKill?.Invoke();
+        //enemyKill?.Invoke();
     }
 
     // do not overwrite
@@ -56,6 +56,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         {
             Debug.Log(enemyType + " enemy dies");
             Destroy(gameObject); // Destroy the enemy when health reaches zero
+            enemyKill?.Invoke();
         }
         else
         {
