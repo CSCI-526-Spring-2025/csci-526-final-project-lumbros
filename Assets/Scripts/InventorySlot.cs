@@ -36,8 +36,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         string droppedItemName = eventData.pointerDrag.name;
         GameObject prefabToInstantiate = prefabLookup[droppedItemName];
 
-        if (!dropped.CompareTag("Tower") || 
-            GamerManager.GetComponent<CustomSceneManager>().CanAddTower())
+        if (!dropped.CompareTag("Tower") || GamerManager.GetComponent<CustomSceneManager>().CanAddTower())
         {
             // Instantiate new object   
             if (prefabLookup.ContainsKey(droppedItemName))
