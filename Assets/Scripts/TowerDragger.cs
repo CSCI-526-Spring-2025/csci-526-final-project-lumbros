@@ -14,6 +14,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     [HideInInspector] public Transform parentAfterDrag; 
     private Image mImage;
     private int mCost;
+    private GameObject rangeIndicator;
 
     void Start()
     {
@@ -46,6 +47,14 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
             // Create a preview instance of the tower
             currentTowerPreview = Instantiate(towerPrefab);
+
+            float attackRange = 3f; 
+            AutoAttack attackComponent = currentTowerPreview.GetComponent<AutoAttack>();
+            if (attackComponent != null)
+            {
+                attackRange = attackComponent.attackRange;
+            }
+
             Destroy(currentTowerPreview.GetComponent<AutoAttack>());
             Destroy(currentTowerPreview.GetComponent<Health>());
             Destroy(currentTowerPreview.GetComponent<Rigidbody2D>());
@@ -61,9 +70,37 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
                 color.a = 0.5f;  // Set to 50% opacity
                 sr.color = color;
             }
+            CreateRangeIndicator(attackRange);
         }
     }
+    private void CreateRangeIndicator(float range)
+    {
+        rangeIndicator = new GameObject("RangeIndicator");
+        rangeIndicator.transform.SetParent(currentTowerPreview.transform);
+        rangeIndicator.transform.localPosition = Vector3.zero;
 
+        LineRenderer lineRenderer = rangeIndicator.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
+        lineRenderer.positionCount = 51; 
+        lineRenderer.useWorldSpace = false;
+
+        Material material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.material = material;
+        lineRenderer.startColor = new Color(0, 0.8f, 1f, 0.3f); 
+        lineRenderer.endColor = new Color(0, 0.8f, 1f, 0.3f);
+
+        float angle = 0f;
+        for (int i = 0; i < 51; i++)
+        {
+            float x = Mathf.Sin(Mathf.Deg2Rad * angle) * range;
+            float y = Mathf.Cos(Mathf.Deg2Rad * angle) * range;
+
+            lineRenderer.SetPosition(i, new Vector3(x, y, 0));
+
+            angle += (360f / 50);
+        }
+    }
     // Called every frame while dragging
     public void OnDrag(PointerEventData eventData)
     {
