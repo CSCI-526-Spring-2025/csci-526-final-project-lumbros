@@ -155,8 +155,8 @@ public class Upgrades : MonoBehaviour
     {
         Debug.Log("load scene");
         int maxKill = manager.GetComponent<CustomSceneManager>().killLimit;
-        if(CustomSceneManager.instance == null) UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
-        else manager.GetComponent<CustomSceneManager>().ResetAndLoad(maxKill+3);
-        
+        if(CustomSceneManager.instance != null) manager.GetComponent<CustomSceneManager>().ResetAndLoad(maxKill+3);
+        GameObject UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
+        UpgradeUI.SetActive(false);
     }
 }

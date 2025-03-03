@@ -12,6 +12,7 @@ TagManager:
   - Tower
   - Worker
   - Mine
+  - UpgradeUI
   layers:
   - Default
   - TransparentFX

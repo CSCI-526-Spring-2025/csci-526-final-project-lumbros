@@ -26,7 +26,7 @@ public class CustomSceneManager : MonoBehaviour
     private GameObject gameOverUI;
     private WaveManager waveManager;
     private int lastCheckedKills = 0;
-
+    private GameObject UpgradeUI;
     private void Awake()
     {
         // Check if instance already exists
@@ -54,10 +54,12 @@ public class CustomSceneManager : MonoBehaviour
         curWorkerCount = 0;
         nonDestoryObjects = new List<GameObject>();
         gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+        UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
         waveManager = FindObjectOfType<WaveManager>();
         //gameOverUI = Instantiate(uiPrefab);
         if(gameOverUI == null) Debug.Log("no ui found");
         else Debug.Log(gameOverUI.name);
+        UpgradeUI.SetActive(false);
         gameOverUI.SetActive(false);
         IsInitialized = true;
     }
@@ -79,6 +81,13 @@ public class CustomSceneManager : MonoBehaviour
             lastCheckedKills = waveManager.KillperWave;
             waveManager.CheckWaveEnd();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpgradeUI.SetActive(true);
+        }
+        
+    
     }
 
     public void IncreaseTowerCount()
@@ -115,7 +124,9 @@ public class CustomSceneManager : MonoBehaviour
     {
         totalKills++;
         waveManager.KillperWave++;
-        if (totalKills >= killLimit) LoadScene(UPGRADE_SCREEN_INDEX);
+        if (totalKills >= killLimit){
+            UpgradeUI.SetActive(true);
+        }
     }
 
     public void ResetAndLoad(int killLimit)
