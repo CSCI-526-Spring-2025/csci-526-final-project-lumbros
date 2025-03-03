@@ -23,8 +23,6 @@ public class Upgrades : MonoBehaviour
     {
         hero = GameObject.FindGameObjectWithTag("Player");
         manager = GameObject.FindGameObjectWithTag("Manager");
-        towers = GameObject.FindGameObjectsWithTag("Tower");
-
         // Hero Upgrades
         AddUpgrade(heroUpgrades, "Hero Damage", "+1 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 1);
         AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2);
@@ -51,23 +49,39 @@ public class Upgrades : MonoBehaviour
         AddUpgrade(towerUpgrades, "Tower Range", "+1 to Tower Attack Range", () =>
         {
             foreach (var tower in towers)
+            {
+                Debug.Log("In Tower Loop");
                 tower.GetComponent<AutoAttack>().attackRange += 1;
+            }
+    
         });
         AddUpgrade(towerUpgrades, "Tower Range", "+2 to Tower Attack Range", () =>
         {
             foreach (var tower in towers)
+            {
+                Debug.Log("In Tower Loop");
                 tower.GetComponent<AutoAttack>().attackRange += 2;
+            }
+                
         });
 
         AddUpgrade(towerUpgrades, "Tower Damage", "+1 to Tower Damage", () =>
         {
             foreach (var tower in towers)
+            {
+                Debug.Log("In Tower Loop");
                 tower.GetComponent<AutoAttack>().damage += 1;
+            }
+                
         });
         AddUpgrade(towerUpgrades, "Tower Damage", "+2 to Tower Damage", () =>
         {
             foreach (var tower in towers)
+            {
+                Debug.Log("In Tower Loop");
                 tower.GetComponent<AutoAttack>().damage += 2;
+            }
+                
         });
 
         AddUpgrade(towerUpgrades, "Tower HP", "+1 to Tower HP", () =>
@@ -92,6 +106,10 @@ public class Upgrades : MonoBehaviour
         AssignUpgrades(heroUpgrades);
     }
 
+    void Update(){
+        towers = GameObject.FindGameObjectsWithTag("Tower");
+
+    }
     void AddUpgrade(Dictionary<string, List<(string, System.Action)>> upgradeList, string category, string description, System.Action upgradeAction)
     {
         if (!upgradeList.ContainsKey(category))
@@ -153,10 +171,11 @@ public class Upgrades : MonoBehaviour
 
     void LoadMainScene()
     {
-        Debug.Log("load scene");
+        Debug.Log("In Upgrades.cs LoadMainScene");
         int maxKill = manager.GetComponent<CustomSceneManager>().killLimit;
-        if(CustomSceneManager.instance != null) manager.GetComponent<CustomSceneManager>().ResetAndLoad(maxKill+3);
-        GameObject UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
-        UpgradeUI.SetActive(false);
+        if(CustomSceneManager.instance != null) 
+        {
+            manager.GetComponent<CustomSceneManager>().ResetAndLoad(maxKill+3);
+        }
     }
 }

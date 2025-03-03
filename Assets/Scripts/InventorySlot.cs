@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         foreach (GameObject prefab in prefabs)
         {
             // Use the name of the prefab as the key
-            //Debug.Log("prefab name: " +  prefab.name);
+            Debug.Log("prefab name: " +  prefab.name);
             prefabLookup[prefab.name] = prefab;  
         }
         containsItem = false;
@@ -46,15 +46,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
                 if(MoneyManager.Instance.mMoney >= Cost)
                 {
-                    GameObject newItem = Instantiate(prefabToInstantiate, transform);
-                    Vector3 pos = newItem.transform.position;
-                    // pos.z = 0;
-                    newItem.transform.position = pos;
-                    //Update Costs
+                    AddItem(prefabToInstantiate);
                     MoneyManager.Instance.UpdateMoney(Cost * -1);
-                    // Set contains item
-                    containsItem = true;
-
                     // Check if the dropped object is a tower
                     if (dropped.CompareTag("Tower"))
                     {
@@ -76,6 +69,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         Vector3 pos = newItem.transform.position;
         pos.z = 0;
         newItem.transform.position = pos;
+        newItem.transform.localScale = new Vector3(0.20f,0.20f,0.20f);
         containsItem = true;
     }
 

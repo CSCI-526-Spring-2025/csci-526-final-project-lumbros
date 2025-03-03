@@ -121,7 +121,9 @@ MonoBehaviour:
   fanAngle: 60
   bulletCount: 6
   shootCooldown: 1
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 712027675066443393, guid: 1346f14e8afd73a4580b9bede59d705a, type: 3}
+  - {fileID: 712027675066443393, guid: 64cbde09b560f2e4c9c1a0d757fb4605, type: 3}
   summonCount: 3
   summonRadius: 3
   enemySpawnChance: 0.7

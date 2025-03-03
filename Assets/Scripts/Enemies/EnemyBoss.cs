@@ -45,7 +45,7 @@ public class BossEnemy : MonoBehaviour, IDamageable
         }
         else
         {
-            Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！");
+            Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！ No object w tag core");
         }
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -124,11 +124,24 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
             if (randomValue < enemySpawnChance) // 敌人 A 出现概率
             {
-                minionPrefab = enemyPrefabs[0]; // `Enemy`
+                if(enemyPrefabs.Length > 0){
+                    minionPrefab = enemyPrefabs[0]; // `Enemy`
+                }
+                else{
+                    Debug.Log("In EnemyBoss.cs No Prefab");
+                }
+               
             }
             else if (randomValue < enemySpawnChance + rangedEnemySpawnChance) // 敌人 B 出现概率
             {
-                minionPrefab = enemyPrefabs[1]; // `RangedEnemy`
+                // `RangedEnemy`
+                if(enemyPrefabs.Length > 1)
+                {
+                    minionPrefab = enemyPrefabs[1];
+                } 
+                else{
+                    Debug.Log("In EnemyBoss.cs No Ranged Enemy Set");
+                }
             }
             // // **如果未来增加更多小怪，这里可以继续扩展**
             // else if (randomValue < enemySpawnChance + rangedEnemySpawnChance + phantomEnemySpawnChance)

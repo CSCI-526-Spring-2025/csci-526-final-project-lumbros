@@ -35,8 +35,11 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called when player starts dragging from the UI button
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if(MoneyManager.Instance.mMoney < mCost){
+            CustomSceneManager.instance.DisplayWarning();
+        }
         if ((!towerPrefab.CompareTag("Tower") || manager.GetComponent<CustomSceneManager>().CanAddTower())
-            && MoneyManager.Instance.mMoney > mCost)
+            && MoneyManager.Instance.mMoney >= mCost)
         {
             // Grid 
             mImage.raycastTarget = false;

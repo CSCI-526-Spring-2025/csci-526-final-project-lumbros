@@ -12,7 +12,9 @@ public class WaveManager : MonoBehaviour
     public int baseEnemyCount = 8; // 第一波敌人数量
     public float enemyStatMultiplier = 2f; // 每一波敌人属性增强倍率
     public float waveInterval = 5f; // 每波修整时间
+    // Number we need to kill to move on to the next wave 
     public int WaveKillLimit = 1;
+
     public int KillperWave;
     public float enemyHealthMultiplier;
     public float enemyDamageMultiplier;
@@ -101,11 +103,18 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    //    mWavesUI.text = "Wave " + mWaves.ToString();
+        if (mWavesUI != null){
+            mWavesUI.text = "Wave " + currentWave.ToString();
+        }
+
     }
 
 
     public void NextWave(){
         mWaves += 1;
+    }
+
+    public int GetKillsCount(){
+        return WaveKillLimit;
     }
 }

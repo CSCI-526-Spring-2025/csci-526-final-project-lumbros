@@ -13,6 +13,8 @@ TagManager:
   - Worker
   - Mine
   - UpgradeUI
+  - StartUI
+  - Warning
   layers:
   - Default
   - TransparentFX
