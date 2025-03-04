@@ -14,6 +14,8 @@ public class Upgrades : MonoBehaviour
     private GameObject manager;
     private GameObject[] towers;
 
+    public TMP_Text Wave;
+    private int currWave = 0;
     private Dictionary<string, List<(string, System.Action)>> heroUpgrades = new Dictionary<string, List<(string, System.Action)>>();
     private Dictionary<string, List<(string, System.Action)>> towerUpgrades = new Dictionary<string, List<(string, System.Action)>>();
     private int phase = 1; // 1 = Hero Upgrades, 2 = Tower Upgrades
@@ -108,6 +110,11 @@ public class Upgrades : MonoBehaviour
 
     void Update(){
         towers = GameObject.FindGameObjectsWithTag("Tower");
+        if(WaveManager.Instance.currentWave != null)
+        {
+            currWave = WaveManager.Instance.currentWave ;
+        }
+        Wave.text = "Wave " + currWave + " Completed!";
 
     }
     void AddUpgrade(Dictionary<string, List<(string, System.Action)>> upgradeList, string category, string description, System.Action upgradeAction)

@@ -22,6 +22,9 @@ public class WaveManager : MonoBehaviour
     
     private EnemySpawner enemySpawner;
     private CustomSceneManager sceneManager;
+    private bool CurrWave = false;
+
+    private float waveTimer = 5f;
 
 /*************************Aaron****************************/
     private void Awake()
@@ -39,7 +42,7 @@ public class WaveManager : MonoBehaviour
         }
         
         // Set this to not be destroyed when reloading scene
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -48,13 +51,16 @@ public class WaveManager : MonoBehaviour
         enemySpawner = FindObjectOfType<EnemySpawner>();
         sceneManager = FindObjectOfType<CustomSceneManager>();
         StartWave();
+        CurrWave = true;
     }
 
     public void StartWave()
     {
+        // For the timer
+        CurrWave = true;
         Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
-        
+        mWavesUI.text = "Wave " + currentWave.ToString();
         int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
@@ -66,6 +72,10 @@ public class WaveManager : MonoBehaviour
     {
         if (KillperWave >= WaveKillLimit && !isEndingWave)
         {
+            CurrWave = false;
+            waveTimer = 5f;
+            int tempWave = currentWave + 1;
+            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
             StartCoroutine(EndWave());
         }
     }
@@ -107,6 +117,13 @@ public class WaveManager : MonoBehaviour
             mWavesUI.text = "Wave " + currentWave.ToString();
         }
 
+        if( CurrWave == false)
+        {
+            waveTimer -= Time.deltaTime;
+            int tempWave = currentWave + 1;
+            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
+        }        
+
     }
 
 
@@ -117,4 +134,11 @@ public class WaveManager : MonoBehaviour
     public int GetKillsCount(){
         return WaveKillLimit;
     }
+
+    string FormatTime(float timeInSeconds)
+    {
+        int seconds = Mathf.FloorToInt(timeInSeconds % 60);
+        return string.Format("{0:0}", seconds);
+    }
+
 }
