@@ -109,8 +109,6 @@ public class CustomSceneManager : MonoBehaviour
         Debug.Log("starting");
         
         totalKills = 0;
-        maxTowerCount = 2;
-        curTowerCount = 0;
         maxWorkerCount = 5;
         curWorkerCount = 0;
 
@@ -241,7 +239,7 @@ public class CustomSceneManager : MonoBehaviour
         shouldSpawnMine = true;
         curWorkerCount = 0;
         gameOverUI.SetActive(false);
-        TowerManager.instance.Reset();
+        //TowerManager.instance.Reset();
         Time.timeScale = 1; // start the game again
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();

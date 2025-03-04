@@ -5260,10 +5260,6 @@ MonoBehaviour:
   - {fileID: 1290809894}
   - {fileID: 1625619350}
   - {fileID: 1416175154}
-  costsUI:
-  - {fileID: 1859717035}
-  - {fileID: 1768745960}
-  - {fileID: 279300101}
 --- !u!1001 &666675345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15338,7 +15334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeTexts: []
   upgradeButtons: []
-  costsUI: []
 --- !u!114 &1772256194
 MonoBehaviour:
   m_ObjectHideFlags: 0
