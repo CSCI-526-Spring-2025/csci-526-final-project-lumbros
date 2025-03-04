@@ -39,7 +39,7 @@ public class WaveManager : MonoBehaviour
         }
         
         // Set this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
 

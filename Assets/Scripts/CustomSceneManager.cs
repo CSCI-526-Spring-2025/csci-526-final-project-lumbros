@@ -3,11 +3,23 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System;
+
+public enum GAMESTATE{
+    GameStart,
+    GamePlay,
+    GameUpgrade,
+    GameOver
+}
 
 public class CustomSceneManager : MonoBehaviour
 {
     // Static reference to the instance of our SceneManager
     public static CustomSceneManager instance;
+    public static Action<GAMESTATE> gameStateChange;
+    public GAMESTATE curState;
+    public string whichIsMe = "please change me";
+
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
@@ -23,12 +35,12 @@ public class CustomSceneManager : MonoBehaviour
     // private static int UPGRADE_SCREEN_INDEX = 2;
     private List<GameObject> nonDestoryObjects;
     public static bool IsInitialized { get; private set;}
-    private GameObject gameOverUI;
-    private WaveManager waveManager;
+    public GameObject gameOverUI;
+    public WaveManager waveManager;
     private int lastCheckedKills = 0;
-    private GameObject UpgradeUI;
-    private GameObject StartUI;
-    private GameObject WarningUI;
+    public GameObject UpgradeUI;
+    public GameObject StartUI;
+    public GameObject WarningUI;
 
     private bool isGameStarted = false;
     private void Awake()
@@ -37,6 +49,7 @@ public class CustomSceneManager : MonoBehaviour
         if (instance == null)
         {
             // If not, set instance to this
+            whichIsMe = "i got change";
             instance = this;
         }
         else if (instance != this)
@@ -49,19 +62,47 @@ public class CustomSceneManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void UpdateGameState(GAMESTATE gs)
+    {
+        Debug.Log("changing gameState to: " + gs);
+        Debug.Log(whichIsMe);
+        switch(gs)
+        {
+            case GAMESTATE.GameStart:
+                instance.StartingGame();
+                break;
+            case GAMESTATE.GamePlay:
+                break;
+            case GAMESTATE.GameUpgrade:
+                break;
+            case GAMESTATE.GameOver:
+                break;
+            default:
+                break;
+        }
+        instance.curState = gs;
+        gameStateChange?.Invoke(gs);
+    }
+
     void Start() {
+        gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+        UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
+        StartUI = GameObject.FindGameObjectWithTag("StartUI");
+        WarningUI = GameObject.FindGameObjectWithTag("Warning");
+        waveManager = FindObjectOfType<WaveManager>();
+        instance.UpdateGameState(GAMESTATE.GameStart);
+    }
+
+    private void StartingGame(){
         Debug.Log("starting");
+        
         totalKills = 0;
         maxTowerCount = 2;
         curTowerCount = 0;
         maxWorkerCount = 5;
         curWorkerCount = 0;
         nonDestoryObjects = new List<GameObject>();
-        gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
-        UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
-        StartUI = GameObject.FindGameObjectWithTag("StartUI");
-        WarningUI = GameObject.FindGameObjectWithTag("Warning");
-        waveManager = FindObjectOfType<WaveManager>();
+
         //gameOverUI = Instantiate(uiPrefab);
         if(gameOverUI == null)
         {
@@ -151,6 +192,7 @@ public class CustomSceneManager : MonoBehaviour
         if (totalKills >= killLimit){
             UpgradeUI.SetActive(true);
             PauseGame();
+            //SceneManager.LoadScene("UpgradeScene");
         }
     }
 
@@ -166,8 +208,10 @@ public class CustomSceneManager : MonoBehaviour
 
     public void GameOver(){
         Debug.Log("entering gameover");
+        Debug.Log(whichIsMe);
         Time.timeScale = 0; // Pause the game
         gameOverUI.SetActive(true); // Show the Game Over UI
+        UpdateGameState(GAMESTATE.GameOver);
     }
     private void PauseGame(){
         Time.timeScale = 0;
@@ -189,7 +233,8 @@ public class CustomSceneManager : MonoBehaviour
         Time.timeScale = 1; // start the game again
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();
-        
+        Debug.Log(whichIsMe);
+        UpdateGameState(GAMESTATE.GameStart);
     }
 
     public void AddNonDestoryObject(GameObject o) {
@@ -207,6 +252,8 @@ public class CustomSceneManager : MonoBehaviour
         MineSpawner.Instance.StartMineSpawner();
         WorkerSpawner.Instance.StartWorkerSpawner();
         isGameStarted = true;
+        Debug.Log(whichIsMe);
+        UpdateGameState(GAMESTATE.GamePlay);
     }
 
     public void ShowStartCanvas(){

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoNotDestoryOnLoad : MonoBehaviour
+public class StartUI : MonoBehaviour
 {
     // Static reference to the instance of our GameOverUI
-    public static DoNotDestoryOnLoad instance;
+    public static StartUI instance;
 
     private void Awake()
     {
