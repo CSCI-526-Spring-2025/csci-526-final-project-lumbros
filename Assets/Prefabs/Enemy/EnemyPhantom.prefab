@@ -11,11 +11,7 @@ GameObject:
   - component: {fileID: 8126026953933692042}
   - component: {fileID: 872007728857571396}
   - component: {fileID: 2089366822705537239}
-<<<<<<< HEAD
   - component: {fileID: 6964556490525691040}
-=======
-  - component: {fileID: -3960653538617794907}
->>>>>>> 810ddcd (Finish refactoring enemies)
   m_Layer: 11
   m_Name: EnemyPhantom
   m_TagString: Enemy
@@ -101,11 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0025580227, y: 0}
   serializedVersion: 2
   m_Radius: 0.13804212
-<<<<<<< HEAD
 --- !u!114 &6964556490525691040
-=======
---- !u!114 &-3960653538617794907
->>>>>>> 810ddcd (Finish refactoring enemies)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

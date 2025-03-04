@@ -1,35 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyPhantom : MonoBehaviour, IDamageable
+public class EnemyPhantom : EnemyAbstract
 {
-    public float speed = 2f;
-    private Transform target; // Current target
-    private Transform core;   // Core target
-    private static GameObject manager; // manage the game state
-    private bool isAggroed = false; // Whether the enemy is aggroed
-    public int health = 3; // Enemy health
-    public int attackDamage = 1; // Melee attack damage
-    public float attackRange = 0.5f; // Melee attack range
-    public float attackCooldown = 1f; // Attack cooldown time
-    private bool canAttack = true;
-    private WaveManager wavemanager;
-    private Rigidbody2D rb;
-
-    void Start()
+    protected override void StartCall()
     {
-        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-        if (coreObject != null)
-        {
-            core = coreObject.transform;
-            target = core;
-        }
-        manager = GameObject.FindGameObjectWithTag("Manager");
-
         int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
 
-    // 需要忽略碰撞的层
-        string[] ignoredLayers = { "EnemyDisCol, EnemyEnCol, Obstacle", "Hero", "Tower"};
+        // 需要忽略碰撞的层
+        string[] ignoredLayers = { "EnemyDisCol, Obstacle", "Tower" };
 
         foreach (string layerName in ignoredLayers)
         {
@@ -38,77 +17,23 @@ public class EnemyPhantom : MonoBehaviour, IDamageable
             {
                 Physics2D.IgnoreLayerCollision(enemyLayer, layer);
             }
+            else
+            {
+                Debug.LogWarning($"Layer '{layerName}' 不存在，请检查是否正确命名！");
+            }
         }
-        rb = GetComponent<Rigidbody2D>();
-        rb.drag = 2f; 
 
         //初始化血量
-        wavemanager = FindObjectOfType<WaveManager>();
-        health = Mathf.CeilToInt(health * wavemanager.enemyHealthMultiplier);
+        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
-    void Update()
+    public override void SetAggroTarget(Transform newTarget)
     {
-        if (target != null)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            TryAttack();
-        }
+        throw new System.NotImplementedException();
     }
 
-    // **Attempt to attack the current target**
-    void TryAttack()
+    protected override void PostDamage(int damage, Transform attacker)
     {
-        if (target != null && Vector2.Distance(transform.position, target.position) <= attackRange && canAttack)
-        {
-            StartCoroutine(AttackTarget());
-        }
+        // do nothing
     }
-
-    // **Attack logic**
-    IEnumerator AttackTarget()
-    {
-        canAttack = false;
-        if (target.GetComponent<Health>() != null)
-        {
-            target.GetComponent<Health>().TakeDamage(attackDamage, target.tag);
-        }
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
-
-    // **Take damage**
-    public void TakeDamage(int damage, Transform attacker)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject); // Destroy the enemy when health reaches zero
-            manager.GetComponent<CustomSceneManager>().AddKill();
-        }
-        // else
-        // {
-        //     SetAggroTarget(attacker); // Switch target to the attacker after taking damage
-        // }
-    }
-
-    // // **Set aggro target**
-    // public void SetAggroTarget(Transform newTarget)
-    // {
-    //     if (!isAggroed)
-    //     {
-    //         target = newTarget;
-    //         isAggroed = true;
-    //     }
-    // }
-
-    // // **Return to Core if the target is destroyed**
-    // void LateUpdate()
-    // {
-    //     if (isAggroed && target == null)
-    //     {
-    //         target = core;
-    //         isAggroed = false;
-    //     }
-    // }
 }

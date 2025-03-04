@@ -19,58 +19,32 @@ public class BossEnemy : EnemyAbstract
     public float enemySpawnChance = 0.7f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
     public float rangedEnemySpawnChance = 0.3f;
 
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyBoss.cs
-    private Transform target; // 当前攻击目标
-    private Transform core; // `Core` 位置
-    private Transform player; // `Player` 位置
-    private static GameObject manager; // 游戏管理器
-    private WaveManager wavemanager;
+    private Transform player;
 
-========
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyBoss.cs
     private bool summonedAt50 = false;
     private bool summonedAt25 = false;
 
     protected override void StartCall()
     {
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyBoss.cs
-        // **初始化目标为 Core**
-        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-        if (coreObject != null)
-        {
-            core = coreObject.transform;
-            target = core;
-        }
-        else
-        {
-            Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！ No object w tag core");
-        }
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             player = playerObject.transform;
         }
 
-        // **初始化血量**
-        wavemanager = FindObjectOfType<WaveManager>();
-        maxHealth = Mathf.CeilToInt(maxHealth * wavemanager.enemyHealthMultiplier);
-========
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyBoss.cs
         health = maxHealth;
         speed = 1f;
         attackRange = 1f;
         attackCooldown = 1.5f;
+        //初始化血量
+        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
     protected override void Move()
     {
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyBoss.cs
         if ((player == null)||(core == null)) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-========
-        float distanceToPlayer = Vector2.Distance(transform.position, FindClosestPlayerPosition());
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyBoss.cs
 
         // **如果 Player 在 detectionRange 内，切换目标为 Player**
         if (distanceToPlayer <= detectionRange)

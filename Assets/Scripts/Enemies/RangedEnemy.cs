@@ -3,43 +3,6 @@ using System.Collections;
 
 public class RangedEnemy : EnemyAbstract
 {
-<<<<<<<< HEAD:Assets/Scripts/Enemies/RangedEnemy.cs
-    // Basic enemy properties
-    public float speed = 2f;
-    private static GameObject manager; // manage the game state
-    private Transform target;
-    private Transform core;
-    private bool isAggroed = false;
-    public int health = 3;
-
-    // Ranged attack properties
-    public GameObject projectilePrefab;
-    public float attackRange = 5f;
-    public float attackCooldown = 2f;
-    private WaveManager wavemanager;
-    private bool canAttack = true;
-    private Rigidbody2D rb;
-    // public float acceleration = 5f;  
-    // public float maxSpeed = 2f;   
-    void Start()
-    {
-        // Initialize reference to core
-        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-        if (coreObject != null)
-        {
-            core = coreObject.transform;
-        }
-        manager = GameObject.FindGameObjectWithTag("Manager");
-        target = FindClosestTarget(); // Instead of directly targeting core
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
-        rb = GetComponent<Rigidbody2D>();
-        rb.drag = 2f; 
-
-        //初始化血量
-        wavemanager = FindObjectOfType<WaveManager>();
-        health = Mathf.CeilToInt(health * wavemanager.enemyHealthMultiplier);
-========
     // Ranged attack properties
     public GameObject projectilePrefab;
 
@@ -49,7 +12,8 @@ public class RangedEnemy : EnemyAbstract
         attackCooldown = 2f;
         attackRange = 5f;
         target = FindClosestTarget();
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/RangedEnemy.cs
+        //初始化血量
+        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
     protected override void Move()
@@ -118,25 +82,7 @@ public class RangedEnemy : EnemyAbstract
         canAttack = true;
     }
 
-<<<<<<<< HEAD:Assets/Scripts/Enemies/RangedEnemy.cs
-    public void TakeDamage(int damage, Transform attacker)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            manager.GetComponent<CustomSceneManager>().AddKill();
-        }
-        else
-        {
-            SetAggroTarget(attacker);
-        }
-    }
-
-    public void SetAggroTarget(Transform newTarget)
-========
     public override void SetAggroTarget(Transform newTarget)
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/RangedEnemy.cs
     {
         if (!isAggroed)
         { 

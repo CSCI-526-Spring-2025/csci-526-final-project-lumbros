@@ -14,55 +14,27 @@ public class EnemyStalker : EnemyAbstract
     private bool canCharge = true;    // 是否可以进行冲刺
     private Vector2 chargeTargetPos;  // 记录冲刺目标位置
 
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyStalker.cs
-    public int health = 3;           // 敌人生命值
-    public int attackDamage = 2;     // 近战攻击伤害
-    public float attackRange = 0.5f; // 近战攻击范围
-    public float attackCooldown = 1f; // 攻击冷却时间
-    private bool canAttack = true;    // 是否可以攻击
-
-    private Transform target;         // 目标（默认为Player）
-    private Transform player;
-    private Transform core;
-    
-    private static GameObject manager; // 游戏管理器
-    private WaveManager wavemanager;
-========
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyStalker.cs
     private Vector2 lastPosition;
+    private Transform player;
 
     protected override void StartCall()
     {
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyStalker.cs
-        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
+        enemyType = "Enemy - Stalker";
+        attackDamage = 2;
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if ((coreObject != null)&&(playerObject != null))
+        if (playerObject != null)
         {
-            core = coreObject.transform;
             player = playerObject.transform;
             target = player;
         }
-        manager = GameObject.FindGameObjectWithTag("Manager");
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
-
         //初始化血量
-        wavemanager = FindObjectOfType<WaveManager>();
-        health = Mathf.CeilToInt(health * wavemanager.enemyHealthMultiplier);
-========
-        enemyType = "Enemy - Stalker";
-        attackDamage = 2;
-        target = GameObject.FindGameObjectWithTag("Player").transform;
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyStalker.cs
+        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
     protected override void Move()
     {
-<<<<<<<< HEAD:Assets/Scripts/Enemies/EnemyStalker.cs
         if ((player == null)||(core == null)) return;
 
-========
->>>>>>>> 810ddcd (Finish refactoring enemies):Assets/Scripts/EnemyScripts/EnemyStalker.cs
         // **计算移动方向**
         Vector2 movementDirection = ((Vector2)transform.position - lastPosition).normalized;
 

@@ -84,6 +84,7 @@ public class CustomSceneManager : MonoBehaviour
         }
         instance.curState = gs;
         gameStateChange?.Invoke(gs);
+    }
 
     private void OnEnable()
     {
