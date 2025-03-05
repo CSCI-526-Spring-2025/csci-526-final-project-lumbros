@@ -1,16 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class BossEnemy : MonoBehaviour, IDamageable
+public class BossEnemy : EnemyAbstract
 {
     public float detectionRange = 10f; // 发现 Player 的范围
-    public float speed = 1f; // 移动速度
     public int maxHealth = 10; // Boss 最大生命值
-    public int health; // 当前生命值
-    public int attackDamage = 1; // 近战伤害
-    public float attackRange = 1f; // 近战攻击范围
-    public float attackCooldown = 1.5f; // 近战攻击冷却
-    public bool canAttack = true; // 是否能攻击
 
     public GameObject projectilePrefab; // 弹幕子弹
     public float fanAngle = 60f; // 扇形弹幕角度
@@ -25,46 +19,28 @@ public class BossEnemy : MonoBehaviour, IDamageable
     public float enemySpawnChance = 0.7f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
     public float rangedEnemySpawnChance = 0.3f;
 
-    private Transform target; // 当前攻击目标
-    private Transform core; // `Core` 位置
-    private Transform player; // `Player` 位置
-    private static GameObject manager; // 游戏管理器
-    private WaveManager wavemanager;
+    private Transform player;
 
     private bool summonedAt50 = false;
     private bool summonedAt25 = false;
 
-    void Start()
+    protected override void StartCall()
     {
-        // **初始化目标为 Core**
-        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-        if (coreObject != null)
-        {
-            core = coreObject.transform;
-            target = core;
-        }
-        else
-        {
-            Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！ No object w tag core");
-        }
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             player = playerObject.transform;
         }
 
-        // **初始化血量**
-        wavemanager = FindObjectOfType<WaveManager>();
-        maxHealth = Mathf.CeilToInt(maxHealth * wavemanager.enemyHealthMultiplier);
         health = maxHealth;
-
-        // **获取 Manager**
-        manager = GameObject.FindGameObjectWithTag("Manager");
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
+        speed = 1f;
+        attackRange = 1f;
+        attackCooldown = 1.5f;
+        //初始化血量
+        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
-    void Update()
+    protected override void Move()
     {
         if ((player == null)||(core == null)) return;
 
@@ -104,8 +80,6 @@ public class BossEnemy : MonoBehaviour, IDamageable
 
         // **移动向目标**
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-
-        TryAttack();
     }
 
     void SummonMinions()
@@ -161,29 +135,6 @@ public class BossEnemy : MonoBehaviour, IDamageable
         }
     }
 
-
-    // **近战攻击逻辑**
-    void TryAttack()
-    {
-        if (!canAttack) return;
-
-        if (Vector2.Distance(transform.position, target.position) <= attackRange)
-        {
-            StartCoroutine(AttackTarget());
-        }
-    }
-
-    IEnumerator AttackTarget()
-    {
-        canAttack = false;
-        if (target.GetComponent<Health>() != null)
-        {
-            target.GetComponent<Health>().TakeDamage(attackDamage, target.tag);
-        }
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
-
     // **弹幕模式**
     IEnumerator ShootPattern()
     {
@@ -233,17 +184,13 @@ public class BossEnemy : MonoBehaviour, IDamageable
         canShoot = true;
     }
 
-    // **受到伤害**
-    public void TakeDamage(int damage, Transform attacker)
+    protected override void PostDamage(int damage, Transform attacker)
     {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            if (manager != null && manager.GetComponent<CustomSceneManager>() != null)
-            {
-                manager.GetComponent<CustomSceneManager>().AddKill();
-            }
-        }
+        // do nothing
+    }
+
+    public override void SetAggroTarget(Transform newTarget)
+    {
+        throw new System.NotImplementedException();
     }
 }
