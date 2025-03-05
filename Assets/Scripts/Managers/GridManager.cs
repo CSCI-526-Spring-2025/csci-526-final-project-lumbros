@@ -7,15 +7,23 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
     private InventorySlot[] mSlots;
 
+   
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        // Check if instance already exists
+        if (Instance == null)
         {
-            Destroy(gameObject); // Prevent duplicate instances
-            return;
+            // If not, set instance to this
+            Instance = this;
         }
-
-        Instance = this; // Assign the singleton instance
+        else if (Instance != this)
+        {
+            // If instance already exists and it's not this, then destroy this to enforce the singleton.
+            Destroy(gameObject);
+        }
+        
+        // Set this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update

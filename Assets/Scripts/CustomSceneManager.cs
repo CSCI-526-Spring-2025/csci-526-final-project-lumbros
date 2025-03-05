@@ -19,7 +19,8 @@ public class CustomSceneManager : MonoBehaviour
     public static Action<GAMESTATE> gameStateChange;
     public GAMESTATE curState;
     public string whichIsMe = "please change me";
-
+    private Vector2 minBounds = new Vector2(-7.3f, -4.3f);
+    private Vector2 maxBounds = new Vector2(4.9f, 3.2f);
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
@@ -29,8 +30,7 @@ public class CustomSceneManager : MonoBehaviour
     public int maxWorkerCount;
     public int curWorkerCount;
 
-    public TMP_Text mTowerCountUI;
-    public TMP_Text mEnemyCountUI;
+    private TMP_Text mEnemyCountUI;
     public bool shouldSpawnMine = true;
 
     private static int GAME_SCREEN_INDEX = 1;
@@ -89,23 +89,48 @@ public class CustomSceneManager : MonoBehaviour
 
     private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         EnemyAbstract.enemyKill += AddKill;
     }
 
     private void OnDisable()
-    {
+    {   
+        SceneManager.sceneLoaded -= OnSceneLoaded; 
         EnemyAbstract.enemyKill -= AddKill;
     }
 
-    void Start() {
-        gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
-        UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
-        StartUI = GameObject.FindGameObjectWithTag("StartUI");
-        WarningUI = GameObject.FindGameObjectWithTag("Warning");
-        MoneyPopUpUI = GameObject.FindGameObjectWithTag("MoneyPopUp");
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("On scene loaded");
+        FindUIObjects();
+        UpgradeUI.SetActive(false);
+        gameOverUI.SetActive(false);
+        WarningUI.SetActive(false);
+        RemoveMoneyPopUp();
+    }
+
+
+    void Start() 
+    {
         waveManager = FindObjectOfType<WaveManager>();
         instance.UpdateGameState(GAMESTATE.GameStart);
     }
+
+    // Called Start Game Button
+    public void StartGame(){
+        StartUI.SetActive(false);
+        FindUIObjects();
+        if(MineSpawner.Instance != null)
+            MineSpawner.Instance.StartMineSpawner();
+        if(WorkerSpawner.Instance != null)
+            WorkerSpawner.Instance.StartWorkerSpawner();
+        isGameStarted = true;
+        Debug.Log(whichIsMe);
+        UpdateGameState(GAMESTATE.GamePlay);
+        waveManager.LoadStartingWave();
+        StartingGame();
+    }
+
 
     private void StartingGame(){
         Debug.Log("starting");
@@ -116,7 +141,6 @@ public class CustomSceneManager : MonoBehaviour
 
         nonDestoryObjects = new List<GameObject>();
 
-        //gameOverUI = Instantiate(uiPrefab);
         if(gameOverUI == null)
         {
             Debug.Log("no ui found");
@@ -125,7 +149,20 @@ public class CustomSceneManager : MonoBehaviour
         {
             Debug.Log(gameOverUI.name);
         }
-        UpgradeUI.SetActive(false);
+        if(UpgradeUI != null && UpgradeUI.activeSelf)
+        {
+            UpgradeUI.SetActive(false);
+        }
+         if(gameOverUI != null && gameOverUI.activeSelf)
+        {
+            gameOverUI.SetActive(false);
+        }
+
+        if(WarningUI != null && WarningUI.activeSelf)
+        {
+            WarningUI.SetActive(false);
+        }
+
         gameOverUI.SetActive(false);
         WarningUI.SetActive(false);
         RemoveMoneyPopUp();
@@ -145,10 +182,7 @@ public class CustomSceneManager : MonoBehaviour
             // Load the main scene (assuming the main scene is at build index 0)
             Restart();
         }
-        // if(mTowerCountUI != null)
-        // {
-        //     mTowerCountUI.text = "Towers: " + curTowerCount.ToString() + "/" + maxTowerCount.ToString();
-        // }
+
            
         if(mEnemyCountUI != null)
         {
@@ -163,7 +197,7 @@ public class CustomSceneManager : MonoBehaviour
         // Debug Press Space and do something
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // UpgradeUI.SetActive(true);            
+            gameOverUI.SetActive(true);            
         }
     
     }
@@ -260,15 +294,6 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public void StartGame(){
-        StartUI.SetActive(false);
-        MineSpawner.Instance.StartMineSpawner();
-        WorkerSpawner.Instance.StartWorkerSpawner();
-        isGameStarted = true;
-        Debug.Log(whichIsMe);
-        UpdateGameState(GAMESTATE.GamePlay);
-    }
-
     public void ShowStartCanvas(){
         StartUI.SetActive(true);
     }
@@ -300,5 +325,48 @@ public class CustomSceneManager : MonoBehaviour
     public void RemoveMoneyPopUp(){
         MoneyPopUpUI.SetActive(false);
         
+    }
+
+    private void FindUIObjects()
+    {
+        if(gameOverUI == null)
+        {
+            gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+        }
+        if(UpgradeUI == null)
+        {
+            UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
+
+        }
+        if(StartUI == null)
+        {
+            StartUI = GameObject.FindGameObjectWithTag("StartUI");
+        }
+        
+        if(WarningUI == null)
+        {
+            WarningUI = GameObject.FindGameObjectWithTag("Warning");
+        }
+        
+        if(MoneyPopUpUI == null)
+        {
+           MoneyPopUpUI = GameObject.FindGameObjectWithTag("MoneyPopUp");
+        }
+        
+        if(mEnemyCountUI == null)
+        {
+           mEnemyCountUI =  GameObject.Find("EnemiesTextUI")?.GetComponent<TMP_Text>();
+        }
+
+    }
+
+    public Vector2 GetMinBounds()
+    {
+        return minBounds;
+    }
+
+    public Vector2 GetMaxBounds()
+    {
+        return maxBounds;
     }
 }

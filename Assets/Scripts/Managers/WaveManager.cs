@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class WaveManager : MonoBehaviour
 {
-    public TMP_Text mWavesUI;
+    private TMP_Text mWavesUI;
     private int mWaves = 1;
     public static WaveManager Instance { get; private set; }
 /*************************Aaron****************************/
     public int currentWave = 1;    // 当前波次
+
+    public int baseEnemyCountMemory = 8;
     public int baseEnemyCount = 8; // 第一波敌人数量
     public float enemyStatMultiplier = 2f; // 每一波敌人属性增强倍率
     public float waveInterval = 5f; // 每波修整时间
@@ -53,7 +56,11 @@ public class WaveManager : MonoBehaviour
         StartWave();
         CurrWave = true;
     }
-
+    public void LoadStartingWave(){
+        currentWave = 1;
+        baseEnemyCount = baseEnemyCountMemory;
+        WaveKillLimit = 1;
+    }
     public void StartWave()
     {
         // For the timer
@@ -141,4 +148,19 @@ public class WaveManager : MonoBehaviour
         return string.Format("{0:0}", seconds);
     }
 
+     private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // Handle UI 
+    private void OnDisable()
+    {   
+        SceneManager.sceneLoaded -= OnSceneLoaded; 
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        mWavesUI = GameObject.Find("WaveTextUI")?.GetComponent<TMP_Text>();
+    }
 }

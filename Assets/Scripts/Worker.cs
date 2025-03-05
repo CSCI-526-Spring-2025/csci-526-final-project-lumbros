@@ -32,9 +32,11 @@ public class Worker : MonoBehaviour, IDamageable
     {
         goldAmount = 0;
         GameObject[] mines = GameObject.FindGameObjectsWithTag("Mine");
-
-        // Choose a random mine from mines
-        target = mines[Random.Range(0, mines.Length)].transform;
+        if(mines.Length > 0)
+        {
+            // Choose a random mine from mines
+            target = mines[Random.Range(0, mines.Length)].transform;
+        }
     }
 
     public void SetTargetCore(int gold)

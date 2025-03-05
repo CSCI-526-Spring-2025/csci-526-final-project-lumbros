@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance { get; private set; }
     public GameObject[] enemyPrefabs; // 敌人预制体数组
     public Transform spawnPoint;      // 生成点
     public float spawnRadius = 2f;    // 生成区域半径
@@ -13,6 +14,23 @@ public class EnemySpawner : MonoBehaviour
     public float EnemyPhantomSpawnChance = 0.2f;
     public float SpawnInterval = 1f;
 
+    private void Awake()
+    {
+        // Check if instance already exists
+        if (Instance == null)
+        {
+            // If not, set instance to this
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            // If instance already exists and it's not this, then destroy this to enforce the singleton.
+            Destroy(gameObject);
+        }
+        
+        // Set this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void SpawnWave(int enemyCount)
     {

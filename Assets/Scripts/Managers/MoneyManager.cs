@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 public class MoneyManager : MonoBehaviour
 {  
-    public TMP_Text mMoneyUI;
+    private TMP_Text mMoneyUI;
     public int mMoney = 0;
     public static MoneyManager Instance { get; private set; }
 
@@ -31,5 +32,21 @@ public class MoneyManager : MonoBehaviour
             CustomSceneManager.instance.MoneyPopUp(change);
         }
         mMoney += change;
+    }
+
+    // Handle UI On load
+     private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {   
+        SceneManager.sceneLoaded -= OnSceneLoaded; 
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        mMoneyUI = GameObject.Find("MoneyTextUI")?.GetComponent<TMP_Text>();
     }
 }

@@ -36,7 +36,16 @@ public class HeroMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector2 minBounds = CustomSceneManager.instance.GetMinBounds(); 
+        Vector2 maxBounds = CustomSceneManager.instance.GetMaxBounds();
+        // Calculate new position
+        Vector2 newPosition = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
+ 
+        // Clamp position within the defined boundaries
+        newPosition.x = Mathf.Clamp(newPosition.x, minBounds.x, maxBounds.x);
+        newPosition.y = Mathf.Clamp(newPosition.y, minBounds.y, maxBounds.y);
 
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        // Apply the movement
+        rb.MovePosition(newPosition);
     }
 }
