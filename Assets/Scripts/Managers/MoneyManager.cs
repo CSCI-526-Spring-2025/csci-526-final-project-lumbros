@@ -26,6 +26,10 @@ public class MoneyManager : MonoBehaviour
     }
 
     public void UpdateMoney(int change){
+        if(change > 0)
+        {
+            CustomSceneManager.instance.MoneyPopUp(change);
+        }
         mMoney += change;
     }
 }
