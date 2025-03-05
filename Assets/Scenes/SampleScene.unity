@@ -154,12 +154,8 @@ MonoBehaviour:
   uiPrefab: {fileID: 0}
   killLimit: 5
   totalKills: 0
-  maxTowerCount: 0
-  curTowerCount: 0
   maxWorkerCount: 0
   curWorkerCount: 0
-  mTowerCountUI: {fileID: 0}
-  mEnemyCountUI: {fileID: 0}
   shouldSpawnMine: 1
 --- !u!4 &67992160
 Transform:
@@ -187,7 +183,7 @@ GameObject:
   - component: {fileID: 104642648}
   - component: {fileID: 104642650}
   - component: {fileID: 104642649}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,6 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &376308427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550168305}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,59 +1285,6 @@ RectTransform:
   m_AnchoredPosition: {x: 476, y: 267.66666}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &633954081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 633954083}
-  - component: {fileID: 633954082}
-  m_Layer: 0
-  m_Name: WaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &633954082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 633954081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a695b18074f344f79824acaabbd27b2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mWavesUI: {fileID: 0}
-  currentWave: 1
-  baseEnemyCount: 1
-  enemyStatMultiplier: 1.2
-  waveInterval: 5
-  WaveKillLimit: 1
-  KillperWave: 0
-  enemyHealthMultiplier: 0
-  enemyDamageMultiplier: 0
---- !u!4 &633954083
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 633954081}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.17, y: -0.01, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &640303231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 5
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 893374519}
@@ -1521,12 +1465,9 @@ MonoBehaviour:
   - {fileID: 712027675066443393, guid: a0b1158a65ad3034287ef6104ecf9c06, type: 3}
   - {fileID: 712027675066443393, guid: 717808e546340c14bb6b72bb4fcf704c, type: 3}
   spawnPoint: {fileID: 641351829}
+  spawnInterval: 3
+  rangedEnemySpawnChance: 0.3
   spawnRadius: 2
-  EnemySpawnChance: 0.3
-  rangedEnemySpawnChance: 0.2
-  EnemyStalkerSpawnChance: 0.2
-  EnemyPhantomSpawnChance: 0.2
-  SpawnInterval: 3
 --- !u!1 &708095375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,6 +1523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &708095378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,7 +1631,7 @@ GameObject:
   - component: {fileID: 739221687}
   - component: {fileID: 739221686}
   - component: {fileID: 1186761213}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,6 +1731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3018359703589546229, guid: 8d7980b40401f8c459afaf93bb84a726, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &748488166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,7 +1916,7 @@ GameObject:
   - component: {fileID: 941149064}
   - component: {fileID: 941149063}
   - component: {fileID: 941149062}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: HealthUI (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2117,6 +2060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 1589798161331309981, guid: 755a67344d429294f91b08773f409955, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &964829293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2537,7 +2481,7 @@ GameObject:
   - component: {fileID: 1178002072}
   - component: {fileID: 1178002074}
   - component: {fileID: 1178002073}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2799,7 +2743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1289815395}
   - component: {fileID: 1289815396}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2974,7 +2918,7 @@ GameObject:
   - component: {fileID: 1440909385}
   - component: {fileID: 1440909386}
   - component: {fileID: 1440909387}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Hero
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3101,7 +3045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
   currentHealth: 0
   autoHeal: 0
   healthSlider: {fileID: 1535458981}
@@ -3272,7 +3216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1535458980}
   - component: {fileID: 1535458981}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3463,7 +3407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574749123}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3702,6 +3646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 6585363735888694454, guid: d5611d501aeda6f47844531d4d9490c3, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &1651510468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4025,6 +3970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3378725082094908501, guid: bd95728523e24a84b9cc39387e6519a8, type: 3}
   parentAfterDrag: {fileID: 0}
+  mCost: 0
 --- !u!114 &1734552368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4159,7 +4105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1844260905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4167,7 +4113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844260904}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02464c095110bb24bb15499360bcd385, type: 3}
   m_Name: 
@@ -4179,12 +4125,9 @@ MonoBehaviour:
   - {fileID: 712027675066443393, guid: a0b1158a65ad3034287ef6104ecf9c06, type: 3}
   - {fileID: 712027675066443393, guid: 717808e546340c14bb6b72bb4fcf704c, type: 3}
   spawnPoint: {fileID: 1844260906}
+  spawnInterval: 3
+  rangedEnemySpawnChance: 0.3
   spawnRadius: 2
-  EnemySpawnChance: 0.3
-  rangedEnemySpawnChance: 0.2
-  EnemyStalkerSpawnChance: 0.2
-  EnemyPhantomSpawnChance: 0.2
-  SpawnInterval: 3
 --- !u!4 &1844260906
 Transform:
   m_ObjectHideFlags: 0
@@ -4378,4 +4321,3 @@ SceneRoots:
   - {fileID: 67992160}
   - {fileID: 1124095580}
   - {fileID: 246233309}
-  - {fileID: 633954083}

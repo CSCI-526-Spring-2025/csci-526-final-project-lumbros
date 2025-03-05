@@ -13,6 +13,9 @@ TagManager:
   - Worker
   - Mine
   - UpgradeUI
+  - StartUI
+  - Warning
+  - MoneyPopUp
   layers:
   - Default
   - TransparentFX

@@ -4,21 +4,41 @@ using UnityEngine.SceneManagement;
 
 public class MineSpawner : MonoBehaviour
 {
+    public static MineSpawner Instance { get; private set; }
     public GameObject minePrefab; // Assign your mine prefab in the Inspector
     public int mineCount = 3;
     public Vector2 minSpawnRange = new Vector2(-4.5f, -4.5f);
     public Vector2 maxSpawnRange = new Vector2(4.5f, 4.5f);
 
     private static CustomSceneManager manager;
+    
+    private void Awake()
+    {
+        // Check if instance already exists
+        if (Instance == null)
+        {
+            // If not, set instance to this
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            // If instance already exists and it's not this, then destroy this to enforce the singleton.
+            Destroy(gameObject);
+        }
+        
+        // Set this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<CustomSceneManager>();
-        StartCoroutine(DelayedSpawn());
     }
 
     IEnumerator DelayedSpawn()
     {
+        // Do not do anything if game is not running
+
         yield return new WaitForEndOfFrame(); // Ensures this runs AFTER all Start() methods
 
         if (manager.shouldSpawnMine)
@@ -26,6 +46,10 @@ public class MineSpawner : MonoBehaviour
             manager.shouldSpawnMine = false;
             SpawnMines();
         }
+        
+    }
+    public void StartMineSpawner(){
+        StartCoroutine(DelayedSpawn());
     }
 
     void SpawnMines()

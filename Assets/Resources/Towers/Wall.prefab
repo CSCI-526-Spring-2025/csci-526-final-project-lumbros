@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5999875819943144269}
   - component: {fileID: -2012626923977821580}
   - component: {fileID: 7383947285946892729}
-  - component: {fileID: 8020406687111101820}
   - component: {fileID: 2934526200056339433}
   - component: {fileID: 6332306941032756186}
   m_Layer: 0
@@ -41,8 +40,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.6, y: 0.048}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 46.2948, y: -45.9495}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!50 &8517486053362818830
 Rigidbody2D:
@@ -103,18 +102,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0011278391, y: -0.0045115203}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.29, y: 4.86}
+    oldSize: {x: 5, y: 5}
     newSize: {x: 5.29, y: 4.86}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23530316, y: 0.3142542}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
 --- !u!114 &6754056557338787505
 MonoBehaviour:
@@ -171,36 +170,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589798161331309981}
   m_CullTransparentMesh: 1
---- !u!114 &8020406687111101820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589798161331309981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd93d6c3afc1441ff87e60cea7c84195, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &2934526200056339433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +224,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd93d6c3afc1441ff87e60cea7c84195, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d04adb1e165d7406491521f7a8aeaa53, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

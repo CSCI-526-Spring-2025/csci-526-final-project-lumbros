@@ -12,7 +12,9 @@ public class WaveManager : MonoBehaviour
     public int baseEnemyCount = 8; // 第一波敌人数量
     public float enemyStatMultiplier = 2f; // 每一波敌人属性增强倍率
     public float waveInterval = 5f; // 每波修整时间
+    // Number we need to kill to move on to the next wave 
     public int WaveKillLimit = 1;
+
     public int KillperWave;
     public float enemyHealthMultiplier;
     public float enemyDamageMultiplier;
@@ -20,6 +22,9 @@ public class WaveManager : MonoBehaviour
     
     private EnemySpawner enemySpawner;
     private CustomSceneManager sceneManager;
+    private bool CurrWave = false;
+
+    private float waveTimer = 5f;
 
 /*************************Aaron****************************/
     private void Awake()
@@ -46,13 +51,16 @@ public class WaveManager : MonoBehaviour
         enemySpawner = FindObjectOfType<EnemySpawner>();
         sceneManager = FindObjectOfType<CustomSceneManager>();
         StartWave();
+        CurrWave = true;
     }
 
     public void StartWave()
     {
+        // For the timer
+        CurrWave = true;
         Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
-        
+        mWavesUI.text = "Wave " + currentWave.ToString();
         int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
@@ -64,6 +72,10 @@ public class WaveManager : MonoBehaviour
     {
         if (KillperWave >= WaveKillLimit && !isEndingWave)
         {
+            CurrWave = false;
+            waveTimer = 5f;
+            int tempWave = currentWave + 1;
+            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
             StartCoroutine(EndWave());
         }
     }
@@ -101,11 +113,32 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    //    mWavesUI.text = "Wave " + mWaves.ToString();
+        if (mWavesUI != null){
+            mWavesUI.text = "Wave " + currentWave.ToString();
+        }
+
+        if( CurrWave == false)
+        {
+            waveTimer -= Time.deltaTime;
+            int tempWave = currentWave + 1;
+            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
+        }        
+
     }
 
 
     public void NextWave(){
         mWaves += 1;
     }
+
+    public int GetKillsCount(){
+        return WaveKillLimit;
+    }
+
+    string FormatTime(float timeInSeconds)
+    {
+        int seconds = Mathf.FloorToInt(timeInSeconds % 60);
+        return string.Format("{0:0}", seconds);
+    }
+
 }
