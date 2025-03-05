@@ -41,6 +41,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject UpgradeUI;
     public GameObject StartUI;
     public GameObject WarningUI;
+    public GameObject MoneyPopUpUI;
 
     private bool isGameStarted = false;
     private void Awake()
@@ -89,6 +90,7 @@ public class CustomSceneManager : MonoBehaviour
         UpgradeUI = GameObject.FindGameObjectWithTag("UpgradeUI");
         StartUI = GameObject.FindGameObjectWithTag("StartUI");
         WarningUI = GameObject.FindGameObjectWithTag("Warning");
+        MoneyPopUpUI = GameObject.FindGameObjectWithTag("MoneyPopUp");
         waveManager = FindObjectOfType<WaveManager>();
         instance.UpdateGameState(GAMESTATE.GameStart);
     }
@@ -115,6 +117,7 @@ public class CustomSceneManager : MonoBehaviour
         UpgradeUI.SetActive(false);
         gameOverUI.SetActive(false);
         WarningUI.SetActive(false);
+        RemoveMoneyPopUp();
         IsInitialized = true;
     }
 
@@ -272,6 +275,20 @@ public class CustomSceneManager : MonoBehaviour
 
      public void RemoveWarning(){
         WarningUI.SetActive(false);
+        
+    }
+
+    public void MoneyPopUp(int money)
+    {
+        TextMeshProUGUI tmpText = MoneyPopUpUI.GetComponent<TextMeshProUGUI>();
+        if(tmpText != null)
+            tmpText.text = "$" + money;
+        MoneyPopUpUI.SetActive(true);
+        TimerManager.StartTimer(2f,  RemoveMoneyPopUp, true);
+    }
+
+    public void RemoveMoneyPopUp(){
+        MoneyPopUpUI.SetActive(false);
         
     }
 }

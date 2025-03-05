@@ -15,6 +15,7 @@ TagManager:
   - UpgradeUI
   - StartUI
   - Warning
+  - MoneyPopUp
   layers:
   - Default
   - TransparentFX
