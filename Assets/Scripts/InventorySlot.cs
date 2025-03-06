@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private Dictionary<string, GameObject> prefabLookup;
     private static GameObject GamerManager; // manage the game state
     private bool containsItem;
+    public static System.Action<string> AddedTower;
 
     void Start()
     {
@@ -47,6 +48,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 {
                     AddItem(prefabToInstantiate);
                     MoneyManager.Instance.UpdateMoney(Cost * -1);
+                    AddedTower?.Invoke(prefabToInstantiate.name);
                     // Check if the dropped object is a tower
                     if (dropped.CompareTag("Tower"))
                     {

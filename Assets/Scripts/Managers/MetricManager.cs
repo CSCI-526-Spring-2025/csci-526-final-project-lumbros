@@ -10,16 +10,68 @@ using Random = UnityEngine.Random;
 
 public class MetricManager : MonoBehaviour
 {
-    public long _sessionID;
-    public int _testInt;
-    public string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfURU3mpWxk__Sm_sX44O7Pj2LEhJVbxcpuMnm0dfvBJ0QIeA/formResponse";
+    public static MetricManager Instance { get; private set; }
 
+    public MetricAbstract[] metrics = {
+        new MetricExample(),
+        new MetricWaveLength(),
+        new MetricChosenUpgrade(),
+        new MetricTowerPlaced()
+    };
+
+    public long _sessionID;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
+        Instance = this; // Assign the singleton instance
         _sessionID = DateTime.Now.Ticks;
         Debug.Log("awake metric + " + _sessionID);
-        Send();
+        //Send();
+
+        Debug.Log("size of metrics: " + metrics.Length);
+        foreach (var metric in metrics)
+        {
+            metric.post += Send;
+        }
+    }
+
+    private void Send(string url, List<string> formTags, List<string> formValues)
+    {
+        StartCoroutine(Post(url, formTags, formValues));
+    }
+
+    private IEnumerator Post(string url, List<string> formTags, List<string> formValues)
+    {
+        // Create the form and enter responses
+        WWWForm form = new WWWForm();
+        //form.AddField("entry.1828615863", sessionID);
+        //form.AddField("entry.866404936", testInt);
+        formValues[0] = _sessionID.ToString();
+
+        for (int i = 0; i < formTags.Count; i++)
+        {
+            form.AddField(formTags[i], formValues[i]);
+        }
+
+        // Send responses and verify result
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -34,31 +86,31 @@ public class MetricManager : MonoBehaviour
         
     }
 
-    public void Send()
-    {
-        _testInt = Random.Range(0, 101);
-        StartCoroutine(Post(_sessionID.ToString(), _testInt.ToString()));
-    }
+    //public void Send()
+    //{
+    //    _testInt = Random.Range(0, 101);
+    //    StartCoroutine(Post(_sessionID.ToString(), _testInt.ToString()));
+    //}
 
-    private IEnumerator Post(string sessionID, string testInt)
-    {
-        // Create the form and enter responses
-        WWWForm form = new WWWForm();
-        form.AddField("entry.1828615863", sessionID);
-        form.AddField("entry.866404936", testInt);
-        // Send responses and verify result
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
-        {
-            yield return www.SendWebRequest();
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Debug.Log("Form upload complete!");
-            }
-        }
-    }
+    //private IEnumerator Post(string sessionID, string testInt)
+    //{
+    //    // Create the form and enter responses
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("entry.1828615863", sessionID);
+    //    form.AddField("entry.866404936", testInt);
+    //    // Send responses and verify result
+    //    using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
+    //    {
+    //        yield return www.SendWebRequest();
+    //        if (www.result != UnityWebRequest.Result.Success)
+    //        {
+    //            Debug.Log(www.error);
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Form upload complete!");
+    //        }
+    //    }
+    //}
 
 }

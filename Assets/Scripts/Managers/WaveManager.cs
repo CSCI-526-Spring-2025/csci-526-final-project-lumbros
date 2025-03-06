@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 public class WaveManager : MonoBehaviour
 {
     public TMP_Text mWavesUI;
     private int mWaves = 1;
     public static WaveManager Instance { get; private set; }
-/*************************Aaron****************************/
+    public static event Action<int, int> waveBegin;
+    public static event Action<int> waveEnd;
+
+    /*************************Aaron****************************/
     public int currentWave = 1;    // 当前波次
     public int baseEnemyCount = 8; // 第一波敌人数量
     public float enemyStatMultiplier = 2f; // 每一波敌人属性增强倍率
@@ -66,6 +70,7 @@ public class WaveManager : MonoBehaviour
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
 
         enemySpawner.SpawnWave(enemyCount);
+        waveBegin?.Invoke(currentWave, WaveKillLimit);
     }
 
     public void CheckWaveEnd()
@@ -86,6 +91,8 @@ public class WaveManager : MonoBehaviour
         {
             isEndingWave = true;
             Debug.Log($"Wave {currentWave} ended! Clearing enemies...");
+
+            waveEnd?.Invoke(currentWave);
 
             // 停止敌人生成
             enemySpawner.StopAllCoroutines(); 
