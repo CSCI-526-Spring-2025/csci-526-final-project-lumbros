@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public int currentHealth;
     public int autoHeal = 0;
     private static GameObject manager; // manage the game state
-
+    public bool updated = false;
     // Reference to the health bar slider
     public Slider healthSlider;
     public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position

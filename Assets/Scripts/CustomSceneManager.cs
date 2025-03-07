@@ -44,7 +44,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject StartUI;
     public GameObject WarningUI;
     public GameObject MoneyPopUpUI;
-
+    public bool heroUpgrade = true;
     private bool isGameStarted = false;
     private void Awake()
     {

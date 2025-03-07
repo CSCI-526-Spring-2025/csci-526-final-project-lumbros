@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8387256413018151858}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  shooter: {fileID: 0}
+  damage: 1
+  bouncesLeft: 0
 --- !u!60 &-8387256413018151858
 PolygonCollider2D:
   m_ObjectHideFlags: 0

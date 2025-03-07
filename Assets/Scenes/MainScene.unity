@@ -1910,6 +1910,7 @@ MonoBehaviour:
   StartUI: {fileID: 0}
   WarningUI: {fileID: 0}
   MoneyPopUpUI: {fileID: 0}
+  heroUpgrade: 1
 --- !u!4 &212881656
 Transform:
   m_ObjectHideFlags: 0
@@ -6272,7 +6273,12 @@ MonoBehaviour:
   - {fileID: 1859717035}
   - {fileID: 1768745960}
   - {fileID: 279300101}
+  UpgradeUI: {fileID: 1772256192}
   Wave: {fileID: 1609957239}
+  towerHP: 0
+  towerAutoHeal: 0
+  towerDamage: 0
+  towerRange: 0
 --- !u!1001 &664482958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9071,6 +9077,8 @@ GameObject:
   - component: {fileID: 937759649}
   - component: {fileID: 937759651}
   - component: {fileID: 937759650}
+  - component: {fileID: 937759652}
+  - component: {fileID: 937759653}
   m_Layer: 5
   m_Name: Store
   m_TagString: Untagged
@@ -9135,6 +9143,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937759648}
   m_CullTransparentMesh: 1
+--- !u!114 &937759652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937759648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff03025735f6ce9489789471dd7e05b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &937759653
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937759648}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.91840744, y: -0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 117.44933, y: 500}
+  m_EdgeRadius: 0
 --- !u!1001 &940996019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22977,7 +23042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60.000015, y: -27}
+  m_AnchoredPosition: {x: -60, y: -27}
   m_SizeDelta: {x: -154.64, y: -91.565}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2026817667
@@ -24346,6 +24411,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   autoHeal: 0
+  updated: 0
   healthSlider: {fileID: 1354620276}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
 --- !u!60 &2120846195
@@ -24844,6 +24910,10 @@ PrefabInstance:
     - target: {fileID: 8904630598106933807, guid: 3aae97666de2141e9ab9bc10d19378c5, type: 3}
       propertyPath: m_Name
       value: Hero
+      objectReference: {fileID: 0}
+    - target: {fileID: 8988751838440603900, guid: 3aae97666de2141e9ab9bc10d19378c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

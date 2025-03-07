@@ -31,4 +31,8 @@ public class AOEProjectile : Projectile
             }
         }
     }
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         foreach (GameObject prefab in prefabs)
         {
             // Use the name of the prefab as the key
-            Debug.Log("prefab name: " +  prefab.name);
+            // Debug.Log("prefab name: " +  prefab.name);
             prefabLookup[prefab.name] = prefab;  
         }
         containsItem = false;

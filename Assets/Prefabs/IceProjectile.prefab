@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7107956263203502797}
   m_Layer: 0
   m_Name: IceProjectile
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,5 +177,6 @@ MonoBehaviour:
   speed: 5
   shooter: {fileID: 0}
   damage: 1
+  bouncesLeft: 0
   slowAmount: 0.5
   slowDuration: 3

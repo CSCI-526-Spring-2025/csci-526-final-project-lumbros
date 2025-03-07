@@ -16,6 +16,7 @@ TagManager:
   - StartUI
   - Warning
   - MoneyPopUp
+  - bullet
   layers:
   - Default
   - TransparentFX

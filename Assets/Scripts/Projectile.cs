@@ -73,4 +73,9 @@ public class Projectile : MonoBehaviour
 
         return bestTarget;
     }
+
+    void OnBecameInvisible()
+    {
+    Destroy(gameObject);
+    }
 }

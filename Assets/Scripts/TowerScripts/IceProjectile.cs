@@ -39,4 +39,8 @@ public class IceProjectile : Projectile
             speedField.SetValue(enemy, originalSpeed);
         }
     }
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
