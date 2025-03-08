@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &15820036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: -202.1}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: -202.1}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15820037
 MonoBehaviour:
@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 47357298}
   - component: {fileID: 47357297}
   - component: {fileID: 47357296}
+  - component: {fileID: 47357300}
   m_Layer: 5
   m_Name: SpeedTower
   m_TagString: Untagged
@@ -538,6 +539,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47357294}
   m_CullTransparentMesh: 1
+--- !u!114 &47357300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47357294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 317518391}
 --- !u!1 &55638278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &196420974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1874,8 +1888,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: 57.8}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: 57.8}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196420975
 MonoBehaviour:
@@ -3108,7 +3122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &317518392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3126,8 +3140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: -141.4}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: -141.4}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317518393
 MonoBehaviour:
@@ -3929,7 +3943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &360505868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3947,8 +3961,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: -11.1}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: -11.099998}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &360505869
 MonoBehaviour:
@@ -4001,6 +4015,7 @@ GameObject:
   - component: {fileID: 377681123}
   - component: {fileID: 377681122}
   - component: {fileID: 377681121}
+  - component: {fileID: 377681125}
   m_Layer: 5
   m_Name: Door
   m_TagString: Untagged
@@ -4124,6 +4139,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377681118}
   m_CullTransparentMesh: 1
+--- !u!114 &377681125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377681118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 196420973}
 --- !u!1 &401531045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4158,7 +4186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 23.6, y: 15.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &401531047
@@ -6696,7 +6724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 16.5, y: 9.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &651462787
@@ -6732,7 +6760,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Sniper Tower\uFF1A\nHigh damage\nLong range\nSlow fire rate"
+  m_Text: 'Slows down enemies
+
+    Deals light damage'
 --- !u!222 &651462788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8009,7 +8039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &755382310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8027,8 +8057,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: -78.3}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: -78.3}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755382311
 MonoBehaviour:
@@ -10850,7 +10880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1062358515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10868,8 +10898,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 261.1, y: 123.8}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 240.55, y: 123.8}
+  m_SizeDelta: {x: 41.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062358516
 MonoBehaviour:
@@ -11987,7 +12017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1142005797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12362,6 +12392,7 @@ GameObject:
   - component: {fileID: 1208171219}
   - component: {fileID: 1208171221}
   - component: {fileID: 1208171220}
+  - component: {fileID: 1208171222}
   m_Layer: 5
   m_Name: MoneyTextUI
   m_TagString: Untagged
@@ -12485,6 +12516,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208171218}
   m_CullTransparentMesh: 1
+--- !u!114 &1208171222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208171218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90a776588c94084087598c89632a035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.8
+  flashSpeed: 4
+  flashColor: {r: 1, g: 0.9, b: 0, a: 1}
 --- !u!1 &1210524216
 GameObject:
   m_ObjectHideFlags: 0
@@ -14013,10 +14059,10 @@ RectTransform:
   - {fileID: 721195642}
   m_Father: {fileID: 1790089300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 102.81311, y: 77.83865}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1290809892
 MonoBehaviour:
@@ -14260,7 +14306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 24.1, y: 15.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1296859884
@@ -15097,6 +15143,7 @@ GameObject:
   - component: {fileID: 1376968510}
   - component: {fileID: 1376968509}
   - component: {fileID: 1376968508}
+  - component: {fileID: 1376968512}
   m_Layer: 5
   m_Name: Wall
   m_TagString: Untagged
@@ -15220,6 +15267,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376968505}
   m_CullTransparentMesh: 1
+--- !u!114 &1376968512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376968505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 360505867}
 --- !u!1 &1380465405
 GameObject:
   m_ObjectHideFlags: 0
@@ -15595,10 +15655,10 @@ RectTransform:
   - {fileID: 432359332}
   m_Father: {fileID: 1790089300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 542.8131, y: 77.83865}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416175152
 MonoBehaviour:
@@ -16259,6 +16319,7 @@ GameObject:
   - component: {fileID: 1464022315}
   - component: {fileID: 1464022317}
   - component: {fileID: 1464022316}
+  - component: {fileID: 1464022318}
   m_Layer: 5
   m_Name: WaveTextUI
   m_TagString: Untagged
@@ -16382,6 +16443,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464022314}
   m_CullTransparentMesh: 1
+--- !u!114 &1464022318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464022314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90a776588c94084087598c89632a035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.8
+  flashSpeed: 4
+  flashColor: {r: 1, g: 0.9, b: 0, a: 1}
 --- !u!1001 &1471102907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17317,6 +17393,7 @@ GameObject:
   - component: {fileID: 1546955727}
   - component: {fileID: 1546955726}
   - component: {fileID: 1546955725}
+  - component: {fileID: 1546955729}
   m_Layer: 5
   m_Name: AOETower
   m_TagString: Untagged
@@ -17440,6 +17517,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546955723}
   m_CullTransparentMesh: 1
+--- !u!114 &1546955729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546955723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 15820035}
 --- !u!1001 &1549501959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18925,10 +19015,10 @@ RectTransform:
   - {fileID: 334160244}
   m_Father: {fileID: 1790089300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 322.8131, y: 77.83865}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1625619348
 MonoBehaviour:
@@ -19070,7 +19160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 24.1, y: 15.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1626659178
@@ -19948,6 +20038,7 @@ GameObject:
   - component: {fileID: 1734015104}
   - component: {fileID: 1734015103}
   - component: {fileID: 1734015102}
+  - component: {fileID: 1734015106}
   m_Layer: 5
   m_Name: Sniper
   m_TagString: Untagged
@@ -20071,6 +20162,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734015100}
   m_CullTransparentMesh: 1
+--- !u!114 &1734015106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734015100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 1062358514}
 --- !u!1001 &1736608728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20562,7 +20666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1772256194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21387,6 +21491,7 @@ GameObject:
   - component: {fileID: 1832824590}
   - component: {fileID: 1832824592}
   - component: {fileID: 1832824591}
+  - component: {fileID: 1832824593}
   m_Layer: 5
   m_Name: EnemiesTextUI
   m_TagString: Untagged
@@ -21510,6 +21615,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832824589}
   m_CullTransparentMesh: 1
+--- !u!114 &1832824593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832824589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90a776588c94084087598c89632a035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.8
+  flashSpeed: 4
+  flashColor: {r: 1, g: 0.9, b: 0, a: 1}
 --- !u!1001 &1844484633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22897,7 +23017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 17.1, y: 11.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1961368721
@@ -22933,7 +23053,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Sniper Tower\uFF1A\nHigh damage\nLong range\nSlow fire rate"
+  m_Text: 'Damages multiple enemies
+
+    Moderate attack speed'
 --- !u!222 &1961368722
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22961,7 +23083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1967361829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24344,7 +24466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.7, y: 15.4}
+  m_AnchoredPosition: {x: 23, y: 15.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2061957928
@@ -24380,7 +24502,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Sniper Tower\uFF1A\nHigh damage\nLong range\nSlow fire rate"
+  m_Text: "Increases attack and \nmovement speed of \nnearby allies"
 --- !u!222 &2061957929
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24708,6 +24830,7 @@ GameObject:
   - component: {fileID: 2085407609}
   - component: {fileID: 2085407608}
   - component: {fileID: 2085407607}
+  - component: {fileID: 2085407611}
   m_Layer: 5
   m_Name: IceTower
   m_TagString: Untagged
@@ -24831,6 +24954,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085407605}
   m_CullTransparentMesh: 1
+--- !u!114 &2085407611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085407605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionPanel: {fileID: 755382309}
 --- !u!1001 &2086966301
 PrefabInstance:
   m_ObjectHideFlags: 0

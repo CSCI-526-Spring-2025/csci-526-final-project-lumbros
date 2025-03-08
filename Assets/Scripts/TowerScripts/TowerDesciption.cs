@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 public class TowerDescription : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // 对应的描述面板
+    // Reference to the description panel
     public GameObject descriptionPanel;
 
-    // 鼠标进入时显示描述
+    // Display description when mouse enters
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (descriptionPanel != null)
@@ -15,7 +14,7 @@ public class TowerDescription : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
-    // 鼠标离开时隐藏描述
+    // Hide description when mouse exits
     public void OnPointerExit(PointerEventData eventData)
     {
         if (descriptionPanel != null)
