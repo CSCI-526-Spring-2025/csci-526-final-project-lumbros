@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     public float EnemyPhantomSpawnChance = 0.2f;
     public float SpawnInterval = 1f;
 
+    private bool stopSpawning = false; 
+
     private void Awake()
     {
         // Check if instance already exists
@@ -32,8 +34,23 @@ public class EnemySpawner : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        CustomSceneManager.gameStateChange += OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GAMESTATE newState)
+    {
+        if (newState == GAMESTATE.GameOver)
+        {
+            // kill coroutine
+            stopSpawning = true;
+        }
+    }
+
     public void SpawnWave(int enemyCount)
     {
+        stopSpawning = false; // make sure spawning is enabled
         StartCoroutine(SpawnEnemies(enemyCount));
     }
 
@@ -42,6 +59,14 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log($"Spawning {enemyCount} enemies.");
         for (int i = 0; i < enemyCount; i++)
         {
+            if (stopSpawning)
+            {
+                // Necessary for when the game is over but coroutine still exists,
+                // so enemies continue spawning when time unpauses on restart.
+                Debug.Log("Spawning stopped due to game restart.");
+                yield break;
+            }
+
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = new Vector3(spawnPoint.position.x + randomOffset.x, spawnPoint.position.y + randomOffset.y, spawnPoint.position.z);
 
