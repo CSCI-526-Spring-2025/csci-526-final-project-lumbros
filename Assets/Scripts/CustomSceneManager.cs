@@ -46,7 +46,6 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject WarningUI;
     public GameObject MoneyPopUpUI;
     public bool heroUpgrade = true;
-    private bool isGameStarted = false;
     private void Awake()
     {
         // Check if instance already exists
@@ -128,7 +127,6 @@ public class CustomSceneManager : MonoBehaviour
         UpdateGameState(GAMESTATE.GameStart);
         Time.timeScale = 1;
         UpdateGameState(GAMESTATE.GamePlay);
-        isGameStarted = true;
     }
 
 
@@ -171,7 +169,7 @@ public class CustomSceneManager : MonoBehaviour
 
     private void Update()
     {
-        if (isGameStarted == false){
+        if (IsGameStarted() == false){
             return;
         }
         killLimit = WaveManager.Instance.GetKillsCount();
@@ -271,8 +269,6 @@ public class CustomSceneManager : MonoBehaviour
 
     // called when you click "Play Again" on game over screen
     public void Restart() {
-        Debug.LogWarning("RESTARTING");
-        isGameStarted = false;
         foreach(GameObject go in nonDestoryObjects){
             if(go != null) Destroy(go);
         }

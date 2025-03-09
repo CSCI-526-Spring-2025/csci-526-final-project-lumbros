@@ -78,6 +78,7 @@ public class WaveManager : MonoBehaviour
         baseEnemyCount = baseEnemyCountMemory;
         WaveKillLimit = 1;
     }
+
     public void StartWave()
     {
         // For the timer
@@ -145,6 +146,10 @@ public class WaveManager : MonoBehaviour
         if( CurrWave == false)
         {
             waveTimer -= Time.deltaTime;
+            if(waveTimer <= 0)
+            {
+                waveTimer = 0f;
+            }
             int tempWave = currentWave + 1;
             mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
         }        
