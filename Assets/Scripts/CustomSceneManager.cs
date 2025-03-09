@@ -19,8 +19,10 @@ public class CustomSceneManager : MonoBehaviour
     public static Action<GAMESTATE> gameStateChange;
     public GAMESTATE curState;
     public string whichIsMe = "please change me";
-    private Vector2 minBounds = new Vector2(-7.3f, -4.3f);
-    private Vector2 maxBounds = new Vector2(4.9f, 3.2f);
+    // private Vector2 minBounds = new Vector2(-7.3f, -4.3f);
+    // private Vector2 maxBounds = new Vector2(4.9f, 3.2f);
+    private Vector2 minBounds = new Vector2(-9.0f, -4.3f); 
+    private Vector2 maxBounds = new Vector2(6.0f, 2.8f);  
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
