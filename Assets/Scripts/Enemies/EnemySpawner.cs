@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies(int enemyCount)
     {
-        Debug.Log($"Num {enemyCount}");
+        Debug.Log($"Spawning {enemyCount} enemies.");
         for (int i = 0; i < enemyCount; i++)
         {
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;

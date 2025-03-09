@@ -31,8 +31,17 @@ public class WorkerSpawner : MonoBehaviour
     {
         manager = CustomSceneManager.instance;
         spawnPoint = GameObject.FindGameObjectWithTag("Core").transform;
-       
+        CustomSceneManager.gameStateChange += OnGameStateChange;
     }
+
+    void OnGameStateChange(GAMESTATE newState)
+    {
+        if (newState == GAMESTATE.BeforeGameStart)
+        {
+            StartCoroutine(SpawnWorkers());
+        }
+    }
+
     IEnumerator SpawnWorkers()
     {
         // Do not do anything if game is not running
@@ -51,9 +60,5 @@ public class WorkerSpawner : MonoBehaviour
             Instantiate(workerPrefab, spawnPosition, Quaternion.identity);
         }
         
-    }
-
-    public void StartWorkerSpawner(){
-        StartCoroutine(SpawnWorkers());
     }
 }
