@@ -6,10 +6,12 @@ using TMPro;
 using System;
 
 public enum GAMESTATE{
-    GameStart,
-    GamePlay,
-    GameUpgrade,
-    GameOver
+    BeforeGameStart, // Before "Start Game" is clicked on StartCanvas
+    GameStart, // Right after "Start Game" is clicked on StartCanvas,
+               // no time is spent here, just used for event notifier
+    GamePlay, // During waves
+    GameUpgrade, // During upgrade screen
+    GameOver // On game over screen
 }
 
 public class CustomSceneManager : MonoBehaviour
@@ -33,7 +35,6 @@ public class CustomSceneManager : MonoBehaviour
     public int curWorkerCount;
 
     private TMP_Text mEnemyCountUI;
-    public bool shouldSpawnMine = true;
 
     private static int GAME_SCREEN_INDEX = 1;
     // private static int UPGRADE_SCREEN_INDEX = 2;
@@ -47,7 +48,6 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject WarningUI;
     public GameObject MoneyPopUpUI;
     public bool heroUpgrade = true;
-    private bool isGameStarted = false;
     private void Awake()
     {
         // Check if instance already exists
@@ -70,11 +70,13 @@ public class CustomSceneManager : MonoBehaviour
     public void UpdateGameState(GAMESTATE gs)
     {
         Debug.Log("changing gameState to: " + gs);
-        Debug.Log(whichIsMe);
+        //Debug.Log(whichIsMe);
         switch(gs)
         {
-            case GAMESTATE.GameStart:
+            case GAMESTATE.BeforeGameStart:
                 instance.StartingGame();
+                break;
+            case GAMESTATE.GameStart:
                 break;
             case GAMESTATE.GamePlay:
                 break;
@@ -115,22 +117,18 @@ public class CustomSceneManager : MonoBehaviour
     void Start() 
     {
         waveManager = FindObjectOfType<WaveManager>();
-        instance.UpdateGameState(GAMESTATE.GameStart);
+        instance.UpdateGameState(GAMESTATE.BeforeGameStart);
     }
 
     // Called Start Game Button
     public void StartGame(){
         StartUI.SetActive(false);
         FindUIObjects();
-        if(MineSpawner.Instance != null)
-            MineSpawner.Instance.StartMineSpawner();
-        if(WorkerSpawner.Instance != null)
-            WorkerSpawner.Instance.StartWorkerSpawner();
-        isGameStarted = true;
-        Debug.Log(whichIsMe);
-        UpdateGameState(GAMESTATE.GamePlay);
-        waveManager.LoadStartingWave();
         StartingGame();
+        waveManager.LoadStartingWave();
+        UpdateGameState(GAMESTATE.GameStart);
+        Time.timeScale = 1;
+        UpdateGameState(GAMESTATE.GamePlay);
     }
 
 
@@ -173,7 +171,7 @@ public class CustomSceneManager : MonoBehaviour
 
     private void Update()
     {
-        if (isGameStarted == false){
+        if (IsGameStarted() == false){
             return;
         }
         killLimit = WaveManager.Instance.GetKillsCount();
@@ -242,7 +240,7 @@ public class CustomSceneManager : MonoBehaviour
         if (totalKills >= killLimit){
             UpgradeUI.SetActive(true);
             PauseGame();
-            //SceneManager.LoadScene("UpgradeScene");
+            UpdateGameState(GAMESTATE.GameUpgrade);
         }
     }
 
@@ -252,8 +250,8 @@ public class CustomSceneManager : MonoBehaviour
         totalKills = 0;
         this.killLimit = killLimit;
         UpgradeUI.SetActive(false);
+        UpdateGameState(GAMESTATE.GamePlay);
         Resume();
-        // LoadScene(GAME_SCREEN_INDEX);
     }
 
     public void GameOver(){
@@ -270,20 +268,19 @@ public class CustomSceneManager : MonoBehaviour
      private void Resume(){
         Time.timeScale = 1;
     }
+
+    // called when you click "Play Again" on game over screen
     public void Restart() {
-        isGameStarted = false;
         foreach(GameObject go in nonDestoryObjects){
             if(go != null) Destroy(go);
         }
-        shouldSpawnMine = true;
-        curWorkerCount = 0;
         gameOverUI.SetActive(false);
         //TowerManager.instance.Reset();
-        Time.timeScale = 1; // start the game again
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();
         Debug.Log(whichIsMe);
-        UpdateGameState(GAMESTATE.GameStart);
+        curWorkerCount = 0;
+        UpdateGameState(GAMESTATE.BeforeGameStart);
     }
 
     public void AddNonDestoryObject(GameObject o) {
@@ -300,8 +297,9 @@ public class CustomSceneManager : MonoBehaviour
         StartUI.SetActive(true);
     }
 
-    public bool GetGameStatus(){
-        return isGameStarted;
+    public bool IsGameStarted()
+    {
+        return curState == GAMESTATE.GamePlay || curState == GAMESTATE.GameUpgrade;
     }
 
     public void DisplayWarning()

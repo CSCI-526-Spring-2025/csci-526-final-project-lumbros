@@ -53,14 +53,32 @@ public class WaveManager : MonoBehaviour
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
         sceneManager = FindObjectOfType<CustomSceneManager>();
-        StartWave();
-        CurrWave = true;
+        CustomSceneManager.gameStateChange += OnGameStateChange;
+        //StartWave();
+        //CurrWave = true;
     }
+
+    void OnGameStateChange(GAMESTATE newState)
+    {
+        if(newState == GAMESTATE.GamePlay)
+        {
+            StartCoroutine(StartWaveCoroutine());
+        }
+    }
+
+    IEnumerator StartWaveCoroutine()
+    {
+        waveTimer = 5f;
+        yield return new WaitForSeconds(waveInterval);
+        StartWave();
+    }
+
     public void LoadStartingWave(){
         currentWave = 1;
         baseEnemyCount = baseEnemyCountMemory;
         WaveKillLimit = 1;
     }
+
     public void StartWave()
     {
         // For the timer
@@ -82,12 +100,13 @@ public class WaveManager : MonoBehaviour
             CurrWave = false;
             waveTimer = 5f;
             int tempWave = currentWave + 1;
-            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
-            StartCoroutine(EndWave());
+            mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+            //StartCoroutine(EndWave());
+            EndWave();
         }
     }
 
-    IEnumerator EndWave()
+     void EndWave()
     {
         if (isEndingWave == false)
         {
@@ -97,12 +116,12 @@ public class WaveManager : MonoBehaviour
             // 停止敌人生成
             enemySpawner.StopAllCoroutines(); 
             ClearAllEnemies();
-            yield return new WaitForSeconds(waveInterval);
+            //yield return new WaitForSeconds(waveInterval);
 
             WaveKillLimit = WaveKillLimit + 2;
             currentWave++;
-            
-            StartWave();
+
+            //StartWave();
             isEndingWave = false;
         }
     }
@@ -127,8 +146,12 @@ public class WaveManager : MonoBehaviour
         if( CurrWave == false)
         {
             waveTimer -= Time.deltaTime;
+            if(waveTimer <= 0)
+            {
+                waveTimer = 0f;
+            }
             int tempWave = currentWave + 1;
-            mWavesUI.text = "Wave "  + tempWave.ToString() + " starting in " + FormatTime(waveTimer);
+            mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
         }        
 
     }

@@ -30,9 +30,17 @@ public class WorkerSpawner : MonoBehaviour
     void Start()
     {
         manager = CustomSceneManager.instance;
-        spawnPoint = GameObject.FindGameObjectWithTag("Core").transform;
-       
+        CustomSceneManager.gameStateChange += OnGameStateChange;
     }
+
+    void OnGameStateChange(GAMESTATE newState)
+    {
+        if (newState == GAMESTATE.GameStart)
+        {
+            StartCoroutine(SpawnWorkers());
+        }
+    }
+
     IEnumerator SpawnWorkers()
     {
         // Do not do anything if game is not running
@@ -47,13 +55,10 @@ public class WorkerSpawner : MonoBehaviour
 
             // **Generate a random spawn position within the defined radius**
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius; // Generates a random offset inside a circle
+            spawnPoint = GameObject.FindGameObjectWithTag("Core").transform;
             Vector3 spawnPosition = new Vector3(spawnPoint.position.x + randomOffset.x, spawnPoint.position.y + randomOffset.y, spawnPoint.position.z);
             Instantiate(workerPrefab, spawnPosition, Quaternion.identity);
         }
         
-    }
-
-    public void StartWorkerSpawner(){
-        StartCoroutine(SpawnWorkers());
     }
 }

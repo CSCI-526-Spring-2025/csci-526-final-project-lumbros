@@ -33,28 +33,34 @@ public class MineSpawner : MonoBehaviour
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<CustomSceneManager>();
+        CustomSceneManager.gameStateChange += OnGameStateChange;
+    }
+
+    void OnGameStateChange(GAMESTATE newState)
+    {
+        if (newState == GAMESTATE.GameStart)
+        {
+            StartCoroutine(DelayedSpawn());
+        }
     }
 
     IEnumerator DelayedSpawn()
     {
-        // Do not do anything if game is not running
-
         yield return new WaitForEndOfFrame(); // Ensures this runs AFTER all Start() methods
-
-        if (manager.shouldSpawnMine)
-        {
-            manager.shouldSpawnMine = false;
-            SpawnMines();
-        }
+        SpawnMines();
         
-    }
-    public void StartMineSpawner(){
-        StartCoroutine(DelayedSpawn());
     }
 
     void SpawnMines()
     {
         string sceneName = SceneManager.GetActiveScene().name;
+
+        // First destroy all existing mines
+        GameObject[] existingMines = GameObject.FindGameObjectsWithTag("Mine");
+        foreach (GameObject mine in existingMines)
+        {
+            Destroy(mine);
+        }
 
         if (sceneName == "SampleScene")
         {
