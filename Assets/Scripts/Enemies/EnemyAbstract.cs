@@ -8,11 +8,11 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 {
     public static event Action enemyKill;
 
-    public float speed = 2f;
+    public float speed = 1f;
     protected Transform target; // Current target
     protected Transform core;   // Core target
     protected bool isAggroed = false; // Whether the enemy is aggroed
-    public int health = 3; // Enemy health
+    public int health = 4; // Enemy health
     public int attackDamage = 1; // Melee attack damage
     public float attackRange = 0.5f; // Melee attack range
     public float attackCooldown = 1f; // Attack cooldown time
@@ -35,12 +35,9 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             core = coreObject.transform;
             target = core; // Initial target is the Core
         }
-        else
-        {
-            Debug.LogError("BossEnemy: 找不到 `Core`，请检查是否存在带 `Core` 标签的对象！"); // no idea what in the debug XD
-        }
+
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Hero"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("NormalLayer"));
 
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 2f; 

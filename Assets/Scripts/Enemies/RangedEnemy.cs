@@ -5,12 +5,17 @@ public class RangedEnemy : EnemyAbstract
 {
     // Ranged attack properties
     public GameObject projectilePrefab;
+    private float detrange = 3f;
 
     protected override void StartCall()
     {
         enemyType = "Enemy - Range";
-        attackCooldown = 2f;
-        attackRange = 5f;
+
+        health = 4; // Enemy health
+        speed = 0.8f;
+        attackDamage = 1; // Melee attack damage
+        attackRange = 5f; // Melee attack range
+        attackCooldown = 2f; // Attack cooldown time
         target = FindClosestTarget();
         //初始化血量
         health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
@@ -19,7 +24,7 @@ public class RangedEnemy : EnemyAbstract
     protected override void Move()
     {
         // If outside attack range, move closer
-        if (Vector2.Distance(transform.position, target.position) > attackRange)
+        if (Vector2.Distance(transform.position, target.position) > detrange)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }

@@ -109,6 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8469ce1f6333f6b4abb3b4c884e5b717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
+  health: 3
+  attackDamage: 2
+  attackRange: 0.5
+  attackCooldown: 1
+  deathParticle: {fileID: 8289590676886491281, guid: 0aa37327ddd5b7742aefd22e5d764c39, type: 3}
   normalSpeed: 1.5
   chargeSpeed: 10
   detectionRange: 5
@@ -116,10 +122,6 @@ MonoBehaviour:
   chargeCooldown: 2
   rotationSpeed: 500
   rotationOffset: 0
-  health: 3
-  attackDamage: 2
-  attackRange: 0.5
-  attackCooldown: 1
 --- !u!1 &6640638025385805139
 GameObject:
   m_ObjectHideFlags: 0

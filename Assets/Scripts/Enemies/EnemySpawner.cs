@@ -8,11 +8,11 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;      // 生成点
     public float spawnRadius = 2f;    // 生成区域半径
 
-    public float EnemySpawnChance = 0.3f;
-    public float rangedEnemySpawnChance = 0.2f;
-    public float EnemyStalkerSpawnChance = 0.2f;
-    public float EnemyPhantomSpawnChance = 0.2f;
-    public float SpawnInterval = 1f;
+    public float Enemy0SpawnChance = 0.3f;
+    public float Enemy1SpawnChance = 0.2f;
+    public float Enemy2SpawnChance = 0.2f;
+    public float Enemy3SpawnChance = 0.2f;
+    public float Enemy4SpawnChance = 0.1f;
 
     private bool stopSpawning = false; 
 
@@ -48,14 +48,15 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnWave(int enemyCount)
+    public void SpawnWave(int enemyCount, int currentWave, float SpawnInterval)
     {
         stopSpawning = false; // make sure spawning is enabled
-        StartCoroutine(SpawnEnemies(enemyCount));
+        StartCoroutine(SpawnEnemies(enemyCount, currentWave, SpawnInterval));
     }
 
-    IEnumerator SpawnEnemies(int enemyCount)
+    IEnumerator SpawnEnemies(int enemyCount, int currentWave, float SpawnInterval)
     {
+
         Debug.Log($"Spawning {enemyCount} enemies.");
         for (int i = 0; i < enemyCount; i++)
         {
@@ -70,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = new Vector3(spawnPoint.position.x + randomOffset.x, spawnPoint.position.y + randomOffset.y, spawnPoint.position.z);
 
-            GameObject enemyToSpawn = ChooseRandomEnemy();
+            GameObject enemyToSpawn = ChooseRandomEnemy(currentWave);
             GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
 
             //Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
@@ -84,13 +85,55 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    GameObject ChooseRandomEnemy()
+    GameObject ChooseRandomEnemy(int currentWave)
     {
+        int ctrlcnt = currentWave % 5;
         float randomValue = Random.value;
-        if (randomValue < EnemySpawnChance) return enemyPrefabs[0];
-        if (randomValue < (EnemySpawnChance + rangedEnemySpawnChance)) return enemyPrefabs[1];
-        if (randomValue < (EnemySpawnChance + rangedEnemySpawnChance + EnemyStalkerSpawnChance)) return enemyPrefabs[2];
-        if (randomValue < (EnemySpawnChance + rangedEnemySpawnChance + EnemyStalkerSpawnChance + EnemyPhantomSpawnChance)) return enemyPrefabs[3];
-        return enemyPrefabs[4];
+        if (currentWave <= 5)
+        {
+            switch (currentWave)
+            {
+                case 1:
+                    return enemyPrefabs[0];
+
+                case 2:
+                    if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+                    return enemyPrefabs[1];
+
+                case 3:
+                if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
+                return enemyPrefabs[2];
+
+                case 4:
+                if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
+                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
+                return enemyPrefabs[3];
+
+                default:
+                    if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
+                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
+                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance)) return enemyPrefabs[3];
+                    return enemyPrefabs[4];
+            }
+        }
+        else if (ctrlcnt == 0)
+        {
+            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
+            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
+            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance)) return enemyPrefabs[3];
+            return enemyPrefabs[4];
+        }
+        else
+        {
+            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
+            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
+            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
+            return enemyPrefabs[3];
+        }
+
     }
 }

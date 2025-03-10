@@ -14,7 +14,7 @@ public class BossEnemy : EnemyAbstract
     private bool isEnraged = false; // 是否进入弹幕模式
 
     public GameObject[] enemyPrefabs; // 小怪 Prefabs
-    public int summonCount = 3; // 召唤总数量
+    public int summonCount = 5; // 召唤总数量
     public float summonRadius = 3f; // 召唤半径
     public float enemySpawnChance = 0.7f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
     public float rangedEnemySpawnChance = 0.3f;
@@ -32,10 +32,13 @@ public class BossEnemy : EnemyAbstract
             player = playerObject.transform;
         }
 
+        maxHealth = 20;
+        speed = 0.8f;
+        attackDamage = 2; // Melee attack damage
+        attackRange = 0.5f; // Melee attack range
+        attackCooldown = 1f; // Attack cooldown time
         health = maxHealth;
-        speed = 1f;
-        attackRange = 1f;
-        attackCooldown = 1.5f;
+
         //初始化血量
         health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }

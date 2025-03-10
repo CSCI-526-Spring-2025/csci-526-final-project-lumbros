@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyStalker : EnemyAbstract
 {
-    public float normalSpeed = 1.5f;  // 初始移动速度
+    public float normalSpeed = 0.5f;  // 初始移动速度
     public float chargeSpeed = 10f;   // 冲刺速度
     public float detectionRange = 5f; // 发现Player的范围
     public float chargeDelay = 1.5f;  // 冲刺前的延迟时间
@@ -20,7 +20,14 @@ public class EnemyStalker : EnemyAbstract
     protected override void StartCall()
     {
         enemyType = "Enemy - Stalker";
-        attackDamage = 2;
+
+        health = 3; // Enemy health
+        normalSpeed = 0.5f;
+        chargeSpeed = 10f;
+        attackDamage = 2; // Melee attack damage
+        attackRange = 0.5f; // Melee attack range
+        attackCooldown = 1f; // Attack cooldown time
+        
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
