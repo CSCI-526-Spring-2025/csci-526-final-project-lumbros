@@ -15,16 +15,20 @@ public class WaveManager : MonoBehaviour
     /*************************Aaron****************************/
     public int currentWave = 1;    // 当前波次
 
-    public int baseEnemyCountMemory = 8;
-    public int baseEnemyCount = 8; // 第一波敌人数量
-    public float enemyStatMultiplier = 2f; // 每一波敌人属性增强倍率
-    public float waveInterval = 5f; // 每波修整时间
+    //public int baseEnemyCountMemory = 8;
+    //public int baseEnemyCount = 8; // 第一波敌人数量
+    private float enemyStatMultiplier = 1.1f; // 每一波敌人属性增强倍率
+    private float Span_Interval_Multiplier = 1.3f; // 生成间隔加快倍率
+    private float KillNumMultiplier = 1.4f;
+    private float waveInterval = 5f; // 每波修整时间
     // Number we need to kill to move on to the next wave 
-    public int WaveKillLimit = 1;
+    private int WaveKillLimit = 5;
 
     public int KillperWave;
     public float enemyHealthMultiplier;
     public float enemyDamageMultiplier;
+    public float SpanIntervalMultiplier;
+    private float SpawnInterval = 1f;
     private bool isEndingWave = false;
     
     private EnemySpawner enemySpawner;
@@ -32,6 +36,7 @@ public class WaveManager : MonoBehaviour
     private bool CurrWave = false;
 
     private float waveTimer = 5f;
+    private int enemyCount;
 
 /*************************Aaron****************************/
     private void Awake()
@@ -79,8 +84,8 @@ public class WaveManager : MonoBehaviour
 
     public void LoadStartingWave(){
         currentWave = 1;
-        baseEnemyCount = baseEnemyCountMemory;
-        WaveKillLimit = 1;
+        //baseEnemyCount = baseEnemyCountMemory;
+        WaveKillLimit = 5;
     }
 
     public void StartWave()
@@ -90,11 +95,16 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
         mWavesUI.text = "Wave " + currentWave.ToString();
-        int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
+        //int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
+        enemyCount = (int)Mathf.Round(WaveKillLimit * 1.5f);
+        Debug.Log($"enemyCount {enemyCount}");
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
+        SpanIntervalMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
+        Debug.Log($"Multiplier {enemyDamageMultiplier}");
+        SpawnInterval = 1 / SpanIntervalMultiplier;
 
-        enemySpawner.SpawnWave(enemyCount);
+        enemySpawner.SpawnWave(enemyCount, currentWave, SpawnInterval);
         waveBegin?.Invoke(currentWave, WaveKillLimit);
     }
 
@@ -125,7 +135,7 @@ public class WaveManager : MonoBehaviour
             ClearAllEnemies();
             //yield return new WaitForSeconds(waveInterval);
 
-            WaveKillLimit = WaveKillLimit + 2;
+            WaveKillLimit = (int)Mathf.Round(WaveKillLimit * KillNumMultiplier);
             currentWave++;
 
             //StartWave();
@@ -136,9 +146,14 @@ public class WaveManager : MonoBehaviour
     void ClearAllEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] Bullets = GameObject.FindGameObjectsWithTag("bullet");
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
+        }
+        foreach (GameObject bullet in Bullets)
+        {
+            Destroy(bullet);
         }
     }
 /*************************Aaron****************************/
