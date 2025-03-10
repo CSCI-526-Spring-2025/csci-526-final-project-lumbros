@@ -110,14 +110,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c69e04e84f3b9943aa42d03debf792d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
   speed: 1
-  maxHealth: 10
   health: 0
   attackDamage: 1
   attackRange: 1
   attackCooldown: 1.5
-  canAttack: 1
+  deathParticle: {fileID: 8289590676886491281, guid: 0aa37327ddd5b7742aefd22e5d764c39, type: 3}
+  detectionRange: 10
+  maxHealth: 10
   projectilePrefab: {fileID: 6947373763395278133, guid: 1c46ebb1bc8c4d042be4a6ec5b948102, type: 3}
   fanAngle: 60
   bulletCount: 6
