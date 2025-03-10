@@ -23,8 +23,8 @@ public class CustomSceneManager : MonoBehaviour
     public string whichIsMe = "please change me";
     // private Vector2 minBounds = new Vector2(-7.3f, -4.3f);
     // private Vector2 maxBounds = new Vector2(4.9f, 3.2f);
-    private Vector2 minBounds = new Vector2(-9.0f, -4.3f); 
-    private Vector2 maxBounds = new Vector2(6.0f, 2.8f);  
+    private Vector2 minBounds = new Vector2(0f, 0f); 
+    private Vector2 maxBounds = new Vector2(0f, 0f);  
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
@@ -111,6 +111,8 @@ public class CustomSceneManager : MonoBehaviour
         gameOverUI.SetActive(false);
         WarningUI.SetActive(false);
         RemoveMoneyPopUp();
+        minBounds = GameObject.Find("MinBounds").transform.position;
+        maxBounds = GameObject.Find("MaxBounds").transform.position;
     }
 
 
@@ -324,7 +326,6 @@ public class CustomSceneManager : MonoBehaviour
 
     public void RemoveMoneyPopUp(){
         MoneyPopUpUI.SetActive(false);
-        
     }
 
     private void FindUIObjects()
