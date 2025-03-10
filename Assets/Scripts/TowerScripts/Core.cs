@@ -22,7 +22,7 @@ public class Core : MonoBehaviour
         }
         
         // Set this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
