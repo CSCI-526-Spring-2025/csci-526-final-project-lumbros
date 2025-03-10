@@ -184,7 +184,12 @@ public class WaveManager : MonoBehaviour
     }
 
     public int GetKillsCount(){
+        if (!CurrWave )
+        {
+            return 0;
+        }
         return WaveKillLimit;
+       
     }
 
     string FormatTime(float timeInSeconds)

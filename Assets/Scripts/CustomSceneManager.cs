@@ -189,6 +189,9 @@ public class CustomSceneManager : MonoBehaviour
         if(mEnemyCountUI != null)
         {
             int remainingEnemies = killLimit - totalKills;
+            if(killLimit == 0){
+                remainingEnemies = 0;
+            }
             mEnemyCountUI.text = "Enemies you need to kill: " + remainingEnemies.ToString();
         }
         if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
