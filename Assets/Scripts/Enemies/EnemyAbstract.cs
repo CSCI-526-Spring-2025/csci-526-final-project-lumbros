@@ -19,6 +19,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     protected bool canAttack = true;
     protected Rigidbody2D rb;
     protected string enemyType = "Please rename me in StartCall";
+    public ParticleSystem deathParticle;
     
     // do not overwrite
     private void OnDisable()
@@ -55,6 +56,11 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             Debug.Log(enemyType + " enemy dies");
+            if(deathParticle != null)
+            {
+                ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
+                //Destroy(deathEffectClone, 2.0f);
+            }
             Destroy(gameObject); // Destroy the enemy when health reaches zero
             enemyKill?.Invoke();
         }

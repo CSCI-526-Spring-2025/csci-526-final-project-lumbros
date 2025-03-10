@@ -115,6 +115,7 @@ MonoBehaviour:
   attackDamage: 1
   attackRange: 0.5
   attackCooldown: 1
+  deathParticle: {fileID: 8289590676886491281, guid: 0aa37327ddd5b7742aefd22e5d764c39, type: 3}
 --- !u!1 &6488225612368258193
 GameObject:
   m_ObjectHideFlags: 0
