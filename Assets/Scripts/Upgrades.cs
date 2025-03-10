@@ -23,8 +23,10 @@ public class Upgrades : MonoBehaviour
     private Dictionary<string, List<(string, System.Action)>> heroUpgrades = new Dictionary<string, List<(string, System.Action)>>();
     private Dictionary<string, List<(string, System.Action)>> towerUpgrades = new Dictionary<string, List<(string, System.Action)>>();
     private int phase = 1; // 1 = Hero Upgrades, 2 = Tower Upgrades
-    private System.Action selectedUpgrade; 
-    
+    private System.Action selectedUpgrade;
+    private string selectedUpgradeName;
+    public static System.Action<string> OnUpgrade;
+
     void Start()
     {
         hero = GameObject.FindGameObjectWithTag("Player");
@@ -193,6 +195,7 @@ public class Upgrades : MonoBehaviour
             upgradeButtons[i].onClick.AddListener(() =>
             {
                 selectedUpgrade = selectedUpgrades[index].Item2;
+                selectedUpgradeName = selectedUpgrades[index].Item1;
                 ApplyUpgrade();
             });
         }
@@ -202,9 +205,9 @@ public class Upgrades : MonoBehaviour
     {
         if (selectedUpgrade != null)
         {
-            selectedUpgrade.Invoke(); 
+            selectedUpgrade.Invoke();
+            OnUpgrade?.Invoke(selectedUpgradeName);
             Debug.Log("Upgrade Applied!  " + phase);
-           
         }
 
         if (phase == 1)
