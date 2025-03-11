@@ -52,7 +52,10 @@ public class Upgrades : MonoBehaviour
         });
         AddUpgrade(heroUpgrades, "Hero Auto Heal", "+1 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 1);
         AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2);
-
+        AddUpgrade(heroUpgrades, "Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1);
+        AddUpgrade(heroUpgrades, "Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2);
+        AddUpgrade(heroUpgrades,"Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1);
+        AddUpgrade(heroUpgrades,"Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2);
         // Tower Upgrades
         // AddUpgrade(towerUpgrades, "Tower Count", "+1 to Max Tower Count", () => manager.GetComponent<CustomSceneManager>().maxTowerCount++);
 
