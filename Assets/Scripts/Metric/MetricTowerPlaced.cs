@@ -59,6 +59,10 @@ public class MetricTowerPlaced : MetricAbstract
                 formValues.Add(num.ToString());
             }
             Post(formValues);
+
+            // reset
+            waveFirstTowerPlaced = -1;
+            numOfEachTowerPlaced = new Dictionary<string, int>();
         }
     }
 }
