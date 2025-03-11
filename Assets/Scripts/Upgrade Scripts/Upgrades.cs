@@ -15,6 +15,7 @@ public class Upgrades : MonoBehaviour
     private GameObject[] towers;
     public GameObject UpgradeUI;
     public TMP_Text Wave;
+    public TMP_Text UpgradeText;
     public int towerHP = 0;
     public int towerAutoHeal = 0;
     public int towerDamage = 0;
@@ -146,7 +147,16 @@ public class Upgrades : MonoBehaviour
         {
             currWave = WaveManager.Instance.currentWave ;
         }
-        Wave.text = "Wave " + currWave + " Completed!";
+        Wave.text = "Wave " +( currWave - 1)+ " Completed!";
+       
+        if (phase == 1)
+        {
+           UpgradeText.text =  "Choose an upgrade for hero";
+        }
+        else
+        {
+            UpgradeText.text =  "Choose an upgrade for all towers";
+        }
         foreach (var tower in towers)
         {
             Health hp = tower.GetComponent<Health>(); 

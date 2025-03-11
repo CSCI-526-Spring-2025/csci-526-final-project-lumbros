@@ -35,7 +35,7 @@ public class CustomSceneManager : MonoBehaviour
     public int curWorkerCount;
 
     private TMP_Text mEnemyCountUI;
-
+    public Dictionary<GameObject, InventorySlot> towerSlotMap;
     private static int GAME_SCREEN_INDEX = 1;
     // private static int UPGRADE_SCREEN_INDEX = 2;
     private List<GameObject> nonDestoryObjects;
@@ -113,6 +113,7 @@ public class CustomSceneManager : MonoBehaviour
         RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
+        towerSlotMap = new Dictionary<GameObject, InventorySlot>();
     }
 
 
@@ -211,17 +212,27 @@ public class CustomSceneManager : MonoBehaviour
     {
         maxTowerCount++;
     }
+    public void AddTower(GameObject tower, InventorySlot slot)
 
-    public void AddTower()
     {
+        Debug.Log("AddTower: " + tower.name + " " + slot.name);
+        towerSlotMap[tower] = slot;
         curTowerCount++;
     }
 
-    public void DestoryTower()
+    public void DestoryTower(GameObject tower)
     {
+        if (towerSlotMap.ContainsKey(tower))
+        {
+            InventorySlot slot = towerSlotMap[tower];
+            if(slot != null){
+                slot.EmptySlot();
+            }
+            towerSlotMap.Remove(tower);
+        }
+        Destroy(tower);
         curTowerCount--;
     }
-
     public bool CanAddTower()
     {
         // return curTowerCount < maxTowerCount;
@@ -320,9 +331,6 @@ public class CustomSceneManager : MonoBehaviour
 
     public void MoneyPopUp(int money)
     {
-        TextMeshProUGUI tmpText = MoneyPopUpUI.GetComponent<TextMeshProUGUI>();
-        if(tmpText != null)
-            tmpText.text = "$" + money;
         MoneyPopUpUI.SetActive(true);
         TimerManager.StartTimer(2f,  RemoveMoneyPopUp, true);
     }

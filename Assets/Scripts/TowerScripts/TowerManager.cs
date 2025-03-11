@@ -10,6 +10,7 @@ public class TowerManager : MonoBehaviour
     public int curTowerCount;
     public static int DEFAULT_MAX = 3;
     public static int DEFAULT_CUR = 0;
+    public Dictionary<GameObject, InventorySlot> towerSlotMap = new Dictionary<GameObject, InventorySlot>();
 
     private void Awake()
     {
@@ -52,13 +53,21 @@ public class TowerManager : MonoBehaviour
         maxTowerCount++;
     }
 
-    public void AddTower()
+    public void AddTower(GameObject tower, InventorySlot slot)
+
     {
+        towerSlotMap[tower] = slot;
         curTowerCount++;
     }
 
-    public void DestoryTower()
+    public void DestoryTower(GameObject tower)
     {
+        InventorySlot slot = towerSlotMap[tower];
+        if(slot != null){
+            slot.EmptySlot();
+        }
+        towerSlotMap.Remove(tower);
+        Destroy(tower);
         curTowerCount--;
     }
 

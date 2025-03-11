@@ -46,13 +46,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
                 if(MoneyManager.Instance.mMoney >= Cost)
                 {
-                    AddItem(prefabToInstantiate);
+                    GameObject newItem = AddItem(prefabToInstantiate);
                     MoneyManager.Instance.UpdateMoney(Cost * -1);
                     AddedTower?.Invoke(prefabToInstantiate.name);
                     // Check if the dropped object is a tower
                     if (dropped.CompareTag("Tower"))
                     {
-                        GamerManager.GetComponent<CustomSceneManager>().AddTower();
+                        GamerManager.GetComponent<CustomSceneManager>().AddTower(newItem, this);
                     }
                 }
             }
@@ -64,18 +64,25 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
 
 
-    public void AddItem(GameObject prefab)
+    public GameObject AddItem(GameObject prefab)
     {
         GameObject newItem = Instantiate(prefab, transform.position, Quaternion.identity);
         Vector3 pos = newItem.transform.position;
         pos.z = 0;
         newItem.transform.position = pos;
-        newItem.transform.localScale = new Vector3(0.10f,0.10f,0.10f);
+        newItem.transform.localScale = new Vector3(0.15f,0.15f,0.15f);
+        // TowerManager.instance.AddTower(newItem, this);
         containsItem = true;
+        return newItem;
     }
 
     public bool CanAddItem()
     {
         return !containsItem;
     }
+    public bool EmptySlot()
+    {
+        return containsItem = false;
+    }
+
 }
