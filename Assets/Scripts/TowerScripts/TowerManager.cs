@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerManager : MonoBehaviour
 {
     // Static reference to the instance of our SceneManager
-    public static TowerManager instance;
+    public static TowerManager Instance;
     public int maxTowerCount;
     public int curTowerCount;
     public static int DEFAULT_MAX = 3;
@@ -15,12 +15,12 @@ public class TowerManager : MonoBehaviour
     private void Awake()
     {
         // Check if instance already exists
-        if (instance == null)
+        if (Instance == null)
         {
             // If not, set instance to this
-            instance = this;
+            Instance = this;
         }
-        else if (instance != this)
+        else if (Instance != this)
         {
             // If instance already exists and it's not this, then destroy this to enforce the singleton.
             Destroy(gameObject);
@@ -56,6 +56,7 @@ public class TowerManager : MonoBehaviour
     public void AddTower(GameObject tower, InventorySlot slot)
 
     {
+        Debug.Log("TowerManager: adding tower " + tower.name + slot.name);
         towerSlotMap[tower] = slot;
         curTowerCount++;
     }

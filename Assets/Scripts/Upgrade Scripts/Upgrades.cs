@@ -147,7 +147,7 @@ public class Upgrades : MonoBehaviour
         {
             currWave = WaveManager.Instance.currentWave ;
         }
-        Wave.text = "Wave " +( currWave - 1)+ " Completed!";
+        Wave.text = "Wave " + (currWave - 1)+ " Completed!";
        
         if (phase == 1)
         {

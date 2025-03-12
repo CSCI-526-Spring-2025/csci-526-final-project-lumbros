@@ -71,8 +71,7 @@ public class Health : MonoBehaviour
         if(tag == "Player" || tag == "Core") manager.GetComponent<CustomSceneManager>().GameOver();
         if(tag == "Tower") 
         {
-            // TowerManager.instance.DestoryTower(gameObject);
-            manager.GetComponent<CustomSceneManager>().DestoryTower(gameObject);
+            TowerManager.Instance.DestoryTower(gameObject);
         }
         Destroy(gameObject);
     }

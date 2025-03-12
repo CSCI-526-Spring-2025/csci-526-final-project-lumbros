@@ -37,29 +37,29 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         string droppedItemName = eventData.pointerDrag.name;
         GameObject prefabToInstantiate = prefabLookup[droppedItemName];
 
-        if (!dropped.CompareTag("Tower") || GamerManager.GetComponent<CustomSceneManager>().CanAddTower())
-        {
-            // Instantiate new object   
-            if (prefabLookup.ContainsKey(droppedItemName))
-            {
-                int Cost = prefabToInstantiate.GetComponent<Tower>().GetCost();
 
-                if(MoneyManager.Instance.mMoney >= Cost)
+        // Instantiate new object   
+        if (prefabLookup.ContainsKey(droppedItemName))
+        {
+            int Cost = prefabToInstantiate.GetComponent<Tower>().GetCost();
+
+            if(MoneyManager.Instance.mMoney >= Cost)
+            {
+                GameObject newItem = AddItem(prefabToInstantiate);
+                MoneyManager.Instance.UpdateMoney(Cost * -1);
+                // AddedTower?.Invoke(prefabToInstantiate.name);
+                Debug.Log("In Inventory Slot Dopped " + newItem.tag);
+                // Check if the dropped object is a tower
+                if (newItem.CompareTag("Tower"))
                 {
-                    GameObject newItem = AddItem(prefabToInstantiate);
-                    MoneyManager.Instance.UpdateMoney(Cost * -1);
-                    AddedTower?.Invoke(prefabToInstantiate.name);
-                    // Check if the dropped object is a tower
-                    if (dropped.CompareTag("Tower"))
-                    {
-                        GamerManager.GetComponent<CustomSceneManager>().AddTower(newItem, this);
-                    }
+                    TowerManager.Instance.AddTower(newItem, this);
+                    // GamerManager.GetComponent<CustomSceneManager>().AddTower(newItem, this);
                 }
             }
-            else
-            {
-                Debug.LogWarning("No matching prefab found for: " + droppedItemName);
-            }
+        }
+        else
+        {
+            Debug.LogWarning("No matching prefab found for: " + droppedItemName);
         }
     }
 
@@ -71,7 +71,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         pos.z = 0;
         newItem.transform.position = pos;
         newItem.transform.localScale = new Vector3(0.15f,0.15f,0.15f);
-        // TowerManager.instance.AddTower(newItem, this);
         containsItem = true;
         return newItem;
     }

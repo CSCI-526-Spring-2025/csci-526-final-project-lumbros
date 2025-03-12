@@ -50,8 +50,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         if(MoneyManager.Instance.mMoney < mCost){
             CustomSceneManager.instance.DisplayWarning();
         }
-        if ((!towerPrefab.CompareTag("Tower") || manager.GetComponent<CustomSceneManager>().CanAddTower())
-            && MoneyManager.Instance.mMoney >= mCost)
+        if ( MoneyManager.Instance.mMoney >= mCost)
         {
             // Grid 
             mImage.raycastTarget = false;
@@ -137,7 +136,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         }
 
         mImage.raycastTarget = true;
-        if (manager.GetComponent<CustomSceneManager>().CanAddTower() && currentTowerPreview != null)
+        if (currentTowerPreview != null)
         {
             // Instantiate in inventory slot
             TimerManager.StartTimer(0.15f,  mGridManager.HideGrid, true);

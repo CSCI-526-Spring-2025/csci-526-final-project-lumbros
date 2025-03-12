@@ -20,24 +20,16 @@ public class CustomSceneManager : MonoBehaviour
     public static CustomSceneManager instance;
     public static Action<GAMESTATE> gameStateChange;
     public GAMESTATE curState;
-    public string whichIsMe = "please change me";
-    // private Vector2 minBounds = new Vector2(-7.3f, -4.3f);
-    // private Vector2 maxBounds = new Vector2(4.9f, 3.2f);
     private Vector2 minBounds = new Vector2(0f, 0f); 
     private Vector2 maxBounds = new Vector2(0f, 0f);  
     public GameObject uiPrefab;
     public int killLimit;
     public int totalKills;
-
-    public int maxTowerCount;
-    public int curTowerCount;
     public int maxWorkerCount;
     public int curWorkerCount;
 
     private TMP_Text mEnemyCountUI;
-    public Dictionary<GameObject, InventorySlot> towerSlotMap;
     private static int GAME_SCREEN_INDEX = 1;
-    // private static int UPGRADE_SCREEN_INDEX = 2;
     private List<GameObject> nonDestoryObjects;
     public static bool IsInitialized { get; private set;}
     public GameObject gameOverUI;
@@ -178,8 +170,7 @@ public class CustomSceneManager : MonoBehaviour
             return;
         }
         killLimit = WaveManager.Instance.GetKillsCount();
-        // Check if the u
-        // ser is on a non-main scene and presses the Escape key
+        // Check if the user is on a non-main scene and presses the Escape key
         if (SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
             // Load the main scene (assuming the main scene is at build index 0)
@@ -206,37 +197,6 @@ public class CustomSceneManager : MonoBehaviour
             gameOverUI.SetActive(true);            
         }
     
-    }
-
-    public void IncreaseTowerCount()
-    {
-        maxTowerCount++;
-    }
-    public void AddTower(GameObject tower, InventorySlot slot)
-
-    {
-        Debug.Log("AddTower: " + tower.name + " " + slot.name);
-        towerSlotMap[tower] = slot;
-        curTowerCount++;
-    }
-
-    public void DestoryTower(GameObject tower)
-    {
-        if (towerSlotMap.ContainsKey(tower))
-        {
-            InventorySlot slot = towerSlotMap[tower];
-            if(slot != null){
-                slot.EmptySlot();
-            }
-            towerSlotMap.Remove(tower);
-        }
-        Destroy(tower);
-        curTowerCount--;
-    }
-    public bool CanAddTower()
-    {
-        // return curTowerCount < maxTowerCount;
-        return true;
     }
 
     public void AddWorker()
@@ -291,10 +251,9 @@ public class CustomSceneManager : MonoBehaviour
             if(go != null) Destroy(go);
         }
         gameOverUI.SetActive(false);
-        //TowerManager.instance.Reset();
+        TowerManager.Instance.Reset();
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();
-        Debug.Log(whichIsMe);
         curWorkerCount = 0;
         UpdateGameState(GAMESTATE.BeforeGameStart);
     }
