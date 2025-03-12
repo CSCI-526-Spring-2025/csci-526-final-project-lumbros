@@ -27,7 +27,12 @@ public class Upgrades : MonoBehaviour
     private System.Action selectedUpgrade;
     private string selectedUpgradeName;
     public static System.Action<string> OnUpgrade;
-
+    public void reset(){
+        towerHP = 0;
+        towerAutoHeal = 0;
+        towerDamage = 0;
+        towerRange = 0;
+    }
     void Start()
     {
         hero = GameObject.FindGameObjectWithTag("Player");
@@ -148,7 +153,9 @@ public class Upgrades : MonoBehaviour
             currWave = WaveManager.Instance.currentWave ;
         }
         Wave.text = "Wave " + (currWave - 1)+ " Completed!";
-       
+        if(currWave == 2){
+            reset();
+        }
         if (phase == 1)
         {
            UpgradeText.text =  "Choose an upgrade for hero";

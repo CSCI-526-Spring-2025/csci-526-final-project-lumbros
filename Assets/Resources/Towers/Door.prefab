@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1092748485321057979}
   m_Layer: 9
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   attackCooldown: 1
   damage: 1
   heroBounces: 0
+  isEnemy: 0
 --- !u!114 &5999875819943144269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +148,7 @@ MonoBehaviour:
   maxHealth: 8
   currentHealth: 0
   autoHeal: 0
+  updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &-2012626923977821580
