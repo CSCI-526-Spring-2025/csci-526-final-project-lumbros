@@ -7,6 +7,8 @@ using System;
 public class WaveManager : MonoBehaviour
 {
     private TMP_Text mWavesUI;
+    private GameObject mWavesCountdown;
+    private TMP_Text mWavesCountdownUI;
     private int mWaves = 1;
     public static WaveManager Instance { get; private set; }
     public static event Action<int, int> waveBegin;
@@ -163,6 +165,9 @@ public class WaveManager : MonoBehaviour
     {
         if (mWavesUI != null){
             mWavesUI.text = "Wave " + currentWave.ToString();
+            if(mWavesCountdown.activeSelf){
+                DisableCountdown();
+            }
         }
 
         if( CurrWave == false)
@@ -174,6 +179,13 @@ public class WaveManager : MonoBehaviour
             }
             int tempWave = currentWave + 1;
             mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+            mWavesCountdownUI.text = FormatTime(waveTimer);
+            if(!mWavesCountdown.activeSelf){
+                mWavesCountdown.SetActive(true);
+            }
+            if(mWavesCountdownUI.text == "0"){
+                DisableCountdown();
+            }
         }        
 
     }
@@ -212,5 +224,13 @@ public class WaveManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         mWavesUI = GameObject.Find("WaveTextUI")?.GetComponent<TMP_Text>();
+        mWavesCountdown  = GameObject.Find("WaveCountdownUI");
+        if(mWavesCountdown != null){
+            mWavesCountdownUI = mWavesCountdown.GetComponent<TMP_Text>();
+        }
+    }
+
+    private void DisableCountdown(){
+       mWavesCountdown.SetActive(false);
     }
 }

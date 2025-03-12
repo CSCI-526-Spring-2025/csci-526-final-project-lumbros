@@ -45,8 +45,6 @@ public class CustomSceneManager : MonoBehaviour
         // Check if instance already exists
         if (instance == null)
         {
-            // If not, set instance to this
-            whichIsMe = "i got change";
             instance = this;
         }
         else if (instance != this)
@@ -105,7 +103,6 @@ public class CustomSceneManager : MonoBehaviour
         RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
-        towerSlotMap = new Dictionary<GameObject, InventorySlot>();
     }
 
 
@@ -232,7 +229,6 @@ public class CustomSceneManager : MonoBehaviour
 
     public void GameOver(){
         Debug.Log("entering gameover");
-        Debug.Log(whichIsMe);
         Time.timeScale = 0; // Pause the game
         gameOverUI.SetActive(true); // Show the Game Over UI
         UpdateGameState(GAMESTATE.GameOver);
