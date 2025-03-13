@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour
 
     void HitTarget()
     {
+        
         var damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
@@ -43,7 +44,8 @@ public class Projectile : MonoBehaviour
 
         if (bouncesLeft > 0)
         {
-            Transform nextTarget = FindNextTarget();
+            Transform nextTarget = FindNextEnemy(target);
+            Debug.Log("bounces left: " + bouncesLeft + "target: " + nextTarget);
             if (nextTarget != null)
             {
                 target = nextTarget;
@@ -51,44 +53,45 @@ public class Projectile : MonoBehaviour
                 return;
             }
         }
-
+        Debug.Log("bounces left: " + bouncesLeft);
         Destroy(gameObject);
     }
 
-    Transform FindNextTarget()
+    Transform FindNextEnemy(Transform previousTarget)
     {
-        string targetTag = isEnemyProjectile ? "Tower" : "Enemy";
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         Transform bestTarget = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (GameObject obj in targets)
+        foreach (GameObject enemy in enemies)
         {
-            float distance = Vector2.Distance(transform.position, obj.transform.position);
+            if (enemy.transform == previousTarget) continue; 
+
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                bestTarget = obj.transform;
+                bestTarget = enemy.transform;
             }
         }
 
         return bestTarget;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        GameObject other = collision.gameObject; 
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     GameObject other = collision.gameObject; 
 
-        if (isEnemyProjectile && (other.CompareTag("Tower") || other.CompareTag("Core") || other.layer == LayerMask.NameToLayer("Buildings")))
-        {
-            var damageable = other.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage, shooter);
-            }
-            Destroy(gameObject);
-        }
-    }
+    //     if (isEnemyProjectile && (other.CompareTag("Tower") || other.CompareTag("Core") || other.layer == LayerMask.NameToLayer("Buildings")))
+    //     {
+    //         var damageable = other.GetComponent<IDamageable>();
+    //         if (damageable != null)
+    //         {
+    //             damageable.TakeDamage(damage, shooter);
+    //         }
+    //         Destroy(gameObject);
+    //     }
+    // }
 
 
     void OnBecameInvisible()

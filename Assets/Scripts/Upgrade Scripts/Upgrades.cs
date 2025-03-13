@@ -253,9 +253,11 @@ public class Upgrades : MonoBehaviour
             phase = 2;
             UpgradeUI.SetActive(false);
             UpgradeUI.SetActive(true); 
+            AssignUpgrades(towerUpgrades);
         }else{
             phase = 1;
             LoadMainScene();
+            AssignUpgrades(heroUpgrades);
         }
     }
     void LoadMainScene()
