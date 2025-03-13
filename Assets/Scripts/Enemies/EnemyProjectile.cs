@@ -29,7 +29,7 @@ public class EnemyProjectile : MonoBehaviour
 
 
         // Check if we hit a damageable object (Player, Core, or Tower)
-        if (other.CompareTag("Player") || other.CompareTag("Core") || other.CompareTag("Tower"))
+        if (other.CompareTag("Player") || other.CompareTag("Core") || other.CompareTag("Tower") || other.CompareTag("Worker"))
         {
             // Deal damage if the object has a Health component
             Health health = other.GetComponent<Health>();
