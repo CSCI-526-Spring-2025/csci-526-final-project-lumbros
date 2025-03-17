@@ -20,6 +20,14 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     protected string enemyType = "Please rename me in StartCall";
     public ParticleSystem deathParticle;
 
+    // for flashing
+    private Color originalColor;
+    public Color flash = new Color(255, 255, 255);
+    private SpriteRenderer spriteRenderer;
+    public float delay = 0.1f;
+    public int numOfFlash = 4;
+    
+    // do not overwrite
     private void OnDisable()
     {
         // enemyKill?.Invoke();
@@ -37,6 +45,12 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("NormalLayer"));
 
+        Transform child = transform.GetChild(1);
+        if(child == null) child = transform.GetChild(0);
+
+        spriteRenderer = child.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 2f;
 
@@ -52,17 +66,35 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             if (deathParticle != null)
             {
                 ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
-                //Destroy(deathEffectClone, 2.0f);
             }
             Destroy(gameObject);
             enemyKill?.Invoke();
         }
         else
         {
+            StartCoroutine(EnemyHitFlash());
             PostDamage(damage, attacker);
         }
     }
 
+    IEnumerator EnemyHitFlash()
+    {
+        Debug.Log("enemy take damage, and now is flashing");
+        int howManyFlash = numOfFlash;
+
+        while(howManyFlash > 0)
+        {
+            spriteRenderer.color = flash; // flash
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            spriteRenderer.color = originalColor; // original color
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            howManyFlash--;
+        }
+    }
+
+    // do not overwrite
     void Update()
     {
         BeforeUpdate();
