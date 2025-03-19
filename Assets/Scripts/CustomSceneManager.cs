@@ -7,6 +7,8 @@ using System;
 
 public enum GAMESTATE{
     BeforeGameStart, // Before "Start Game" is clicked on StartCanvas
+    PlaceCore, // When Core is draggable,
+    DummyState, // Dummy state for testing
     GameStart, // Right after "Start Game" is clicked on StartCanvas,
                // no time is spent here, just used for event notifier
     GamePlay, // During waves
@@ -65,6 +67,8 @@ public class CustomSceneManager : MonoBehaviour
         {
             case GAMESTATE.BeforeGameStart:
                 instance.StartingGame();
+                break;
+            case GAMESTATE.PlaceCore:
                 break;
             case GAMESTATE.GameStart:
                 break;

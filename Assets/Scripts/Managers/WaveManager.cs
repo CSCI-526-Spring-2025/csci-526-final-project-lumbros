@@ -80,6 +80,12 @@ public class WaveManager : MonoBehaviour
     IEnumerator StartWaveCoroutine()
     {
         waveTimer = 5f;
+
+        /* Uncomment this block to test core drag and place */
+        //sceneManager.UpdateGameState(GAMESTATE.PlaceCore);
+        //yield return new WaitForSeconds(waveInterval);
+        //sceneManager.UpdateGameState(GAMESTATE.DummyState);
+
         yield return new WaitForSeconds(waveInterval);
         StartWave();
     }

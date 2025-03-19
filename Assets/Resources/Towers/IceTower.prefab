@@ -142,6 +142,7 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   autoHeal: 0
+  updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &6692925153382943676

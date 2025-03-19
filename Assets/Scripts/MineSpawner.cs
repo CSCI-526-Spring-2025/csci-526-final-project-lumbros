@@ -90,7 +90,7 @@ public class MineSpawner : MonoBehaviour
                     continue;
                 }
 
-                slot.AddItem(minePrefab);
+                slot.AddNewItem(minePrefab);
             }
         }
     }
