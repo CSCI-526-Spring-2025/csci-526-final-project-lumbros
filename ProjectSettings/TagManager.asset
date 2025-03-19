@@ -17,6 +17,7 @@ TagManager:
   - Warning
   - MoneyPopUp
   - bullet
+  - Building
   layers:
   - Default
   - TransparentFX
@@ -33,8 +34,8 @@ TagManager:
   - Hero
   - Tower
   - Obstacle
-  - 
-  - 
+  - Buildings
+  - Projectile
   - 
   - 
   - 

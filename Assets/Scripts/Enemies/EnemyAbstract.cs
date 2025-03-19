@@ -19,14 +19,20 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     protected Rigidbody2D rb;
     protected string enemyType = "Please rename me in StartCall";
     public ParticleSystem deathParticle;
+
+    // for flashing
+    private Color originalColor;
+    public Color flash = new Color(255, 255, 255);
+    private SpriteRenderer spriteRenderer;
+    public float delay = 0.1f;
+    public int numOfFlash = 4;
     
     // do not overwrite
     private void OnDisable()
     {
-        //enemyKill?.Invoke();
+        // enemyKill?.Invoke();
     }
 
-    // do not overwrite
     void Start()
     {
         GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
@@ -39,30 +45,52 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("NormalLayer"));
 
+        Transform child = transform.GetChild(1);
+        if(child == null) child = transform.GetChild(0);
+
+        spriteRenderer = child.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
         rb = GetComponent<Rigidbody2D>();
-        rb.drag = 2f; 
+        rb.drag = 2f;
 
         StartCall();
     }
 
-    // **Take damage**
     public void TakeDamage(int damage, Transform attacker)
     {
         health -= damage;
         if (health <= 0)
         {
             Debug.Log(enemyType + " enemy dies");
-            if(deathParticle != null)
+            if (deathParticle != null)
             {
                 ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
-                //Destroy(deathEffectClone, 2.0f);
             }
-            Destroy(gameObject); // Destroy the enemy when health reaches zero
+            Destroy(gameObject);
             enemyKill?.Invoke();
         }
         else
         {
+            StartCoroutine(EnemyHitFlash());
             PostDamage(damage, attacker);
+        }
+    }
+
+    IEnumerator EnemyHitFlash()
+    {
+        Debug.Log("enemy take damage, and now is flashing");
+        int howManyFlash = numOfFlash;
+
+        while(howManyFlash > 0)
+        {
+            spriteRenderer.color = flash; // flash
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            spriteRenderer.color = originalColor; // original color
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            howManyFlash--;
         }
     }
 
@@ -76,7 +104,6 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         TryAttack();
     }
 
-    // **Return to Core if the target is destroyed**
     protected virtual void LateUpdate()
     {
         if (isAggroed && target == null)
@@ -88,44 +115,71 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
     protected virtual void PostDamage(int damage, Transform attacker)
     {
-        SetAggroTarget(attacker); // Switch target to the attacker after taking damage
+        SetAggroTarget(attacker);
     }
 
-    // override for addition starting setting
     protected abstract void StartCall();
-    // **Set aggro target**
     public abstract void SetAggroTarget(Transform newTarget);
 
-    // how the enemey moves. default is to move toward target
     protected virtual void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
 
-    // **Attempt to attack the current target**
+    // **改进的 TryAttack()，优先攻击附近的 Worker、Core、Hero、Tower**
     protected virtual void TryAttack()
     {
-        if (target != null && Vector2.Distance(transform.position, target.position) <= attackRange && canAttack)
+        if (canAttack)
         {
-            StartCoroutine(AttackTarget());
+            Transform closestTarget = FindClosestAttackableTarget();
+            if (closestTarget != null)
+            {
+                StartCoroutine(AttackTarget(closestTarget));
+            }
         }
     }
 
-    // Any setting before executing update
+    // **寻找攻击范围内最近的单位**
+    protected Transform FindClosestAttackableTarget()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        Transform closest = null;
+        float minDistance = float.MaxValue;
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Worker") || collider.CompareTag("Core") || 
+                collider.CompareTag("Hero") || collider.CompareTag("Tower"))
+            {
+                float distance = Vector2.Distance(transform.position, collider.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closest = collider.transform;
+                }
+            }
+        }
+
+        return closest;
+    }
+
+    // **攻击选中的目标**
+    protected virtual IEnumerator AttackTarget(Transform attackTarget)
+    {
+        canAttack = false;
+
+        Health targetHealth = attackTarget.GetComponent<Health>();
+        if (targetHealth != null)
+        {
+            targetHealth.TakeDamage(attackDamage, this.tag);
+        }
+
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
     protected virtual void BeforeUpdate()
     {
 
-    }
-
-    // **Attack logic**
-    protected virtual IEnumerator AttackTarget()
-    {
-        canAttack = false;
-        if (target.GetComponent<Health>() != null)
-        {
-            target.GetComponent<Health>().TakeDamage(attackDamage, target.tag);
-        }
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
     }
 }

@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 7383947285946892729}
   - component: {fileID: 2934526200056339433}
   - component: {fileID: 6332306941032756186}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   attackCooldown: 1
   damage: 1
   heroBounces: 0
+  isEnemy: 0
 --- !u!114 &5999875819943144269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,9 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 30
   currentHealth: 0
-  autoHeal: 0
+  autoHeal: 1
+  updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &-2012626923977821580

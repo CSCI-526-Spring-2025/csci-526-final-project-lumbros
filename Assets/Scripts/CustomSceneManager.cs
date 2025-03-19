@@ -29,7 +29,7 @@ public class CustomSceneManager : MonoBehaviour
     public int totalKills;
     public int maxWorkerCount;
     public int curWorkerCount;
-
+    public bool isPause = false;
     private TMP_Text mEnemyCountUI;
     private static int GAME_SCREEN_INDEX = 1;
     private List<GameObject> nonDestoryObjects;
@@ -245,6 +245,15 @@ public class CustomSceneManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void pause(){
+        if(!isPause){
+            PauseGame();
+            isPause = true;
+        }else{
+            Resume();
+            isPause = false;
+        }
+    }
     // called when you click "Play Again" on game over screen
     public void Restart() {
         foreach(GameObject go in nonDestoryObjects){

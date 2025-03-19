@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class AutoAttack : MonoBehaviour
 {
     public GameObject projectilePrefab; 
@@ -7,10 +8,11 @@ public class AutoAttack : MonoBehaviour
     private float lastAttackTime;
     public int damage = 1;
     public int heroBounces = 0; 
+    public bool isEnemy = false; 
 
     void Update()
     {
-        GameObject target = FindClosestEnemy();
+        GameObject target = FindClosestTarget();
         if (target != null && Time.time - lastAttackTime > attackCooldown)
         {
             Shoot(target.transform);
@@ -18,19 +20,20 @@ public class AutoAttack : MonoBehaviour
         }
     }
 
-    GameObject FindClosestEnemy()
+    GameObject FindClosestTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        string targetTag = isEnemy ? "Tower" : "Enemy";
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
         GameObject closest = null;
         float minDistance = attackRange;
 
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject target in targets)
         {
-            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            float distance = Vector2.Distance(transform.position, target.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                closest = enemy;
+                closest = target;
             }
         }
 
@@ -40,7 +43,7 @@ public class AutoAttack : MonoBehaviour
     void Shoot(Transform target)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<Projectile>().SetTarget(target, transform, heroBounces); 
+        projectile.GetComponent<Projectile>().SetTarget(target, transform, heroBounces, isEnemy); 
         projectile.GetComponent<Projectile>().damage = damage; 
     }
 }

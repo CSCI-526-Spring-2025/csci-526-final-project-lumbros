@@ -6,13 +6,15 @@ public class Projectile : MonoBehaviour
     private Transform target;
     public Transform shooter;
     public int damage = 1;
-    public int bouncesLeft = 0; 
+    public int bouncesLeft = 0;
+    public bool isEnemyProjectile = false; 
 
-    public void SetTarget(Transform newTarget, Transform shooter, int extraBounces)
+    public void SetTarget(Transform newTarget, Transform shooter, int extraBounces, bool isEnemy)
     {
         target = newTarget;
         this.shooter = shooter;
-        bouncesLeft = extraBounces; 
+        bouncesLeft = extraBounces;
+        isEnemyProjectile = isEnemy;
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class Projectile : MonoBehaviour
 
     void HitTarget()
     {
+        
         var damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
@@ -42,15 +45,16 @@ public class Projectile : MonoBehaviour
         if (bouncesLeft > 0)
         {
             Transform nextTarget = FindNextEnemy(target);
+            Debug.Log("bounces left: " + bouncesLeft + "target: " + nextTarget);
             if (nextTarget != null)
             {
                 target = nextTarget;
-                bouncesLeft--; 
+                bouncesLeft--;
                 return;
             }
         }
-
-        Destroy(gameObject); 
+        Debug.Log("bounces left: " + bouncesLeft);
+        Destroy(gameObject);
     }
 
     Transform FindNextEnemy(Transform previousTarget)
@@ -74,8 +78,24 @@ public class Projectile : MonoBehaviour
         return bestTarget;
     }
 
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     GameObject other = collision.gameObject; 
+
+    //     if (isEnemyProjectile && (other.CompareTag("Tower") || other.CompareTag("Core") || other.layer == LayerMask.NameToLayer("Buildings")))
+    //     {
+    //         var damageable = other.GetComponent<IDamageable>();
+    //         if (damageable != null)
+    //         {
+    //             damageable.TakeDamage(damage, shooter);
+    //         }
+    //         Destroy(gameObject);
+    //     }
+    // }
+
+
     void OnBecameInvisible()
     {
-    Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

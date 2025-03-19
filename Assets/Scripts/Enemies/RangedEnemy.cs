@@ -55,8 +55,11 @@ public class RangedEnemy : EnemyAbstract
         {
             return null;
         }
+
         // Create a list of possible targets
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] workers = GameObject.FindGameObjectsWithTag("Worker"); // Get all workers
+
         float minDistance = float.MaxValue;
         Transform closestTarget = core; // Default to core if no closer targets found
 
@@ -72,6 +75,17 @@ public class RangedEnemy : EnemyAbstract
             {
                 minDistance = distance;
                 closestTarget = player.transform;
+            }
+        }
+
+        // Check distance to each worker
+        foreach (GameObject worker in workers)
+        {
+            float distance = Vector2.Distance(transform.position, worker.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestTarget = worker.transform;
             }
         }
 
