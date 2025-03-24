@@ -171,7 +171,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         Health targetHealth = attackTarget.GetComponent<Health>();
         if (targetHealth != null)
         {
-            targetHealth.TakeDamage(attackDamage, this.tag);
+            targetHealth.TakeDamage(attackDamage, attackTarget.tag);
         }
 
         yield return new WaitForSeconds(attackCooldown);
