@@ -4200,7 +4200,7 @@ Transform:
   m_GameObject: {fileID: 355674383}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.17, y: -0.01, z: -1}
+  m_LocalPosition: {x: 5.26, y: 0.07, z: -1}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4224,8 +4224,10 @@ MonoBehaviour:
   - {fileID: 712027675066443393, guid: 018851e70473b014486e4e08d9270faa, type: 3}
   - {fileID: 712027675066443393, guid: a0b1158a65ad3034287ef6104ecf9c06, type: 3}
   - {fileID: 712027675066443393, guid: 717808e546340c14bb6b72bb4fcf704c, type: 3}
-  spawnPoint: {fileID: 355674384}
-  spawnRadius: 2
+  mapMinX: -8
+  mapMaxX: 6
+  mapMinY: -5
+  mapMaxY: 4
   Enemy0SpawnChance: 0.3
   Enemy1SpawnChance: 0.2
   Enemy2SpawnChance: 0.2
@@ -6969,6 +6971,10 @@ MonoBehaviour:
   UpgradeUI: {fileID: 1772256192}
   Wave: {fileID: 1609957239}
   UpgradeText: {fileID: 1741370570}
+  towerHP: 0
+  towerAutoHeal: 0
+  towerDamage: 0
+  towerRange: 0
 --- !u!1001 &664482958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7611,6 +7617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWave: 1
+  bossEnemy: {fileID: 0}
   KillperWave: 0
   enemyHealthMultiplier: 0
   enemyDamageMultiplier: 0
@@ -25203,7 +25210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -59.99997, y: -26.99997}
+  m_AnchoredPosition: {x: -59.99994, y: -26.99997}
   m_SizeDelta: {x: -154.64, y: -91.565}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2026817667
@@ -27366,7 +27373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344480427147113728, guid: 3aae97666de2141e9ab9bc10d19378c5, type: 3}
       propertyPath: maxHealth
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8904630598106933807, guid: 3aae97666de2141e9ab9bc10d19378c5, type: 3}
       propertyPath: m_Name

@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "BT392.sln"
+    "dotnet.defaultSolution": "csci-526-final-project-lumbros.sln"
 }

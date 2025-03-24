@@ -116,6 +116,9 @@ MonoBehaviour:
   attackRange: 0.5
   attackCooldown: 1
   deathParticle: {fileID: 8289590676886491281, guid: 0aa37327ddd5b7742aefd22e5d764c39, type: 3}
+  flash: {r: 255, g: 255, b: 255, a: 1}
+  delay: 0.1
+  numOfFlash: 4
 --- !u!1 &3006621035871399364
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class EnemyPhantom : EnemyAbstract
         int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
 
         // ignorecollider
-        string[] ignoredLayers = { "EnemyDisCol, Obstacle", "Tower" };
+        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer"};
 
         foreach (string layerName in ignoredLayers)
         {
@@ -16,10 +16,6 @@ public class EnemyPhantom : EnemyAbstract
             if (layer != -1)
             {
                 Physics2D.IgnoreLayerCollision(enemyLayer, layer);
-            }
-            else
-            {
-                Debug.LogWarning($"Layer '{layerName}' 不存在，请检查是否正确命名！");
             }
         }
 

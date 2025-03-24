@@ -44,6 +44,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("NormalLayer"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Projectile"));
 
         Transform child = transform.GetChild(1);
         if(child == null) child = transform.GetChild(0);
@@ -149,7 +150,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Worker") || collider.CompareTag("Core") || 
-                collider.CompareTag("Hero") || collider.CompareTag("Tower"))
+                collider.CompareTag("Player") || collider.CompareTag("Tower"))
             {
                 float distance = Vector2.Distance(transform.position, collider.transform.position);
                 if (distance < minDistance)
@@ -171,7 +172,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         Health targetHealth = attackTarget.GetComponent<Health>();
         if (targetHealth != null)
         {
-            targetHealth.TakeDamage(attackDamage, this.tag);
+            targetHealth.TakeDamage(attackDamage, attackTarget.tag);
         }
 
         yield return new WaitForSeconds(attackCooldown);

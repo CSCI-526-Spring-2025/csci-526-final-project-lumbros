@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BossEnemy : EnemyAbstract
 {
-    public float detectionRange = 10f; // 发现 Player 的范围
-    public int maxHealth = 10; // Boss 最大生命值
+    public float detectionRange = 5f; // 发现 Player 的范围
+    public int maxHealth; // Boss 最大生命值
 
     public GameObject projectilePrefab; // 弹幕子弹
     public float fanAngle = 60f; // 扇形弹幕角度
@@ -14,13 +14,14 @@ public class BossEnemy : EnemyAbstract
     private bool isEnraged = false; // 是否进入弹幕模式
 
     public GameObject[] enemyPrefabs; // 小怪 Prefabs
-    public int summonCount = 5; // 召唤总数量
-    public float summonRadius = 3f; // 召唤半径
-    public float enemySpawnChance = 0.7f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
-    public float rangedEnemySpawnChance = 0.3f;
+    public int summonCount; // 召唤总数量
+    private float summonRadius = 2.5f; // 召唤半径
+    private float enemySpawnChance = 0.6f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
+    private float rangedEnemySpawnChance = 0.4f;
 
     private Transform player;
 
+    private bool summonedAt75 = false;
     private bool summonedAt50 = false;
     private bool summonedAt25 = false;
 
@@ -32,11 +33,13 @@ public class BossEnemy : EnemyAbstract
             player = playerObject.transform;
         }
 
-        maxHealth = 20;
-        speed = 0.8f;
+        detectionRange = 5;
+        maxHealth = 50;
+        speed = 0.3f;
         attackDamage = 2; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time
+        summonCount = 10;
         health = maxHealth;
 
         //初始化血量
@@ -65,6 +68,13 @@ public class BossEnemy : EnemyAbstract
         {
             isEnraged = true;
             StartCoroutine(ShootPattern());
+        }
+
+        // **75% 血量时召唤**
+        if (!summonedAt75 && health <= (maxHealth * 0.75f))
+        {
+            summonedAt75 = true;
+            SummonMinions();
         }
 
         // **50% 血量时召唤**
@@ -97,7 +107,7 @@ public class BossEnemy : EnemyAbstract
 
             // **按照概率选择小怪种类**
             GameObject minionPrefab = null;
-            float randomValue = Random.value; // 0~1 之间的随机数
+            float randomValue = Random.value;
 
             if (randomValue < enemySpawnChance) // 敌人 A 出现概率
             {
@@ -175,7 +185,7 @@ public class BossEnemy : EnemyAbstract
             Vector2 projectileDirection = new Vector2(projectileDirX, projectileDirY);
 
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<EnemyProjectile>().SetDirection(transform.position + (Vector3)projectileDirection, transform);
+            projectile.GetComponent<EnemyProjectile>().SetDirection(transform.position + (Vector3)projectileDirection);
         }
 
         StartCoroutine(ResetShootCooldown());

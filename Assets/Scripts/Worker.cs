@@ -41,7 +41,10 @@ public class Worker : MonoBehaviour, IDamageable
 
     public void SetTargetCore(int gold)
     {
-        target = GameObject.FindGameObjectWithTag("Core").transform;
+        if (GameObject.FindGameObjectWithTag("Core") != null)
+        {
+            target = GameObject.FindGameObjectWithTag("Core").transform;
+        }
         goldAmount = gold;
     }
 

@@ -1,12 +1,15 @@
 using System.Collections;
+using Unity.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance { get; private set; }
     public GameObject[] enemyPrefabs; // 敌人预制体数组
-    public Transform spawnPoint;      // 生成点
-    public float spawnRadius = 2f;    // 生成区域半径
+    public float mapMinX = -8f;
+    public float mapMaxX = 6f;
+    public float mapMinY = -5f;
+    public float mapMaxY = 4f;
 
     public float Enemy0SpawnChance = 0.3f;
     public float Enemy1SpawnChance = 0.2f;
@@ -14,6 +17,11 @@ public class EnemySpawner : MonoBehaviour
     public float Enemy3SpawnChance = 0.2f;
     public float Enemy4SpawnChance = 0.1f;
 
+    private int basic = 0;
+    private int ranged = 1;
+    private int stalker = 2;
+    private int phantom = 3;
+    private int boss = 4;
     private bool stopSpawning = false; 
 
     private void Awake()
@@ -39,6 +47,39 @@ public class EnemySpawner : MonoBehaviour
         CustomSceneManager.gameStateChange += OnGameStateChanged;
     }
 
+    private Vector3 GetRandomEdgePosition()
+{
+    int edge = Random.Range(0, 4); // 0: top, 1: bottom, 2: left, 3: right
+    float x, y;
+
+    switch (edge)
+    {
+        case 0: // Top
+            x = Random.Range(mapMinX, mapMaxX);
+            y = mapMaxY;
+            break;
+        case 1: // Bottom
+            x = Random.Range(mapMinX, mapMaxX);
+            y = mapMinY;
+            break;
+        case 2: // Left
+            x = mapMinX;
+            y = Random.Range(mapMinY, mapMaxY);
+            break;
+        case 3: // Right
+            x = mapMaxX;
+            y = Random.Range(mapMinY, mapMaxY);
+            break;
+        default:
+            x = 0;
+            y = 0;
+            break;
+    }
+
+    return new Vector3(x, y, 0f);
+}
+
+
     private void OnGameStateChanged(GAMESTATE newState)
     {
         if (newState == GAMESTATE.GameOver)
@@ -51,7 +92,19 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnWave(int enemyCount, int currentWave, float SpawnInterval)
     {
         stopSpawning = false; // make sure spawning is enabled
-        StartCoroutine(SpawnEnemies(enemyCount, currentWave, SpawnInterval));
+
+        if (currentWave % 10 == 0)
+        {
+            Vector3 spawnPosition = GetRandomEdgePosition();
+            GameObject BossEnemy = Instantiate(enemyPrefabs[boss], spawnPosition, Quaternion.identity);
+
+            //WaveManager.Instance.NotifyBossSpawned(BossEnemy);
+            return;
+        }
+        else 
+        {
+            StartCoroutine(SpawnEnemies(enemyCount, currentWave, SpawnInterval));
+        }
     }
 
     IEnumerator SpawnEnemies(int enemyCount, int currentWave, float SpawnInterval)
@@ -68,10 +121,11 @@ public class EnemySpawner : MonoBehaviour
                 yield break;
             }
 
-            Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = new Vector3(spawnPoint.position.x + randomOffset.x, spawnPoint.position.y + randomOffset.y, spawnPoint.position.z);
+            Vector3 spawnPosition = GetRandomEdgePosition();
 
             GameObject enemyToSpawn = ChooseRandomEnemy(currentWave);
+            //GameObject enemyToSpawn = enemyPrefabs[boss];
+
             GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
 
             //Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
@@ -87,53 +141,37 @@ public class EnemySpawner : MonoBehaviour
 
     GameObject ChooseRandomEnemy(int currentWave)
     {
-        int ctrlcnt = currentWave % 5;
         float randomValue = Random.value;
-        if (currentWave <= 5)
+
+        switch (currentWave)
         {
-            switch (currentWave)
-            {
-                case 1:
-                    return enemyPrefabs[0];
+            case 1:
+            case 2:
+                return enemyPrefabs[basic];
 
-                case 2:
-                    if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-                    return enemyPrefabs[1];
+            case 3:
+                return enemyPrefabs[ranged];
 
-                case 3:
-                if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
-                return enemyPrefabs[2];
+            case 4:
+                return enemyPrefabs[phantom];
 
-                case 4:
-                if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
-                if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
-                return enemyPrefabs[3];
-
-                default:
-                    if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
-                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
-                    if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance)) return enemyPrefabs[3];
-                    return enemyPrefabs[4];
-            }
-        }
-        else if (ctrlcnt == 0)
-        {
-            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
-            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
-            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance)) return enemyPrefabs[3];
-            return enemyPrefabs[4];
-        }
-        else
-        {
-            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[0];
-            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance)) return enemyPrefabs[1];
-            if (randomValue < (Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance)) return enemyPrefabs[2];
-            return enemyPrefabs[3];
+            case 5:
+                return enemyPrefabs[stalker];
+            
+            default:
+            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[basic];
+            if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance) return enemyPrefabs[ranged];
+            if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
+            return enemyPrefabs[phantom];
         }
 
+        // // 其他波次（不整十），从 basic~phantom 里随机挑一个
+        // float total = Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance;
+        // float value = Random.value * total;
+
+        // if (value < Enemy0SpawnChance) return enemyPrefabs[basic];
+        // if (value < Enemy0SpawnChance + Enemy1SpawnChance) return enemyPrefabs[ranged];
+        // if (value < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
+        // return enemyPrefabs[phantom];
     }
 }

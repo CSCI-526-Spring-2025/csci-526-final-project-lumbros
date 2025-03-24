@@ -7,7 +7,7 @@ public class EnemyProjectile : MonoBehaviour
     public int damage = 1;           // Damage value
 
     // Instead of tracking a target, we'll set a direction when fired
-    public void SetDirection(Vector2 targetPosition, Transform shooter)
+    public void SetDirection(Vector2 targetPosition)
     {
         // Calculate direction from shooter to target position
         direction = (targetPosition - (Vector2)transform.position).normalized;

@@ -12,9 +12,9 @@ public class RangedEnemy : EnemyAbstract
         enemyType = "Enemy - Range";
 
         health = 4; // Enemy health
-        speed = 0.8f;
+        speed = 0.5f;
         attackDamage = 1; // Melee attack damage
-        attackRange = 5f; // Melee attack range
+        attackRange = 4f; // Melee attack range
         attackCooldown = 2f; // Attack cooldown time
         target = FindClosestTarget();
         //初始化血量
@@ -96,7 +96,7 @@ public class RangedEnemy : EnemyAbstract
     {
         canAttack = false;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<EnemyProjectile>().SetDirection(target.position, transform);
+        projectile.GetComponent<EnemyProjectile>().SetDirection(target.position);
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }

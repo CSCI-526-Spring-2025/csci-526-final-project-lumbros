@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EnemyStalker : EnemyAbstract
 {
-    public float normalSpeed = 0.5f;  // 初始移动速度
-    public float chargeSpeed = 10f;   // 冲刺速度
+    public float normalSpeed = 0.4f;  // 初始移动速度
+    public float chargeSpeed = 8f;   // 冲刺速度
     public float detectionRange = 5f; // 发现Player的范围
     public float chargeDelay = 1.5f;  // 冲刺前的延迟时间
     public float chargeCooldown = 2f; // 冲刺冷却时间
