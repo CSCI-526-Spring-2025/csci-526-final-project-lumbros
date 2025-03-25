@@ -26,9 +26,9 @@ public class Upgrades : MonoBehaviour
     public int towerRange = 0;
     private Dictionary<string, List<(string, System.Action, int)>> heroUpgrades = new Dictionary<string, List<(string, System.Action, int)>>();
     private Dictionary<string, List<(string, System.Action, int)>> towerUpgrades = new Dictionary<string, List<(string, System.Action, int)>>();
-
+    public bool changed = false;
     public static System.Action<string> OnUpgrade;
-
+    public int moneyBefore = 300;
     void Start()
     {
         hero = GameObject.FindGameObjectWithTag("Player");
@@ -159,6 +159,18 @@ public class Upgrades : MonoBehaviour
         Wave.text = "Wave " + (currWave - 1) + " Completed!";
 
         UpgradeText.text = (phase == 1) ? "Choose an upgrade for hero" : "Choose an upgrade for all towers";
+        if(MoneyManager.Instance.mMoney != moneyBefore){
+            moneyBefore = MoneyManager.Instance.mMoney;
+            changed = true;
+        }
+        if(phase == 1 && changed){
+            AssignUpgrades(heroUpgrades);
+            changed = false;
+        }
+        if(phase == 2 && changed){
+            AssignUpgrades(towerUpgrades);
+            changed = false;
+        }
     }
 
     void AddUpgrade(Dictionary<string, List<(string, System.Action, int)>> upgradeList, string category, string description, System.Action upgradeAction, int cost)
@@ -236,7 +248,6 @@ public class Upgrades : MonoBehaviour
         }
 
         AssignUpgrades(phase == 1 ? towerUpgrades : heroUpgrades);
-
         if (phase == 1)
         {
             phase = 2;
