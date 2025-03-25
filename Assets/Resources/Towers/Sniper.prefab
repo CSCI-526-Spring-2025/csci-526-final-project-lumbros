@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 4412814505069456428}
   - component: {fileID: 6754056557338787505}
   - component: {fileID: 5999875819943144269}
-  - component: {fileID: -2012626923977821580}
   - component: {fileID: 5331851031401977460}
   - component: {fileID: 1702887481984320845}
   - component: {fileID: -6599253738065545858}
+  - component: {fileID: 1789820206582935978}
+  - component: {fileID: 872494556804572753}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Tower
@@ -132,6 +133,7 @@ MonoBehaviour:
   attackCooldown: 1
   damage: 2
   heroBounces: 0
+  isEnemy: 0
 --- !u!114 &5999875819943144269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,19 +152,6 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
---- !u!114 &-2012626923977821580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589798161331309981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113147271c1a345b48a5d032126e4615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aInstance: {fileID: 0}
 --- !u!222 &5331851031401977460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -236,3 +225,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1789820206582935978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589798161331309981}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &872494556804572753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589798161331309981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

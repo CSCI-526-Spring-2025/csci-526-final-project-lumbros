@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8268817874390642231}
   - component: {fileID: 6030069249912828080}
   - component: {fileID: 5460810107100949316}
-  - component: {fileID: 3528987452309243708}
   - component: {fileID: 6484044336990066465}
   - component: {fileID: 3706711811933603071}
+  - component: {fileID: 9179399441504312211}
   m_Layer: 0
   m_Name: AOETower
   m_TagString: Tower
@@ -146,19 +146,6 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
---- !u!114 &3528987452309243708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585363735888694454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113147271c1a345b48a5d032126e4615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aInstance: {fileID: 0}
 --- !u!114 &6484044336990066465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,3 +211,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9179399441504312211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585363735888694454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

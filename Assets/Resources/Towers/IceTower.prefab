@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 418494909735753188}
   - component: {fileID: 7298231807329404793}
   - component: {fileID: 7759819581181022853}
-  - component: {fileID: 6692925153382943676}
   - component: {fileID: -4272441801870431337}
   - component: {fileID: -5596124921577671064}
+  - component: {fileID: 7944144174488242100}
   m_Layer: 0
   m_Name: IceTower
   m_TagString: Tower
@@ -127,6 +127,7 @@ MonoBehaviour:
   attackCooldown: 1
   damage: 1
   heroBounces: 0
+  isEnemy: 0
 --- !u!114 &7759819581181022853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,19 +146,6 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
---- !u!114 &6692925153382943676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3378725082094908501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113147271c1a345b48a5d032126e4615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aInstance: {fileID: 0}
 --- !u!114 &-4272441801870431337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,3 +211,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7944144174488242100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378725082094908501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
