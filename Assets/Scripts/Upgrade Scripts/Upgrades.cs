@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI[] upgradeTexts;
+    public TextMeshProUGUI[] costsTexts;
     public Button[] upgradeButtons;
     private GameObject hero;
     private GameObject manager;
@@ -190,10 +191,10 @@ public class Upgrades : MonoBehaviour
         {
             int index = i;
             int upgradeCost = selectedUpgrades[index].Item3;
-            string formattedText = upgradeTexts[i].text = $"{selectedUpgrades[index].Item1}\n<align=center>Cost: {selectedUpgrades[index].Item3}</align>";
+            string formattedText = selectedUpgrades[index].Item1;
 
             upgradeTexts[i].text = formattedText;
-
+            costsTexts[i].text = "$" + upgradeCost.ToString();
             upgradeButtons[i].onClick.RemoveAllListeners();
             upgradeButtons[i].onClick.AddListener(() =>
             {
