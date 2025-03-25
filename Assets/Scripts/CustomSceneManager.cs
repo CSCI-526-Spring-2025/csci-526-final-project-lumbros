@@ -14,7 +14,10 @@ public enum GAMESTATE{
     GamePlay, // During waves
     GameUpgrade, // During upgrade screen
     GameOver, // On game over screen
-    Tutorial
+    Tutorial,
+    GameTutorialPauseAndReadTowers,
+    GameTutorialHeroMoveAndAttack,
+    GameTutorialUpgrades,
 }
 
 public class CustomSceneManager : MonoBehaviour
@@ -71,7 +74,6 @@ public class CustomSceneManager : MonoBehaviour
     public void UpdateGameState(GAMESTATE gs)
     {
         Debug.Log("changing gameState to: " + gs);
-        //Debug.Log(whichIsMe);
         switch(gs)
         {
             case GAMESTATE.BeforeGameStart:
@@ -88,6 +90,18 @@ public class CustomSceneManager : MonoBehaviour
             case GAMESTATE.GameOver:
                 break;
             case GAMESTATE Tutorial:
+                break;
+            case GAMESTATE.GameTutorialPauseAndReadTowers:
+                instance.pause();
+                // spawn text tell player the game is pause and they can take their time to read the towers on the right
+                // whenever the player is ready, they can unpause to move on
+                break;
+            case GAMESTATE.GameTutorialHeroMoveAndAttack:
+                // spawn text explaining the hero and how to move
+                // then how to hero auto attack
+                break;
+            case GAMESTATE.GameTutorialUpgrades:
+                // after killing the last enemey show upgrades and explain how upgrades work
                 break;
             default:
                 break;
