@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class Worker : MonoBehaviour, IDamageable
@@ -8,11 +9,12 @@ public class Worker : MonoBehaviour, IDamageable
     public float acceleration = 5f;
     public float maxSpeed = 1f;
 
-    private Transform target; // Current target
+    //private Transform target; // Current target
+    [SerializeField] Transform target;
+    NavMeshAgent agent;
     private static GameObject manager;
     private Rigidbody2D rb;
     private int goldAmount = 0;
-    private bool isMoving = true;
 
     void Start()
     {
@@ -21,6 +23,10 @@ public class Worker : MonoBehaviour, IDamageable
 
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 2f;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     public int GetGoldAmount()
@@ -48,22 +54,12 @@ public class Worker : MonoBehaviour, IDamageable
         goldAmount = gold;
     }
 
-    public void StopMovement()
-    {
-        // TODO: call this when game is paused / on upgrades scene
-        isMoving = false;
-    }
-
-    public void ResumeMovement()
-    {
-        isMoving = true;
-    }
-
     void Update()
     {
-        if (target != null && isMoving)
+        if (target != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            //transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            agent.SetDestination(target.position);
         }
     }
 

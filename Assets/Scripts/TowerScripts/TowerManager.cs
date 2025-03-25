@@ -1,4 +1,4 @@
-using System.Collections;
+using NavMeshPlus.Components;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public class TowerManager : MonoBehaviour
     public static int DEFAULT_MAX = 3;
     public static int DEFAULT_CUR = 0;
     public Dictionary<GameObject, InventorySlot> towerSlotMap = new Dictionary<GameObject, InventorySlot>();
-
+    public NavMeshSurface navSurface;
     private void Awake()
     {
         // Check if instance already exists
@@ -35,6 +35,7 @@ public class TowerManager : MonoBehaviour
     {
         maxTowerCount = DEFAULT_MAX;
         curTowerCount = DEFAULT_CUR;
+        navSurface.BuildNavMeshAsync();
     }
 
     // Update is called once per frame
@@ -59,6 +60,9 @@ public class TowerManager : MonoBehaviour
         Debug.Log("TowerManager: adding tower " + tower.name + slot.name);
         towerSlotMap[tower] = slot;
         curTowerCount++;
+
+        // Update NavMesh
+        navSurface.UpdateNavMesh(navSurface.navMeshData);
     }
 
     public void DestoryTower(GameObject tower)

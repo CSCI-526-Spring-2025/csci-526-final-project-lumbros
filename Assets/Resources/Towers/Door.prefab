@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4412814505069456428}
   - component: {fileID: 6754056557338787505}
   - component: {fileID: 5999875819943144269}
-  - component: {fileID: -2012626923977821580}
   - component: {fileID: 1915626129334013600}
   - component: {fileID: 5552205048234533217}
   - component: {fileID: 1092748485321057979}
@@ -151,19 +150,6 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
---- !u!114 &-2012626923977821580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589798161331309981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113147271c1a345b48a5d032126e4615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aInstance: {fileID: 0}
 --- !u!222 &1915626129334013600
 CanvasRenderer:
   m_ObjectHideFlags: 0
