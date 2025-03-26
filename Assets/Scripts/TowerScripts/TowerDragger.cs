@@ -47,6 +47,8 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called when player starts dragging from the UI button
     public void OnBeginDrag(PointerEventData eventData)
     {
+        GameObject TowerDetailsPopupUI = CustomSceneManager.instance.TowerInfoUI;
+        TowerDetailsPopupUI.SetActive(false);
         if(MoneyManager.Instance.mMoney < mCost){
             CustomSceneManager.instance.DisplayWarning();
         }
@@ -119,6 +121,8 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called every frame while dragging
     public void OnDrag(PointerEventData eventData)
     {
+        GameObject TowerDetailsPopupUI = CustomSceneManager.instance.TowerInfoUI;
+        TowerDetailsPopupUI.SetActive(false);
        if (currentTowerPreview != null)
         {
             // Convert screen position (mouse) to world position
@@ -131,6 +135,8 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     // Called when player releases the mouse button
     public void OnEndDrag(PointerEventData eventData)
     {
+        GameObject TowerDetailsPopupUI = CustomSceneManager.instance.TowerInfoUI;
+        TowerDetailsPopupUI.SetActive(false);
         if(currentTowerPreview != null) {
             Destroy(currentTowerPreview);
         }

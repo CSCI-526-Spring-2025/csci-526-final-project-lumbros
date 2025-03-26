@@ -31,6 +31,9 @@ public class CustomSceneManager : MonoBehaviour
     public int curWorkerCount;
     public bool isPause = false;
     private TMP_Text mEnemyCountUI;
+
+    private TMP_Text coreHealthUI;
+    
     private static int GAME_SCREEN_INDEX = 1;
     private List<GameObject> nonDestoryObjects;
     public static bool IsInitialized { get; private set;}
@@ -40,8 +43,9 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject UpgradeUI;
     public GameObject StartUI;
     public GameObject WarningUI;
+    public GameObject TowerInfoUI;
     public GameObject MoneyPopUpUI;
-    public bool heroUpgrade = true;
+     public bool heroUpgrade = true;
     private void Awake()
     {
         // Check if instance already exists
@@ -159,8 +163,10 @@ public class CustomSceneManager : MonoBehaviour
             WarningUI.SetActive(false);
         }
 
-        gameOverUI.SetActive(false);
-        WarningUI.SetActive(false);
+        if(TowerInfoUI != null && TowerInfoUI.activeSelf){
+            TowerInfoUI.SetActive(false);
+        }
+       
         RemoveMoneyPopUp();
         IsInitialized = true;
     }
@@ -187,11 +193,19 @@ public class CustomSceneManager : MonoBehaviour
             }
             mEnemyCountUI.text = "Enemies you need to kill: " + remainingEnemies.ToString();
         }
+        if(coreHealthUI != null)
+        {
+            GameObject core = GameObject.FindGameObjectWithTag("Core");
+            Health health =  core.GetComponent<Health>();
+            coreHealthUI.text = $"Core Health: {health.currentHealth} / {health.maxHealth} \n";
+        }
         if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
         {
             lastCheckedKills = waveManager.KillperWave;
             waveManager.CheckWaveEnd();
         }
+
+        
         // Debug Press Space and do something
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -337,6 +351,15 @@ public class CustomSceneManager : MonoBehaviour
         {
            mEnemyCountUI =  GameObject.Find("EnemiesTextUI")?.GetComponent<TMP_Text>();
         }
+
+        if(TowerInfoUI == null){
+            TowerInfoUI = GameObject.Find("TowerDetailsPopup");
+        }
+
+        if(coreHealthUI == null){
+            coreHealthUI = GameObject.Find("CoreTextUI")?.GetComponent<TMP_Text>();
+        }
+
 
     }
 

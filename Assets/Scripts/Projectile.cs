@@ -45,7 +45,6 @@ public class Projectile : MonoBehaviour
         if (bouncesLeft > 0)
         {
             Transform nextTarget = FindNextEnemy(target);
-            Debug.Log("bounces left: " + bouncesLeft + "target: " + nextTarget);
             if (nextTarget != null)
             {
                 target = nextTarget;
@@ -53,7 +52,6 @@ public class Projectile : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("bounces left: " + bouncesLeft);
         Destroy(gameObject);
     }
 

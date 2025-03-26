@@ -63,7 +63,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         health -= damage;
         if (health <= 0)
         {
-            Debug.Log(enemyType + " enemy dies");
+            // Debug.Log(enemyType + " enemy dies");
             if (deathParticle != null)
             {
                 ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
@@ -80,7 +80,6 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
     IEnumerator EnemyHitFlash()
     {
-        Debug.Log("enemy take damage, and now is flashing");
         int howManyFlash = numOfFlash;
 
         while(howManyFlash > 0)
