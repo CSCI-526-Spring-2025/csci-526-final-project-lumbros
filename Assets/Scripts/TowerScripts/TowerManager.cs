@@ -69,6 +69,7 @@ public class TowerManager : MonoBehaviour
     {
         InventorySlot slot = towerSlotMap[tower];
         if(slot != null){
+            Debug.Log("TowerManager: removing tower " + tower.name + slot.name);
             slot.EmptySlot();
         }
         towerSlotMap.Remove(tower);

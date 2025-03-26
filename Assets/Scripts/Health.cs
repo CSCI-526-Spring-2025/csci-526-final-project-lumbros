@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
     // Reference to the health bar slider
     public Slider healthSlider;
     public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position
+    private float immunity = 1.0f;
+
 
     void Start()
     {
@@ -46,23 +48,26 @@ public class Health : MonoBehaviour
         {
             healthSlider.transform.position = transform.position + healthBarOffset;
         }
+        immunity -= Time.deltaTime;
     }
 
     // Public method for other scripts to deal damage
     public void TakeDamage(int damage, string tag)
     {
-        currentHealth -= damage;
+        // Prevents auto death
+        if(immunity < 0.0f){
+            currentHealth -= damage;
+            // Update the health bar if it exists
+            if (healthSlider != null)
+            {
+                healthSlider.value = currentHealth;
+            }
 
-        // Update the health bar if it exists
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth;
-        }
-
-        // Destroy the object if health drops to zero or below
-        if (currentHealth <= 0)
-        {
-            Die(tag);
+            // Destroy the object if health drops to zero or below
+            if (currentHealth < 0)
+            {
+                Die(tag);
+            }
         }
     }
 
@@ -71,6 +76,7 @@ public class Health : MonoBehaviour
         if(tag == "Player" || tag == "Core") manager.GetComponent<CustomSceneManager>().GameOver();
         if(tag == "Tower") 
         {
+            Debug.Log("Health DIe");
             TowerManager.Instance.DestoryTower(gameObject);
         }
         Destroy(gameObject);

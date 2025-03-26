@@ -53,14 +53,16 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if(MoneyManager.Instance.mMoney >= Cost)
             {
                 GameObject newItem = AddNewItem(prefabToInstantiate);
-                MoneyManager.Instance.UpdateMoney(Cost * -1);
-                // AddedTower?.Invoke(prefabToInstantiate.name);
-                Debug.Log("In Inventory Slot Dopped " + newItem.tag);
-                // Check if the dropped object is a tower
-                if (newItem.CompareTag("Tower"))
-                {
-                    TowerManager.Instance.AddTower(newItem, this);
-                    // GamerManager.GetComponent<CustomSceneManager>().AddTower(newItem, this);
+                if(newItem != null){
+                    MoneyManager.Instance.UpdateMoney(Cost * -1);
+                    // AddedTower?.Invoke(prefabToInstantiate.name);
+                    Debug.Log("In Inventory Slot Dopped " + newItem.tag);
+                    // Check if the dropped object is a tower
+                    if (newItem.CompareTag("Tower"))
+                    {
+                        TowerManager.Instance.AddTower(newItem, this);
+                        // GamerManager.GetComponent<CustomSceneManager>().AddTower(newItem, this);
+                    }
                 }
             }
         }
