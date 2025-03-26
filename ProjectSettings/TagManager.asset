@@ -18,6 +18,8 @@ TagManager:
   - MoneyPopUp
   - bullet
   - Building
+  - TutorialUI
+  - TowerBarUI
   layers:
   - Default
   - TransparentFX
