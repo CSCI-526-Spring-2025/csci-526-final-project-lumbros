@@ -7451,8 +7451,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663342695}
   m_CullTransparentMesh: 1
-  changed: 0
-  moneyBefore: 300
 --- !u!1001 &664482958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8508,7 +8506,6 @@ GameObject:
   - component: {fileID: 740867306}
   - component: {fileID: 740867309}
   - component: {fileID: 740867308}
-  - component: {fileID: 740867307}
   m_Layer: 5
   m_Name: CoreTextUI
   m_TagString: Untagged
@@ -8535,21 +8532,6 @@ RectTransform:
   m_AnchoredPosition: {x: 171, y: 237.4}
   m_SizeDelta: {x: 182.55, y: 23.77}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &740867307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740867305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a90a776588c94084087598c89632a035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashDuration: 0.8
-  flashSpeed: 4
-  flashColor: {r: 1, g: 0.9, b: 0, a: 1}
 --- !u!114 &740867308
 MonoBehaviour:
   m_ObjectHideFlags: 0
