@@ -59,6 +59,8 @@ public class Upgrades : MonoBehaviour
         AddUpgrade(heroUpgrades, "Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2,4);
         AddUpgrade(heroUpgrades,"Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1,3);
         AddUpgrade(heroUpgrades,"Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2,4);
+
+        AddUpgrade(heroUpgrades,"Hero Reborn", "The hero can respawn within 10 seconds", () => hero.GetComponent<Health>().heroReborn = true,10);
         // Tower Upgrades
         // AddUpgrade(towerUpgrades, "Tower Count", "+1 to Max Tower Count", () => manager.GetComponent<CustomSceneManager>().maxTowerCount++);
 
