@@ -17,6 +17,8 @@ public class Health : MonoBehaviour
     public bool heroReborn = true;
     private bool isDead = false;
     public float rebornDelay = 3f;
+    public float workerRebornDelay = 5f;
+
     void Start()
     {
         // Set initial health and configure the UI slider
@@ -88,6 +90,13 @@ public class Health : MonoBehaviour
                 manager.GetComponent<CustomSceneManager>().GameOver();
             }
             
+        }
+        else if (tag == "Worker")
+        {
+            isDead = true;
+            gameObject.SetActive(false);
+            CoroutineRunner.Instance.StartCoroutine(RebornAfterDelay(workerRebornDelay));
+     
         }
         else if(tag == "Tower") 
         {

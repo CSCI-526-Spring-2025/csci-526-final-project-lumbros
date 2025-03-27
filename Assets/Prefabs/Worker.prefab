@@ -202,6 +202,9 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
+  heroReborn: 1
+  rebornDelay: 3
+  workerRebornDelay: 50
 --- !u!114 &1894957076253402380
 MonoBehaviour:
   m_ObjectHideFlags: 0
