@@ -38,4 +38,6 @@ public class Core : MonoBehaviour
             worker.SetTargetMine();
         }
     }
+
+    
 }

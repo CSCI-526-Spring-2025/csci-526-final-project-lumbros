@@ -55,6 +55,7 @@ public class Health : MonoBehaviour
         immunity -= Time.deltaTime;
         currentHealth = currentHealth;
 
+
     }
 
     // Public method for other scripts to deal damage

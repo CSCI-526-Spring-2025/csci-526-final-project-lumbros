@@ -11,7 +11,9 @@ public class Upgrades : MonoBehaviour
     public Button[] upgradeButtons;
     private GameObject hero;
     private GameObject manager;
+    private GameObject upgradeManager;
     private GameObject[] towers;
+    private GameObject[] workers;
     public GameObject UpgradeUI;
     public TMP_Text Wave;
     public TMP_Text UpgradeText;
@@ -21,12 +23,15 @@ public class Upgrades : MonoBehaviour
     private string selectedUpgradeName;
     private int selectedUpgradeCost;
     public int towerHP = 0;
+    public int workerHP = 0;
     public int towerAutoHeal = 0;
+    public int workerAutoHeal = 0;
     public int towerDamage = 0;
     public int towerRange = 0;
     public bool changed = false;
     public static System.Action<string> OnUpgrade;
     public int moneyBefore = 300;
+    
 
     private Dictionary<string, List<(string, System.Action, int, float)>> heroUpgrades = new();
     private Dictionary<string, List<(string, System.Action, int, float)>> towerUpgrades = new();
@@ -39,6 +44,29 @@ public class Upgrades : MonoBehaviour
     {
         hero = GameObject.FindGameObjectWithTag("Player");
         manager = GameObject.FindGameObjectWithTag("Manager");
+        towers = GameObject.FindGameObjectsWithTag("Tower");
+        workers = GameObject.FindGameObjectsWithTag("Worker");
+
+
+    // for (int i = 0; i < workers.Length; i++)
+    // {
+  
+    //     if (workers[i] == null)
+    //     {
+    //         Debug.LogWarning($"workers[{i}] is null");
+    //         continue;
+    //     }
+
+    //     var health = workers[i].GetComponent<Health>();
+    //     if (health == null)
+    //     {
+    //         Debug.LogError($"workers[{i}] has no Health component");
+    //         continue;
+    //     }
+
+    //     Debug.Log("worker data " + i + " : " + health.maxHealth);
+    
+    // }
 
         AddUpgrade(heroUpgrades, "Hero Damage", "+1 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 1, 3, 1f);
         AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, 4, 1f);
@@ -70,32 +98,32 @@ public class Upgrades : MonoBehaviour
 
         AddUpgrade(towerUpgrades, "Tower Range", "+2 to Tower Attack Range", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().attackRange += 2;
-            towerRange += 2;
+            UpgradeManager.Instance.towerRange += 2;
         }, 3, 1f);
 
         AddUpgrade(towerUpgrades, "Tower Range", "+3 to Tower Attack Range", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().attackRange += 3;
-            towerRange += 3;
+            UpgradeManager.Instance.towerRange += 3;
         }, 4, 1f);
 
         AddUpgrade(towerUpgrades, "Tower Auto Heal", "+1 to Tower Auto Heal", () => {
             foreach (var tower in towers) tower.GetComponent<Health>().autoHeal += 1;
-            towerAutoHeal += 1;
+            UpgradeManager.Instance.towerAutoHeal += 1;
         }, 3, 1f);
 
         AddUpgrade(towerUpgrades, "Tower Auto Heal", "+2 to Tower Auto Heal", () => {
             foreach (var tower in towers) tower.GetComponent<Health>().autoHeal += 2;
-            towerAutoHeal += 2;
+            UpgradeManager.Instance.towerAutoHeal += 2;
         }, 5, 1f);
 
         AddUpgrade(towerUpgrades, "Tower Damage", "+1 to Tower Damage", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().damage += 1;
-            towerDamage += 1;
+            UpgradeManager.Instance.towerDamage += 1;
         }, 3, 1f);
 
         AddUpgrade(towerUpgrades, "Tower Damage", "+2 to Tower Damage", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().damage += 2;
-            towerDamage += 2;
+            UpgradeManager.Instance.towerDamage += 2;
         }, 5, 1f);
 
         AddUpgrade(towerUpgrades, "Tower HP", "+2 to Tower HP", () => {
@@ -104,7 +132,7 @@ public class Upgrades : MonoBehaviour
                 hp.maxHealth += 2;
                 hp.currentHealth += 2;
             }
-            towerHP += 2;
+            UpgradeManager.Instance.towerHP += 2;
         }, 3, 1f);
 
         AddUpgrade(towerUpgrades, "Tower HP", "+4 to Tower HP", () => {
@@ -113,8 +141,49 @@ public class Upgrades : MonoBehaviour
                 hp.maxHealth += 4;
                 hp.currentHealth += 4;
             }
-            towerHP += 4;
+            UpgradeManager.Instance.towerHP += 4;
         }, 4, 1f);
+
+        AddUpgrade(towerUpgrades, "Worker Auto Heal", "+1 to Worker Auto Heal", () => {
+            foreach (var worker in workers){
+                if( worker.GetComponent<Health>() != null){
+                    worker.GetComponent<Health>().autoHeal += 1;
+                }
+            }
+            // UpgradeManager.Instance.workerAutoHeal += 1;
+        }, 3, 1113f);
+
+        AddUpgrade(towerUpgrades, "Worker Auto Heal", "+2 to Worker Auto Heal", () => {
+            foreach (var worker in workers) {
+                if( worker.GetComponent<Health>() != null){
+                    worker.GetComponent<Health>().autoHeal += 2;
+                }
+            }
+            UpgradeManager.Instance.workerAutoHeal += 2;
+        }, 5, 0.1f);
+
+        AddUpgrade(towerUpgrades, "Worker HP", "+2 to Worker HP", () => {
+            foreach (var worker in workers) {
+                if(worker.GetComponent<Health>() != null){
+                    var hp = worker.GetComponent<Health>();
+                    hp.maxHealth += 2;
+                    hp.currentHealth += 2;
+                }
+                
+            }
+            UpgradeManager.Instance.workerHP += 2;
+        }, 3, 0.3f);
+        AddUpgrade(towerUpgrades, "Worker HP", "+4 to Worker HP", () => {
+            foreach (var worker in workers) {
+                if(worker.GetComponent<Health>() != null){
+                    var hp = worker.GetComponent<Health>();
+                    hp.maxHealth += 4;
+                    hp.currentHealth += 4;
+                }
+                
+            }
+            UpgradeManager.Instance.workerHP += 4;
+        }, 6, 0.1f);
 
         AssignUpgrades(heroUpgrades);
     }
@@ -189,6 +258,8 @@ public class Upgrades : MonoBehaviour
 
         AssignUpgrades(phase == 1 ? towerUpgrades : heroUpgrades);
 
+
+
         if (phase == 1)
         {
             phase = 2;
@@ -244,7 +315,11 @@ public class Upgrades : MonoBehaviour
     void Update()
     {
         towers = GameObject.FindGameObjectsWithTag("Tower");
+        workers = GameObject.FindGameObjectsWithTag("Worker");
+        // Debug.Log("worker debug: " + workers[0]);
+        
         currWave = WaveManager.Instance.currentWave;
+
 
         if (currWave == 2) reset();
 
@@ -261,4 +336,3 @@ public class Upgrades : MonoBehaviour
         if (phase == 2 && changed) { AssignUpgrades(towerUpgrades); changed = false; }
     }
 }
-                                                                    
