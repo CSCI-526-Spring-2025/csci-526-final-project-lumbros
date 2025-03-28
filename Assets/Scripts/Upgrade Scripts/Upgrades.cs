@@ -151,7 +151,7 @@ public class Upgrades : MonoBehaviour
                 }
             }
             // UpgradeManager.Instance.workerAutoHeal += 1;
-        }, 3, 1113f);
+        }, 3, 0.3f);
 
         AddUpgrade(towerUpgrades, "Worker Auto Heal", "+2 to Worker Auto Heal", () => {
             foreach (var worker in workers) {
