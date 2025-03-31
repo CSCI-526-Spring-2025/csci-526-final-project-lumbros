@@ -35,7 +35,15 @@ public class TowerManager : MonoBehaviour
     {
         maxTowerCount = DEFAULT_MAX;
         curTowerCount = DEFAULT_CUR;
-        navSurface.BuildNavMeshAsync();
+        CustomSceneManager.gameStateChange += OnGameStateChange;
+    }
+
+    void OnGameStateChange(GAMESTATE newState)
+    {
+        if (newState == GAMESTATE.GameStart)
+        {
+            navSurface.BuildNavMesh();
+        }
     }
 
     // Update is called once per frame

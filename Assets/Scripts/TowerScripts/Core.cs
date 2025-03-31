@@ -34,8 +34,8 @@ public class Core : MonoBehaviour
             {
                 if(MoneyManager.Instance != null)
                     MoneyManager.Instance.UpdateMoney(worker.GetGoldAmount());
+                worker.SetTargetMine();
             }
-            worker.SetTargetMine();
         }
     }
 

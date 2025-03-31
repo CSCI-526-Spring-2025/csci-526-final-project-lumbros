@@ -9,8 +9,7 @@ public class Worker : MonoBehaviour, IDamageable
     public float acceleration = 5f;
     public float maxSpeed = 1f;
 
-    //private Transform target; // Current target
-    [SerializeField] Transform target;
+    public Transform target;
     NavMeshAgent agent;
     private static GameObject manager;
     private Rigidbody2D rb;
@@ -42,6 +41,7 @@ public class Worker : MonoBehaviour, IDamageable
         {
             // Choose a random mine from mines
             target = mines[Random.Range(0, mines.Length)].transform;
+            Debug.Log("Setting target to mine " + target.name);
         }
     }
 
