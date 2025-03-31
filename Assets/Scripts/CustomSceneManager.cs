@@ -100,12 +100,14 @@ public class CustomSceneManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         EnemyAbstract.enemyKill += AddKill;
+        WaveManager.waveEnd += OnWaveEnd;
     }
 
     private void OnDisable()
     {   
         SceneManager.sceneLoaded -= OnSceneLoaded; 
         EnemyAbstract.enemyKill -= AddKill;
+        WaveManager.waveEnd -= OnWaveEnd;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -409,11 +411,11 @@ public class CustomSceneManager : MonoBehaviour
             Health health =  core.GetComponent<Health>();
             coreHealthUI.text = $"Core Health: {health.currentHealth} / {health.maxHealth} \n";
         }
-        if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
-        {
-            lastCheckedKills = waveManager.KillperWave;
-            waveManager.CheckWaveEnd();
-        }
+        // if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
+        // {
+        //     lastCheckedKills = waveManager.KillperWave;
+        //     waveManager.CheckWaveEnd();
+        // }
 
         
         // Debug Press Space and do something
@@ -438,12 +440,29 @@ public class CustomSceneManager : MonoBehaviour
     {
         totalKills++;
         waveManager.KillperWave++;
-        if (!isTutorialMode && totalKills >= killLimit){
+
+        if (WaveManager.Instance != null)
+        {
+            waveManager.CheckWaveEnd();
+        }
+        // if (!isTutorialMode && totalKills >= killLimit){
+        //     UpgradeUI.SetActive(true);
+        //     PauseGame();
+        //     UpdateGameState(GAMESTATE.GameUpgrade);
+        // }
+    }
+
+    private void OnWaveEnd(int curwave)
+    {
+        Debug.Log("Wave cleared, entering upgrade state");
+        if (!isTutorialMode)
+        {
             UpgradeUI.SetActive(true);
             PauseGame();
             UpdateGameState(GAMESTATE.GameUpgrade);
         }
     }
+
 
     // Called when you click on an Upgrade
     public void ResetAndLoad(int killLimit)

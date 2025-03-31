@@ -23,7 +23,7 @@ public class WaveManager : MonoBehaviour
     private float waveInterval = 5f; // 每波修整时间
     // Number we need to kill to move on to the next wave 
     private int WaveKillLimit;
-    private int WaveKillLimit_Intial = 10;
+    private int WaveKillLimit_Intial = 5;
 
     public int KillperWave;
     public float enemyHealthMultiplier;
@@ -121,17 +121,30 @@ public class WaveManager : MonoBehaviour
         waveBegin?.Invoke(currentWave, WaveKillLimit);
     }
 
-    // public void NotifyBossSpawned(GameObject boss)
-    // {
-    //     currentBoss = boss;
-    //     bossSpawned = true;
-    // }
-
-
+    public void NotifyBossSpawned(GameObject boss)
+    {
+        currentBoss = boss;
+        bossSpawned = true;
+    }
 
     public void CheckWaveEnd()
     {
-            if (KillperWave >= WaveKillLimit && !isEndingWave)
+        if (isEndingWave) return;
+        if (currentWave % 10 == 0)
+        {
+            // Boss wave
+            if (!bossSpawned) return;
+            if (currentBoss == null)
+            {
+                CurrWave = false;
+                waveTimer = 5f;
+                int tempWave = currentWave + 1;
+                mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+                //StartCoroutine(EndWave());
+                EndWave();
+            }
+        }
+        else if (KillperWave >= WaveKillLimit && !isEndingWave)
             {
                 CurrWave = false;
                 waveTimer = 5f;
@@ -142,7 +155,7 @@ public class WaveManager : MonoBehaviour
             }
     }
 
-     void EndWave()
+    void EndWave()
     {
         if (isEndingWave == false)
         {

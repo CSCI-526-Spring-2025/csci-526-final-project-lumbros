@@ -27,6 +27,20 @@ public class BossEnemy : EnemyAbstract
 
     protected override void StartCall()
     {
+        int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
+
+        // ignorecollider
+        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer"};
+
+        foreach (string layerName in ignoredLayers)
+        {
+            int layer = LayerMask.NameToLayer(layerName);
+            if (layer != -1)
+            {
+                Physics2D.IgnoreLayerCollision(enemyLayer, layer);
+            }
+        }
+
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {

@@ -98,6 +98,8 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPosition = GetRandomEdgePosition();
             GameObject BossEnemy = Instantiate(enemyPrefabs[boss], spawnPosition, Quaternion.identity);
 
+            WaveManager.Instance.NotifyBossSpawned(BossEnemy);
+
             //WaveManager.Instance.NotifyBossSpawned(BossEnemy);
             return;
         }
