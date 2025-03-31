@@ -8,8 +8,12 @@ public class Mine : MonoBehaviour
         if (collision.CompareTag("Worker"))
         {
             Worker worker = collision.GetComponent<Worker>();
-            // Return worker to core with 1 gold
-            worker.SetTargetCore(10);
+
+            if (worker.target == transform)
+            {
+                // Return worker to core with 1 gold
+                worker.SetTargetCore(10);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class Health : MonoBehaviour
     public Slider healthSlider;
     public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position
     private float immunity = 1.0f;
-
+    public bool heroReborn = true;
+    private bool isDead = false;
+    public float rebornDelay = 3f;
+    public float workerRebornDelay = 5f;
 
     void Start()
     {
@@ -49,6 +53,9 @@ public class Health : MonoBehaviour
             healthSlider.transform.position = transform.position + healthBarOffset;
         }
         immunity -= Time.deltaTime;
+        currentHealth = currentHealth;
+
+
     }
 
     // Public method for other scripts to deal damage
@@ -73,15 +80,61 @@ public class Health : MonoBehaviour
 
     void Die(string tag)
     {
-        if(tag == "Player" || tag == "Core") manager.GetComponent<CustomSceneManager>().GameOver();
-        if(tag == "Tower") 
+        if(tag == "Player" || tag == "Core"){
+            Debug.Log(heroReborn +" test " + tag);
+            if(heroReborn && tag == "Player"){
+                isDead = true;
+                gameObject.SetActive(false);
+                CoroutineRunner.Instance.StartCoroutine(RebornAfterDelay(rebornDelay)); 
+            }else{
+                Debug.Log("game over");
+                manager.GetComponent<CustomSceneManager>().GameOver();
+            }
+            
+        }
+        else if (tag == "Worker")
+        {
+            isDead = true;
+            gameObject.SetActive(false);
+            CoroutineRunner.Instance.StartCoroutine(RebornAfterDelay(workerRebornDelay));
+     
+        }
+        else if(tag == "Tower") 
         {
             Debug.Log("Health DIe");
             TowerManager.Instance.DestoryTower(gameObject);
+        }else{
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
+    }
+    IEnumerator RebornAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Reborn();
     }
 
+void Reborn()
+{
+    currentHealth = maxHealth;
+    immunity = 1.0f;
+
+    gameObject.SetActive(true); // Reactivate Hero first
+
+    if (healthSlider == null)
+    {
+        healthSlider = GetComponentInChildren<Slider>();
+    }
+
+    if (healthSlider != null)
+    {
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        healthSlider.transform.position = transform.position + healthBarOffset;
+    }
+
+    Debug.Log(gameObject.name + " has reborn!");
+}
     void AutoHeal()
     {
         if (currentHealth > 0 && currentHealth < maxHealth) 
