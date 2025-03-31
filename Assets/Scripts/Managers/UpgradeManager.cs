@@ -49,6 +49,10 @@
         {
             
             var health = worker.GetComponent<Health>();
+            if (health == null)
+            {
+                continue;
+            }
             if (!health.updated)
             {
 
@@ -65,6 +69,10 @@
         {
             
             var health = tower.GetComponent<Health>();
+            if (health == null)
+            {
+                continue;
+            }
             if (!health.updated)
             {
                 tower.GetComponent<AutoAttack>().damage += towerDamage;
