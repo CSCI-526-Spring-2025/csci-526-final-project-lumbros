@@ -23,7 +23,7 @@ public class WaveManager : MonoBehaviour
     private float waveInterval = 5f; // 每波修整时间
     // Number we need to kill to move on to the next wave 
     private int WaveKillLimit;
-    private int WaveKillLimit_Intial = 5;
+    private int WaveKillLimit_Intial = 10;
 
     public int KillperWave;
     public float enemyHealthMultiplier;
@@ -108,6 +108,7 @@ public class WaveManager : MonoBehaviour
         //int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
         enemyCount = WaveKillLimit;
         Debug.Log($"enemyCount {enemyCount}");
+        Debug.Log($"WK {WaveKillLimit}");
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         SpanIntervalMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);

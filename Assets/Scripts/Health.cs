@@ -64,7 +64,7 @@ public class Health : MonoBehaviour
             }
 
             // Destroy the object if health drops to zero or below
-            if (currentHealth < 0)
+            if (currentHealth <= 0)
             {
                 Die(tag);
             }

@@ -63,7 +63,7 @@ public class Worker : MonoBehaviour, IDamageable
         }
     }
 
-    // **Take damage**
+    //**Take damage**
     public void TakeDamage(int damage, Transform attacker)
     {
         health -= damage;

@@ -26,6 +26,8 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     private SpriteRenderer spriteRenderer;
     public float delay = 0.1f;
     public int numOfFlash = 4;
+
+    private bool isDead = false;
     
     // do not overwrite
     private void OnDisable()
@@ -60,16 +62,20 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage, Transform attacker)
     {
+        if (isDead) return;
+
         health -= damage;
         if (health <= 0)
         {
-            // Debug.Log(enemyType + " enemy dies");
+            isDead = true;
+
             if (deathParticle != null)
             {
-                ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
+                Instantiate(deathParticle, transform.position, Quaternion.identity);
             }
+
+            enemyKill?.Invoke(); //
             Destroy(gameObject);
-            enemyKill?.Invoke();
         }
         else
         {
@@ -77,6 +83,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             PostDamage(damage, attacker);
         }
     }
+
 
     IEnumerator EnemyHitFlash()
     {
