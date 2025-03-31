@@ -19,6 +19,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     protected Rigidbody2D rb;
     protected string enemyType = "Please rename me in StartCall";
     public ParticleSystem deathParticle;
+    private bool isDead = false;
 
     // for flashing
     private Color originalColor;
@@ -60,16 +61,20 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage, Transform attacker)
     {
+        if (isDead) return;
+
         health -= damage;
         if (health <= 0)
         {
-            // Debug.Log(enemyType + " enemy dies");
+            isDead = true;
+
             if (deathParticle != null)
             {
-                ParticleSystem deathEffectClone = Instantiate(deathParticle, transform.position, Quaternion.identity);
+                Instantiate(deathParticle, transform.position, Quaternion.identity);
             }
-            Destroy(gameObject);
+
             enemyKill?.Invoke();
+            Destroy(gameObject);
         }
         else
         {
@@ -77,6 +82,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             PostDamage(damage, attacker);
         }
     }
+
 
     IEnumerator EnemyHitFlash()
     {
