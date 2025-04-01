@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     public Slider healthSlider;
     public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position
     private float immunity = 1.0f;
-    public bool heroReborn = true;
+    public bool heroReborn = false;
     private bool isDead = false;
     public float rebornDelay = 3f;
     public float workerRebornDelay = 5f;
