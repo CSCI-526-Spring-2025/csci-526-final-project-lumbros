@@ -73,10 +73,22 @@ public class WaveManager : MonoBehaviour
 
     void OnGameStateChange(GAMESTATE newState)
     {
+        if(newState == GAMESTATE.GameTutorialHeroMoveAndAttack){
+            StartCoroutine(StartTutorialCoroutine());
+        }
         if(newState == GAMESTATE.GamePlay)
         {
             StartCoroutine(StartWaveCoroutine());
         }
+    }
+
+    IEnumerator StartTutorialCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+        // spawn melee enemies
+        enemyHealthMultiplier = 1;
+        WaveKillLimit = 2;
+        enemySpawner.SpawnWave(2, 1, 4);
     }
 
     IEnumerator StartWaveCoroutine()
@@ -209,7 +221,9 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if( CurrWave == false)
+        if( CurrWave == false 
+            && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
+                && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
             waveTimer -= Time.deltaTime;
             if(waveTimer <= 0)
