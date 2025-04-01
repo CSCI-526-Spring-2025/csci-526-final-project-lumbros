@@ -42,6 +42,7 @@ public class TowerManager : MonoBehaviour
     {
         if (newState == GAMESTATE.GameStart||newState == GAMESTATE.Tutorial)
         {
+            navSurface = GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>();
             navSurface.BuildNavMesh();
         }
     }

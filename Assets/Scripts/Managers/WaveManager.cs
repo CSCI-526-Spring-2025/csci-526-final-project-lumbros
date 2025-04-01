@@ -276,8 +276,9 @@ public class WaveManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("onload");
         mWavesUI = GameObject.Find("WaveTextUI")?.GetComponent<TMP_Text>();
-        mWavesCountdown  = GameObject.Find("WaveCountdownUI");
+        if(mWavesCountdown == null) mWavesCountdown = GameObject.Find("WaveCountdownUI");
         if(mWavesCountdown != null){
             mWavesCountdownUI = mWavesCountdown.GetComponent<TMP_Text>();
         }
