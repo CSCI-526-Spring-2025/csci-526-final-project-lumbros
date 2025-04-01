@@ -46,6 +46,13 @@ public class WorkerSpawner : MonoBehaviour
         // Do not do anything if game is not running
 
         yield return null; // wait for one frame to ensure that the manager has been initialized
+
+        GameObject[] existingWorkers = GameObject.FindGameObjectsWithTag("Worker");
+        foreach (GameObject worker in existingWorkers)
+        {
+            Destroy(worker);
+        }
+
         while (manager.CanAddWorker())
         {
             // **Wait for the next spawn interval**
