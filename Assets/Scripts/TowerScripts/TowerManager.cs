@@ -40,7 +40,7 @@ public class TowerManager : MonoBehaviour
 
     void OnGameStateChange(GAMESTATE newState)
     {
-        if (newState == GAMESTATE.GameStart)
+        if (newState == GAMESTATE.GameStart||newState == GAMESTATE.Tutorial)
         {
             navSurface.BuildNavMesh();
         }
