@@ -223,7 +223,7 @@ public class WaveManager : MonoBehaviour
 
         if( CurrWave == false 
             && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
-                || CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
+                && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
             waveTimer -= Time.deltaTime;
             if(waveTimer <= 0)
