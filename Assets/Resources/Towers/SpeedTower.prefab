@@ -128,6 +128,9 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
+  heroReborn: 1
+  rebornDelay: 3
+  workerRebornDelay: 5
 --- !u!114 &7631099997005822560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4213bf8f8f5407794111a5de6c28ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cost: 150
+  Cost: 70
 --- !u!212 &5943819573156299410
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1056,9 +1056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 15
   currentHealth: 0
   autoHeal: 0
   updated: 0
   healthSlider: {fileID: 5545146910528765172}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
+  heroReborn: 1
+  rebornDelay: 3
+  workerRebornDelay: 5
