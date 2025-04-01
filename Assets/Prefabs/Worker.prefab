@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  health: 5
+  health: 1
   acceleration: 5
   maxSpeed: 1
   target: {fileID: 0}

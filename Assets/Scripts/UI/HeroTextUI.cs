@@ -13,15 +13,23 @@ public class HeroTextUI : MonoBehaviour
     void Start()
     {
         textComponent =  GameObject.Find("HeroTextUI").GetComponent<TMP_Text>();
-        HeroObject = GameObject.FindGameObjectWithTag("Player");
-        health =  HeroObject.GetComponent<Health>();
-        attackInfo = HeroObject.GetComponent<AutoAttack>();
-        movementInfo = HeroObject.GetComponent<HeroMovement>();
+        FindHero();
     }
 
     // Update is called once per frame
     void Update()
     {
-        textComponent.text = $"Hero\nHealth: {health.currentHealth} / {health.maxHealth} \nAttack Damage: {attackInfo.attackRange} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+        FindHero();
+        if(HeroObject!= null)
+            textComponent.text = $"Hero\nHealth: {health.currentHealth} / {health.maxHealth} \nAttack Damage: {attackInfo.attackRange} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+    }
+
+    void FindHero(){
+        HeroObject = GameObject.FindGameObjectWithTag("Player");
+        if(HeroObject != null){
+            health =  HeroObject.GetComponent<Health>();
+            attackInfo = HeroObject.GetComponent<AutoAttack>();
+            movementInfo = HeroObject.GetComponent<HeroMovement>();
+        }
     }
 }

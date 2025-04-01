@@ -73,10 +73,22 @@ public class WaveManager : MonoBehaviour
 
     void OnGameStateChange(GAMESTATE newState)
     {
+        if(newState == GAMESTATE.GameTutorialHeroMoveAndAttack){
+            StartCoroutine(StartTutorialCoroutine());
+        }
         if(newState == GAMESTATE.GamePlay)
         {
             StartCoroutine(StartWaveCoroutine());
         }
+    }
+
+    IEnumerator StartTutorialCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+        // spawn melee enemies
+        enemyHealthMultiplier = 1;
+        WaveKillLimit = 2;
+        enemySpawner.SpawnWave(2, 1, 4);
     }
 
     IEnumerator StartWaveCoroutine()
@@ -108,6 +120,7 @@ public class WaveManager : MonoBehaviour
         //int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
         enemyCount = WaveKillLimit;
         Debug.Log($"enemyCount {enemyCount}");
+        Debug.Log($"WK {WaveKillLimit}");
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         SpanIntervalMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
@@ -120,17 +133,30 @@ public class WaveManager : MonoBehaviour
         waveBegin?.Invoke(currentWave, WaveKillLimit);
     }
 
-    // public void NotifyBossSpawned(GameObject boss)
-    // {
-    //     currentBoss = boss;
-    //     bossSpawned = true;
-    // }
-
-
+    public void NotifyBossSpawned(GameObject boss)
+    {
+        currentBoss = boss;
+        bossSpawned = true;
+    }
 
     public void CheckWaveEnd()
     {
-            if (KillperWave >= WaveKillLimit && !isEndingWave)
+        if (isEndingWave) return;
+        if (currentWave % 10 == 0)
+        {
+            // Boss wave
+            if (!bossSpawned) return;
+            if (currentBoss == null)
+            {
+                CurrWave = false;
+                waveTimer = 5f;
+                int tempWave = currentWave + 1;
+                mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+                //StartCoroutine(EndWave());
+                EndWave();
+            }
+        }
+        else if (KillperWave >= WaveKillLimit && !isEndingWave)
             {
                 CurrWave = false;
                 waveTimer = 5f;
@@ -141,7 +167,7 @@ public class WaveManager : MonoBehaviour
             }
     }
 
-     void EndWave()
+    void EndWave()
     {
         if (isEndingWave == false)
         {
@@ -195,7 +221,9 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if( CurrWave == false)
+        if( CurrWave == false 
+            && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
+                && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
             waveTimer -= Time.deltaTime;
             if(waveTimer <= 0)

@@ -98,6 +98,8 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPosition = GetRandomEdgePosition();
             GameObject BossEnemy = Instantiate(enemyPrefabs[boss], spawnPosition, Quaternion.identity);
 
+            WaveManager.Instance.NotifyBossSpawned(BossEnemy);
+
             //WaveManager.Instance.NotifyBossSpawned(BossEnemy);
             return;
         }
@@ -164,14 +166,6 @@ public class EnemySpawner : MonoBehaviour
             if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
             return enemyPrefabs[phantom];
         }
-
-        // // 其他波次（不整十），从 basic~phantom 里随机挑一个
-        // float total = Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance + Enemy3SpawnChance;
-        // float value = Random.value * total;
-
-        // if (value < Enemy0SpawnChance) return enemyPrefabs[basic];
-        // if (value < Enemy0SpawnChance + Enemy1SpawnChance) return enemyPrefabs[ranged];
-        // if (value < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
-        // return enemyPrefabs[phantom];
+        //return enemyPrefabs[ranged];
     }
 }

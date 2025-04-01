@@ -14,7 +14,11 @@ public enum GAMESTATE{
     GamePlay, // During waves
     GameUpgrade, // During upgrade screen
     GameOver, // On game over screen
-    Tutorial
+    Tutorial,
+    GameTutorialPauseAndReadTowers,
+    GameTutorialHeroMoveAndAttack,
+    GameTutorialUpgrades,
+    GameTutorialEnd,
 }
 
 public class CustomSceneManager : MonoBehaviour
@@ -48,6 +52,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject MoneyPopUpUI;
     public GameObject TutorialUI;
     public GameObject TowerBarUI;
+    public GameObject Hero;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
@@ -71,7 +76,6 @@ public class CustomSceneManager : MonoBehaviour
     public void UpdateGameState(GAMESTATE gs)
     {
         Debug.Log("changing gameState to: " + gs);
-        //Debug.Log(whichIsMe);
         switch(gs)
         {
             case GAMESTATE.BeforeGameStart:
@@ -80,6 +84,11 @@ public class CustomSceneManager : MonoBehaviour
             case GAMESTATE.PlaceCore:
                 break;
             case GAMESTATE.GameStart:
+                {
+                    GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+                    if(hero != null) Destroy(hero);
+                }
+                Instantiate(instance.Hero);
                 break;
             case GAMESTATE.GamePlay:
                 break;
@@ -87,7 +96,30 @@ public class CustomSceneManager : MonoBehaviour
                 break;
             case GAMESTATE.GameOver:
                 break;
-            case GAMESTATE Tutorial:
+            case GAMESTATE.Tutorial:
+                break;
+            case GAMESTATE.GameTutorialPauseAndReadTowers:
+                instance.pause();
+                // spawn text tell player the game is pause and they can take their time to read the towers on the right
+                // whenever the player is ready, they can unpause to move on
+                StartCoroutine(TutorialReadTowers());
+                break;
+            case GAMESTATE.GameTutorialHeroMoveAndAttack:
+                // spawn text explaining the hero and how to move
+                // then how to hero auto attack
+                {
+                    GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+                    if(hero != null) Destroy(hero);
+                }
+                Instantiate(instance.Hero);
+                StartCoroutine(TutorialHeroMoveAndAttack());
+                break;
+            case GAMESTATE.GameTutorialUpgrades:
+                // after killing the last enemey show upgrades and explain how upgrades work
+                TutorialUpgrades();
+                break;
+            case GAMESTATE.GameTutorialEnd:
+                TutorialEnd();
                 break;
             default:
                 break;
@@ -100,12 +132,14 @@ public class CustomSceneManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         EnemyAbstract.enemyKill += AddKill;
+        WaveManager.waveEnd += OnWaveEnd;
     }
 
     private void OnDisable()
     {   
         SceneManager.sceneLoaded -= OnSceneLoaded; 
         EnemyAbstract.enemyKill -= AddKill;
+        WaveManager.waveEnd -= OnWaveEnd;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -154,21 +188,28 @@ public class CustomSceneManager : MonoBehaviour
         }
 
         // ban player movement and attack
-        DisablePlayerControls();
+        //DisablePlayerControls();
 
         UpdateGameState(GAMESTATE.PlaceCore);
 
         StartCoroutine(TutorialSequence());
     }
+
     // Called Start Game Button
     public void StartGame(){
         StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
         waveManager.LoadStartingWave();
+        if (TutorialUI != null)
+        {
+            TutorialUI.SetActive(false);
+        }
+        isTutorialMode = false;
         UpdateGameState(GAMESTATE.GameStart);
         Time.timeScale = 1;
         UpdateGameState(GAMESTATE.GamePlay);
+        //UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
     }
 
     private void DisablePlayerControls()
@@ -287,22 +328,23 @@ public class CustomSceneManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        // Complete tutorial
-        UpdateTutorialText("Tutorial Part 1 completed!\nYou can now continue to Part 2 or return to the main menu.");
+         UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
+        // // Complete tutorial
+        // UpdateTutorialText("Tutorial Part 1 completed!\nYou can now continue to Part 2 or return to the main menu.");
 
-        // Show next tutorial button
-        Transform NextTutorialButton = TutorialUI.transform.Find("NextTutorialButton");
-        if (NextTutorialButton != null)
-        {
-            NextTutorialButton.gameObject.SetActive(true);
-        }
+        // // Show next tutorial button
+        // Transform NextTutorialButton = TutorialUI.transform.Find("NextTutorialButton");
+        // if (NextTutorialButton != null)
+        // {
+        //     NextTutorialButton.gameObject.SetActive(true);
+        // }
 
-        // Show exit to menu button
-        Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
-        if (ExitToMenuButton != null)
-        {
-            ExitToMenuButton.gameObject.SetActive(true);
-        }
+        // // Show exit to menu button
+        // Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
+        // if (ExitToMenuButton != null)
+        // {
+        //     ExitToMenuButton.gameObject.SetActive(true);
+        // }
     }
     private void UpdateTutorialText(string text)
     {
@@ -342,6 +384,64 @@ public class CustomSceneManager : MonoBehaviour
 
         Restart();
     }
+
+    private IEnumerator TutorialReadTowers(){
+        UpdateTutorialText("The game is pause now. Please take your time to read the tower info on the right by hovering over them.");
+        yield return new WaitForSecondsRealtime(5);
+        UpdateTutorialText("You can also click on tower to see their stats. Once done, click the 'Pause' Button to continue.");
+    }
+
+    private IEnumerator TutorialHeroMoveAndAttack(){
+        if (TutorialUI != null)
+        {
+            TutorialUI.SetActive(true);
+            TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
+            if (tutorialText != null)
+            {
+                tutorialText.text = "Your hero is the blue guy and you can move him with AWSD.";
+                yield return new WaitForSeconds(5);
+                tutorialText.text = "Your hero will autoattack the closest enemy within its attack range.";
+            }
+        }
+    }
+
+    private void TutorialUpgrades(){
+        if (TutorialUI != null)
+        {
+            TutorialUI.SetActive(true);
+            TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
+            if (tutorialText != null)
+            {
+                tutorialText.text = "After clearing the wave, you can spend gold to upgrade your hero and tower.";
+            }
+        }
+    }
+
+    private void TutorialEnd(){
+        if (TutorialUI != null)
+        {
+            TutorialUI.SetActive(true);
+            TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
+            if (tutorialText != null)
+            {
+                tutorialText.text = "Tutorial is completed.\nYou can now continue to the game or return to the main menu.";
+            }
+        }
+        // Show start game button
+        Transform NextTutorialButton = TutorialUI.transform.Find("NextTutorialButton");
+        if (NextTutorialButton != null)
+        {
+            NextTutorialButton.gameObject.SetActive(true);
+        }
+
+        // Show exit to menu button
+        Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
+        if (ExitToMenuButton != null)
+        {
+            ExitToMenuButton.gameObject.SetActive(true);
+        }
+    }
+
     private void StartingGame(){
         Debug.Log("starting");
         
@@ -409,11 +509,11 @@ public class CustomSceneManager : MonoBehaviour
             Health health =  core.GetComponent<Health>();
             coreHealthUI.text = $"Core Health: {health.currentHealth} / {health.maxHealth} \n";
         }
-        if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
-        {
-            lastCheckedKills = waveManager.KillperWave;
-            waveManager.CheckWaveEnd();
-        }
+        // if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
+        // {
+        //     lastCheckedKills = waveManager.KillperWave;
+        //     waveManager.CheckWaveEnd();
+        // }
 
         
         // Debug Press Space and do something
@@ -438,12 +538,34 @@ public class CustomSceneManager : MonoBehaviour
     {
         totalKills++;
         waveManager.KillperWave++;
-        if (!isTutorialMode && totalKills >= killLimit){
+
+        if (WaveManager.Instance != null)
+        {
+            waveManager.CheckWaveEnd();
+        }
+        // if (!isTutorialMode && totalKills >= killLimit){
+        //     UpgradeUI.SetActive(true);
+        //     PauseGame();
+        //     UpdateGameState(GAMESTATE.GameUpgrade);
+        // }
+    }
+
+    private void OnWaveEnd(int curwave)
+    {
+        Debug.Log("Wave cleared, entering upgrade state");
+        if(instance.curState == GAMESTATE.GameTutorialHeroMoveAndAttack){
+            UpgradeUI.SetActive(true);
+            PauseGame();
+            UpdateGameState(GAMESTATE.GameTutorialUpgrades);
+        }
+        else if (!isTutorialMode)
+        {
             UpgradeUI.SetActive(true);
             PauseGame();
             UpdateGameState(GAMESTATE.GameUpgrade);
         }
     }
+
 
     // Called when you click on an Upgrade
     public void ResetAndLoad(int killLimit)
@@ -451,8 +573,14 @@ public class CustomSceneManager : MonoBehaviour
         totalKills = 0;
         this.killLimit = killLimit;
         UpgradeUI.SetActive(false);
-        UpdateGameState(GAMESTATE.GamePlay);
-        Resume();
+
+        if(instance.curState == GAMESTATE.GameTutorialUpgrades){
+            UpdateGameState(GAMESTATE.GameTutorialEnd);
+        }
+        else{
+            UpdateGameState(GAMESTATE.GamePlay);
+            Resume();
+        }
     }
 
     public void GameOver(){
@@ -466,6 +594,9 @@ public class CustomSceneManager : MonoBehaviour
     }
 
      private void Resume(){
+        if(instance.curState == GAMESTATE.GameTutorialPauseAndReadTowers){
+            UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
+        }
         Time.timeScale = 1;
     }
 
