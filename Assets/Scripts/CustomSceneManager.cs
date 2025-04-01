@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using System;
-
+using UnityEngine.UI;
 public enum GAMESTATE{
     BeforeGameStart, // Before "Start Game" is clicked on StartCanvas
     PlaceCore, // When Core is draggable,
@@ -56,7 +56,11 @@ public class CustomSceneManager : MonoBehaviour
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
-    private void Awake()
+    
+    public Button PauseButton;
+    private Sprite PauseSprite;
+    private Sprite ResumeSprite;
+            private void Awake()
     {
         // Check if instance already exists
         if (instance == null)
@@ -517,10 +521,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameOverUI.SetActive(true);            
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     gameOverUI.SetActive(true);            
+        // }
     
     }
 
@@ -590,6 +594,8 @@ public class CustomSceneManager : MonoBehaviour
         UpdateGameState(GAMESTATE.GameOver);
     }
     private void PauseGame(){
+        //change button pic 
+        PauseButton.image.sprite = PauseSprite;
         Time.timeScale = 0;
     }
 
@@ -597,6 +603,8 @@ public class CustomSceneManager : MonoBehaviour
         if(instance.curState == GAMESTATE.GameTutorialPauseAndReadTowers){
             UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
         }
+            //change button pic 
+        PauseButton.image.sprite = ResumeSprite;
         Time.timeScale = 1;
     }
 
@@ -711,7 +719,22 @@ public class CustomSceneManager : MonoBehaviour
             coreHealthUI = GameObject.Find("CoreTextUI")?.GetComponent<TMP_Text>();
         }
 
+        if(PauseButton == null){
+            GameObject button = GameObject.Find("PauseButton");
 
+            if (button != null)
+            {
+                PauseButton = button.GetComponent<Button>();
+            }
+        }
+
+        if(PauseSprite == null){
+            PauseSprite = Resources.Load<Sprite>("Sprites/Black Pause Button");
+        }
+
+         if(ResumeSprite == null){
+            ResumeSprite = Resources.Load<Sprite>("Sprites/Black Resume Buttom");
+        }
     }
 
     public Vector2 GetMinBounds()
