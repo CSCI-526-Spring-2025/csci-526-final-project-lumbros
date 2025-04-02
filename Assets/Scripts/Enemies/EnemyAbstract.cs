@@ -29,6 +29,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     public int healthExpect;
     private bool isDead = false;
     public int healthInit;
+    public bool healthChanged = false;
     // do not overwrite
     private void OnDisable()
     {
@@ -114,8 +115,12 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     {
         BeforeUpdate();
         if (target == null) return;
-        if(health > healthInit){
+        if(!healthChanged){
             healthExpect = health;
+        }
+        if(health > healthInit &&  !healthChanged){
+            healthExpect = health;
+            healthChanged = true;
         }
         Move();
         TryAttack();

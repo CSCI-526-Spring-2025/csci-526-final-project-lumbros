@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 5f;
-    private Transform target;
+    public Transform target;
     public Transform shooter;
     public int damage = 1;
     public int bouncesLeft = 0;
@@ -22,8 +22,8 @@ public class Projectile : MonoBehaviour
         {
             targetPosition = target.position;
 
-            var damageable = target.GetComponent<IDamageable>();
-            damageable?.TakeExpectedDamage(damage);
+            // var damageable = target.GetComponent<IDamageable>();
+            // damageable?.TakeExpectedDamage(damage);
         }
 
         this.shooter = shooter;
@@ -86,7 +86,8 @@ public class Projectile : MonoBehaviour
             if (enemy.transform == previousTarget) continue;
 
             var damageable = enemy.GetComponent<IDamageable>();
-            if (damageable == null || damageable.getHealthExpected() <= 0) continue;
+            if (damageable == null) continue;
+            if (damageable.getHealthExpected() <= 0) continue;
 
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance < closestDistance)
@@ -94,6 +95,28 @@ public class Projectile : MonoBehaviour
                 closestDistance = distance;
                 bestTarget = enemy.transform;
             }
+        }
+
+        if (bestTarget == null)
+        {
+            closestDistance = Mathf.Infinity;
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy.transform == previousTarget) continue;
+
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    bestTarget = enemy.transform;
+                }
+            }
+        }
+
+        if (bestTarget != null)
+        {
+            var dmg = bestTarget.GetComponent<IDamageable>();
+            dmg?.TakeExpectedDamage(damage); 
         }
 
         return bestTarget;
