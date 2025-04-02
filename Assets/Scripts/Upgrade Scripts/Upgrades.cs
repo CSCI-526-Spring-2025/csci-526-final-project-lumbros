@@ -88,8 +88,8 @@ public class Upgrades : MonoBehaviour
         AddUpgrade(heroUpgrades, "Hero Auto Heal", "+1 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 1, 2, 1f);
         AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2, 4, 1f);
 
-        AddUpgrade(heroUpgrades, "Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, 3, 1f);
-        AddUpgrade(heroUpgrades, "Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, 3, 1f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, 4, 1f);
 
         AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1, 3, 1f);
         AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, 4, 1f);

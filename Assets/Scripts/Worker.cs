@@ -32,7 +32,12 @@ public class Worker : MonoBehaviour, IDamageable
     {
         return goldAmount;
     }
-
+    public void TakeExpectedDamage(int dmg){
+        return;
+    }
+    public int getHealthExpected(){
+        return 0;
+    }
     public void SetTargetMine()
     {
         goldAmount = 0;

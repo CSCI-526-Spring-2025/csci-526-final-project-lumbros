@@ -26,9 +26,9 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     private SpriteRenderer spriteRenderer;
     public float delay = 0.1f;
     public int numOfFlash = 4;
-
+    public int healthExpect;
     private bool isDead = false;
-    
+    public int healthInit;
     // do not overwrite
     private void OnDisable()
     {
@@ -43,7 +43,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             core = coreObject.transform;
             target = core; // Initial target is the Core
         }
-
+        healthInit = health;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("EnemyEnCol"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("NormalLayer"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyEnCol"), LayerMask.NameToLayer("Projectile"));
@@ -83,7 +83,15 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             PostDamage(damage, attacker);
         }
     }
-
+    public void TakeExpectedDamage(int dmg)
+    {
+        healthExpect -= dmg;
+        if (healthExpect < 0) healthExpect = 0;
+    }
+    public int getHealthExpected(){
+        return healthExpect;
+    }
+    
 
     IEnumerator EnemyHitFlash()
     {
@@ -106,7 +114,9 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     {
         BeforeUpdate();
         if (target == null) return;
-
+        if(health > healthInit){
+            healthExpect = health;
+        }
         Move();
         TryAttack();
     }

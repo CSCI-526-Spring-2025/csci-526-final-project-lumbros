@@ -29,6 +29,11 @@ public class AutoAttack : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
+            var damageable = target.GetComponent<IDamageable>();
+            if (damageable != null && damageable.getHealthExpected() <= 0)
+            {
+                continue;
+            }
             float distance = Vector2.Distance(transform.position, target.transform.position);
             if (distance < minDistance)
             {
@@ -42,6 +47,12 @@ public class AutoAttack : MonoBehaviour
 
     void Shoot(Transform target)
     {
+        
+        // var damageable = target.GetComponent<IDamageable>();
+        // if (damageable != null)
+        // {
+        //     damageable.TakeExpectedDamage(damage);
+        // }
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Projectile>().SetTarget(target, transform, heroBounces, isEnemy); 
         projectile.GetComponent<Projectile>().damage = damage; 

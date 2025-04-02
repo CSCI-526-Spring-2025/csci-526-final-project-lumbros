@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
     private float immunity = 1.0f;
     public bool heroReborn = false;
     private bool isDead = false;
+    public int healthExpect;
     public float rebornDelay = 3f;
     public float workerRebornDelay = 5f;
 
@@ -24,7 +25,7 @@ public class Health : MonoBehaviour
         // Set initial health and configure the UI slider
         manager = GameObject.FindGameObjectWithTag("Manager");
         currentHealth = maxHealth;
-
+        healthExpect = maxHealth;
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxHealth;
@@ -76,6 +77,11 @@ public class Health : MonoBehaviour
                 Die(tag);
             }
         }
+    }
+    public void TakeExpectedDamage(int dmg)
+    {
+        healthExpect -= dmg;
+        if (healthExpect < 0) healthExpect = 0;
     }
 
     void Die(string tag)

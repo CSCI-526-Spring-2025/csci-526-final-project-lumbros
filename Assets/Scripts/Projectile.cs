@@ -7,39 +7,59 @@ public class Projectile : MonoBehaviour
     public Transform shooter;
     public int damage = 1;
     public int bouncesLeft = 0;
-    public bool isEnemyProjectile = false; 
+    public bool isEnemyProjectile = false;
 
+    private bool reachedTarget = false;
+    private Vector3 targetPosition;
+
+    private float lifeTime = 0f;
+    private const float maxLifeTime = 5f; 
     public void SetTarget(Transform newTarget, Transform shooter, int extraBounces, bool isEnemy)
     {
         target = newTarget;
+
+        if (target != null)
+        {
+            targetPosition = target.position;
+
+            var damageable = target.GetComponent<IDamageable>();
+            damageable?.TakeExpectedDamage(damage);
+        }
+
         this.shooter = shooter;
         bouncesLeft = extraBounces;
         isEnemyProjectile = isEnemy;
+        reachedTarget = false;
     }
 
     void Update()
     {
-        if (target == null)
+        if (target != null)
         {
-            Destroy(gameObject);
-            return;
+            targetPosition = target.position;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, target.position) < 0.1f)
+        if (!reachedTarget && Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
+            reachedTarget = true;
             HitTarget();
+        }
+
+        lifeTime += Time.deltaTime;
+        if (lifeTime > maxLifeTime)
+        {
+            Destroy(gameObject);
         }
     }
 
     void HitTarget()
     {
-        
-        var damageable = target.GetComponent<IDamageable>();
-        if (damageable != null)
+        if (target != null)
         {
-            damageable.TakeDamage(damage, shooter);
+            var damageable = target.GetComponent<IDamageable>();
+            damageable?.TakeDamage(damage, shooter);
         }
 
         if (bouncesLeft > 0)
@@ -47,11 +67,11 @@ public class Projectile : MonoBehaviour
             Transform nextTarget = FindNextEnemy(target);
             if (nextTarget != null)
             {
-                target = nextTarget;
-                bouncesLeft--;
+                SetTarget(nextTarget, shooter, bouncesLeft - 1, isEnemyProjectile);
                 return;
             }
         }
+
         Destroy(gameObject);
     }
 
@@ -63,7 +83,10 @@ public class Projectile : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.transform == previousTarget) continue; 
+            if (enemy.transform == previousTarget) continue;
+
+            var damageable = enemy.GetComponent<IDamageable>();
+            if (damageable == null || damageable.getHealthExpected() <= 0) continue;
 
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance < closestDistance)
@@ -75,22 +98,6 @@ public class Projectile : MonoBehaviour
 
         return bestTarget;
     }
-
-    // void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     GameObject other = collision.gameObject; 
-
-    //     if (isEnemyProjectile && (other.CompareTag("Tower") || other.CompareTag("Core") || other.layer == LayerMask.NameToLayer("Buildings")))
-    //     {
-    //         var damageable = other.GetComponent<IDamageable>();
-    //         if (damageable != null)
-    //         {
-    //             damageable.TakeDamage(damage, shooter);
-    //         }
-    //         Destroy(gameObject);
-    //     }
-    // }
-
 
     void OnBecameInvisible()
     {
