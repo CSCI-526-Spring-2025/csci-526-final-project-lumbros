@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1949600914503750619}
   - component: {fileID: 7946240630394277014}
   - component: {fileID: 3962831298113779016}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: Circle
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
+  healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 5
 --- !u!1 &6902931740620770406
@@ -121,7 +122,7 @@ GameObject:
   - component: {fileID: 1894957076253402380}
   - component: {fileID: 7003562246359438101}
   - component: {fileID: 3803728982153054781}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: Worker
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -225,6 +226,7 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
+  healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 50
 --- !u!114 &1894957076253402380
@@ -264,7 +266,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902931740620770406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.05
   m_Speed: 1

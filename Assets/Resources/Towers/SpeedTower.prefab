@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1279011534066061354}
   - component: {fileID: 5943819573156299410}
   - component: {fileID: 1583082206509594674}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpeedTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
+  healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 5
 --- !u!114 &7631099997005822560

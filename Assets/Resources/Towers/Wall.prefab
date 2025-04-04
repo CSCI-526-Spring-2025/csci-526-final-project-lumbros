@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2934526200056339433}
   - component: {fileID: 6332306941032756186}
   - component: {fileID: 706085701082615841}
-  m_Layer: 15
+  m_Layer: 9
   m_Name: Wall
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -151,6 +151,10 @@ MonoBehaviour:
   updated: 0
   healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
+  heroReborn: 0
+  healthExpect: 0
+  rebornDelay: 3
+  workerRebornDelay: 5
 --- !u!222 &7383947285946892729
 CanvasRenderer:
   m_ObjectHideFlags: 0

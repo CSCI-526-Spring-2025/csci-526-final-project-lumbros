@@ -63,8 +63,8 @@ public class Worker : MonoBehaviour, IDamageable
     {
         if (target != null)
         {
-            //transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            agent.SetDestination(target.position);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            // agent.SetDestination(target.position);
         }
     }
 

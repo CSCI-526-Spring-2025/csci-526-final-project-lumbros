@@ -25,7 +25,7 @@ public class AOEProjectile : Projectile
                     var damageable = collider.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        damageable.TakeDamage(splashDamage, transform);
+                        damageable.TakeDamage(damage, transform);
                     }
                 }
             }
@@ -35,4 +35,6 @@ public class AOEProjectile : Projectile
     {
         Destroy(gameObject);
     }
+   
+   
 }

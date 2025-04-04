@@ -175,9 +175,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  target: {fileID: 0}
   shooter: {fileID: 0}
-  damage: 1
+  damage: 3
   bouncesLeft: 0
   isEnemyProjectile: 0
-  explosionRadius: 2
-  splashDamage: 1
+  explosionRadius: 50
+  splashDamage: 3
