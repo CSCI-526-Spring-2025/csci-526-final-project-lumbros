@@ -660,7 +660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58586202}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3770,7 +3770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 347169150}
   - component: {fileID: 347169151}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4617,7 +4617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 401647109}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7207,7 +7207,7 @@ GameObject:
   - component: {fileID: 628127079}
   - component: {fileID: 628127082}
   - component: {fileID: 628127080}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15700,7 +15700,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1239019569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plus Money
   m_TagString: MoneyPopUp
   m_Icon: {fileID: 0}
@@ -16492,7 +16492,7 @@ GameObject:
   - component: {fileID: 1307082227}
   - component: {fileID: 1307082226}
   - component: {fileID: 1307082228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17153,7 +17153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1354620277}
   - component: {fileID: 1354620276}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22341,7 +22341,7 @@ GameObject:
   - component: {fileID: 1678903177}
   - component: {fileID: 1678903178}
   - component: {fileID: 1678903179}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25166,7 +25166,7 @@ GameObject:
   - component: {fileID: 1905447753}
   - component: {fileID: 1905447752}
   - component: {fileID: 1905447751}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthUI (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25829,7 +25829,7 @@ GameObject:
   - component: {fileID: 1956271680}
   - component: {fileID: 1956271681}
   - component: {fileID: 1956271682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26750,7 +26750,7 @@ GameObject:
   - component: {fileID: 1992314249}
   - component: {fileID: 1992314251}
   - component: {fileID: 1992314250}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27316,7 +27316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60, y: -26.999939}
+  m_AnchoredPosition: {x: -60.00003, y: -26.999939}
   m_SizeDelta: {x: -154.64, y: -91.565}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2026817667
@@ -28860,7 +28860,7 @@ GameObject:
   - component: {fileID: 2120846192}
   - component: {fileID: 2120846197}
   - component: {fileID: 2120846198}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Core
   m_TagString: Core
   m_Icon: {fileID: 0}
@@ -28898,6 +28898,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1354620276}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
+  healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 5
 --- !u!60 &2120846195

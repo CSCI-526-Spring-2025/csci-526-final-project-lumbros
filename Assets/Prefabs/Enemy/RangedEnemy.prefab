@@ -110,12 +110,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2d8a993bcd25742898be5a8b335a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  health: 3
+  speed: 1.5
+  health: 2
   attackDamage: 1
   attackRange: 4
   attackCooldown: 2
   deathParticle: {fileID: 8289590676886491281, guid: 0aa37327ddd5b7742aefd22e5d764c39, type: 3}
+  flash: {r: 255, g: 255, b: 255, a: 1}
+  delay: 0.1
+  numOfFlash: 4
+  healthExpect: 0
+  healthInit: 0
+  healthChanged: 0
   projectilePrefab: {fileID: 6947373763395278133, guid: 1c46ebb1bc8c4d042be4a6ec5b948102, type: 3}
 --- !u!1 &6640638025385805139
 GameObject:
