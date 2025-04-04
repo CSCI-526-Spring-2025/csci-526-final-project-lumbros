@@ -68,31 +68,31 @@ public class Upgrades : MonoBehaviour
     
     // }
 
-        AddUpgrade(heroUpgrades, "Hero Damage", "+1 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 1, 3, 1f);
-        AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, 3, 1f);
+        AddUpgrade(heroUpgrades, "Hero Damage", "+4 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 4, 4, 1f);
 
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, 5, 1f);
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, 10, 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, 4, 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, 8, 1f);
 
-        AddUpgrade(heroUpgrades, "Hero HP", "+2 to Hero HP", () => {
+        AddUpgrade(heroUpgrades, "Hero HP", "+5 to Hero HP", () => {
             Health hp = hero.GetComponent<Health>();
-            hp.maxHealth += 2;
-            hp.currentHealth += 2;
+            hp.maxHealth += 5;
+            hp.currentHealth += 5;
         }, 2, 1f);
-        AddUpgrade(heroUpgrades, "Hero HP", "+4 to Hero HP", () => {
+        AddUpgrade(heroUpgrades, "Hero HP", "+10 to Hero HP", () => {
             Health hp = hero.GetComponent<Health>();
-            hp.maxHealth += 4;
-            hp.currentHealth += 4;
+            hp.maxHealth += 10;
+            hp.currentHealth += 10;
         }, 4, 1f);
 
-        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+1 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 1, 2, 1f);
-        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2, 2, 1f);
+        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+4 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 4, 4, 1f);
 
-        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, 3, 1f);
-        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, 3, 0.5f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, 4, 0.5f);
 
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +1", () => hero.GetComponent<AutoAttack>().heroBounces += 1, 3, 1f);
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, 5, 1f);
+        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +4", () => hero.GetComponent<AutoAttack>().heroBounces += 4, 10, 1f);
 
         AddUpgrade(heroUpgrades, "Hero Reborn", "The hero can respawn within 10 seconds", () => hero.GetComponent<Health>().heroReborn = true, 10, 0.5f);
 
