@@ -310,6 +310,7 @@ public class CustomSceneManager : MonoBehaviour
                 int enemyCount = 5;
                 int currentWave = 1;
                 float spawnInterval = 1.0f;
+                WaveManager.Instance.enemyHealthMultiplier = 1;
                 enemySpawner.SpawnWave(enemyCount, currentWave, spawnInterval);
 
                 // Check if enemies are generated

@@ -88,6 +88,7 @@ public class WaveManager : MonoBehaviour
         // spawn melee enemies
         enemyHealthMultiplier = 1;
         WaveKillLimit = 2;
+        KillperWave = 0;
         enemySpawner.SpawnWave(2, 1, 4);
     }
 
