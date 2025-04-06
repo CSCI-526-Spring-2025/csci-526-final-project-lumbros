@@ -5,6 +5,7 @@ using TMPro;
 public class HeroTextUI : MonoBehaviour
 {
     private TMP_Text textComponent;
+    private TMP_Text HealthBarTextComponent;
     private GameObject HeroObject;
     private AutoAttack attackInfo;
     private HeroMovement movementInfo; 
@@ -17,6 +18,7 @@ public class HeroTextUI : MonoBehaviour
     {
         HeroTextGameObject = GameObject.Find("HeroTextUI");
         textComponent = HeroTextGameObject.GetComponent<TMP_Text>();
+        HealthBarTextComponent = GameObject.Find("HeroHealthText").GetComponent<TMP_Text>();
 
         FindHero();
     }
@@ -25,14 +27,24 @@ public class HeroTextUI : MonoBehaviour
     void Update()
     {
         FindHero();
+
+        int currentHealth = health.currentHealth;
+        int maxHealth = health.maxHealth;
         if(!isDisplay)
             textComponent.text = "";
         else    
-            textComponent.text = $"Health: {health.currentHealth} / {health.maxHealth} \nAttack Damage: {attackInfo.damage} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+            textComponent.text = $"Health: {currentHealth} / {maxHealth} \nAttack Damage: {attackInfo.damage} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+        
+        if(HealthBarTextComponent != null && health != null){
+            HealthBarTextComponent.text = $"{currentHealth} / {maxHealth}";
+        }
+    
     }
 
     void FindHero(){
+
         HeroObject = GameObject.FindGameObjectWithTag("Player");
+        
         if(HeroObject != null){
             health =  HeroObject.GetComponent<Health>();
             attackInfo = HeroObject.GetComponent<AutoAttack>();

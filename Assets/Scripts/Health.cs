@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     private static GameObject manager; // manage the game state
     public bool updated = false;
     // Reference to the health bar slider
-    public Slider healthSlider;
+    private Slider healthSlider;
     public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position
     private float immunity = 1.0f;
     public bool heroReborn = false;
@@ -20,28 +20,36 @@ public class Health : MonoBehaviour
     public float rebornDelay = 3f;
     public float workerRebornDelay = 5f;
 
+    public string name = "";
+
     void Start()
     {
         // Set initial health and configure the UI slider
         manager = GameObject.FindGameObjectWithTag("Manager");
+        if(name == "core"){
+            healthSlider = GameObject.Find("CoreHealthBar").GetComponent<Slider>();
+        }
+        else if(name == "hero"){
+            healthSlider = GameObject.Find("HeroHealthBar").GetComponent<Slider>();
+        }
         currentHealth = maxHealth;
         healthExpect = maxHealth;
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxHealth;
             healthSlider.value = currentHealth;
-            // If the slider isn't a child object, position it
-            if (healthSlider.transform.parent != transform)
-            {
-                // Create a Canvas in world space and set it as the slider's parent
-                Canvas canvas = healthSlider.GetComponentInParent<Canvas>();
-                if (canvas != null)
-                {
-                    canvas.renderMode = RenderMode.WorldSpace;
-                    canvas.transform.SetParent(transform);
-                    canvas.transform.localPosition = healthBarOffset;
-                }
-            }
+            // // If the slider isn't a child object, position it
+            // if (healthSlider.transform.parent != transform)
+            // {
+            //     // Create a Canvas in world space and set it as the slider's parent
+            //     Canvas canvas = healthSlider.GetComponentInParent<Canvas>();
+            //     if (canvas != null)
+            //     {
+            //         canvas.renderMode = RenderMode.WorldSpace;
+            //         canvas.transform.SetParent(transform);
+            //         canvas.transform.localPosition = healthBarOffset;
+            //     }
+            // }
         }
         InvokeRepeating("AutoHeal", 5f, 5f);
     }
@@ -49,10 +57,10 @@ public class Health : MonoBehaviour
     void Update()
     {
         // Update health bar position if it's not a child object
-        if (healthSlider != null && healthSlider.transform.parent != transform)
-        {
-            healthSlider.transform.position = transform.position + healthBarOffset;
-        }
+        // if (healthSlider != null && healthSlider.transform.parent != transform)
+        // {
+        //     healthSlider.transform.position = transform.position + healthBarOffset;
+        // }
         immunity -= Time.deltaTime;
         currentHealth = currentHealth;
 

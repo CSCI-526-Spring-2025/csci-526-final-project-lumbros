@@ -23,7 +23,7 @@ public class MoneyManager : MonoBehaviour
 
     void Update()
     {
-        mMoneyUI.text = "Money: $" +mMoney.ToString();
+        mMoneyUI.text = mMoney.ToString();
     }
 
     public void UpdateMoney(int change){

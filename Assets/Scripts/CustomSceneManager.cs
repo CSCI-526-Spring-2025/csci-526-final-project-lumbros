@@ -512,7 +512,7 @@ public class CustomSceneManager : MonoBehaviour
         {
             GameObject core = GameObject.FindGameObjectWithTag("Core");
             Health health =  core.GetComponent<Health>();
-            coreHealthUI.text = $"Core Health: {health.currentHealth} / {health.maxHealth} \n";
+            coreHealthUI.text = $"{health.currentHealth} / {health.maxHealth} \n";
         }
         // if ((WaveManager.Instance != null) && (waveManager.KillperWave != lastCheckedKills))
         // {
