@@ -179,7 +179,8 @@ public class CustomSceneManager : MonoBehaviour
         StartingGame();
 
         isTutorialMode = true;
-        UpdateGameState(GAMESTATE.Tutorial);
+        // 先进入PlaceCore状态，允许核心拖动
+        UpdateGameState(GAMESTATE.PlaceCore);
         TowerBarUI.SetActive(false);
         if (TutorialUI == null)
         {
@@ -192,15 +193,9 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                //tutorialText.text = "Welcome to the game tutorial! First, let's drag the core to a suitable position.";
                 tutorialText.text = "Welcome to the game tutorial! The goal of the game is to protect the core for 8 waves.";
             }
         }
-
-        // ban player movement and attack
-        //DisablePlayerControls();
-
-        //UpdateGameState(GAMESTATE.PlaceCore); removing core movement for now
 
         StartCoroutine(TutorialSequence());
     }
@@ -262,68 +257,63 @@ public class CustomSceneManager : MonoBehaviour
     }
     private IEnumerator TutorialSequence()
     {
-        // Wait for the core to be placed - maximum 30 seconds
-        float waitTime = 0;
-        bool corePlaced = false;
         GameObject core = GameObject.FindGameObjectWithTag("Core");
-        Vector3 initialCorePosition = core ? core.transform.position : Vector3.zero;
 
-        // Wait and observe core position changes
-        // while (!corePlaced && waitTime < 30f)
-        // {
-        //     yield return new WaitForSeconds(0.5f);
-        //     waitTime += 0.5f;
-
-        //     // If core exists and has moved, consider it placed
-        //     if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
-        //     {
-        //         Debug.Log("Core position change detected, considering it placed");
-        //         yield return new WaitForSeconds(1f); // Wait one second to ensure complete placement
-        //         corePlaced = true;
-        //     }
-        // }
-
-        yield return new WaitForSeconds(7f);
-
-        // After core placement, change state to disable dragging
-        UpdateGameState(GAMESTATE.Tutorial);
-
-        // Step 1: Introduce the economy system (mines and workers)
+        SpawnTutorialMines();
+        UpdateTutorialText("Welcome to brotower! First you can see the browen mines and workers on the map.");
+        yield return new WaitForSeconds(10f);
         UpdateTutorialText("Mines generate resources, and workers collect resources and bring them back to the core to earn gold.");
+        
         if (MoneyManager.Instance != null)
         {
-            // Give player some initial gold to build mines and workers
             MoneyManager.Instance.UpdateMoney(30);
         }
 
-        // Directly spawn mines, not dependent on MineSpawner
-        SpawnTutorialMines();
 
-        // Wait for a while to let the player try building mines and workers
+       
+        
+
         yield return new WaitForSeconds(10f);
 
-        // Step 2: Introduce enemies
+        UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
+        
+        float waitTime = 0;
+        bool corePlaced = false;
+        Vector3 initialCorePosition = core ? core.transform.position : Vector3.zero;
+
+        while (!corePlaced && waitTime < 30f)
+        {
+            yield return new WaitForSeconds(0.5f);
+            waitTime += 0.5f;
+
+            if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
+            {
+                Debug.Log("Core position change detected, considering it placed");
+                yield return new WaitForSeconds(1f); 
+                corePlaced = true;
+            }
+        }
+
+        UpdateGameState(GAMESTATE.Tutorial);
+
         UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
         yield return new WaitForSeconds(5f);
         TowerBarUI.SetActive(true);
         SetTowersUI(false);
-        UpdateTutorialText("Build defense towers to protect your core.You can drag the tower from the right bar and place them.");
-        // Directly use EnemySpawner to generate enemies, not dependent on WaveManager UI logic
+        UpdateTutorialText("Build defense towers to protect your core. You can drag the tower from the right bar and place them.");
+        
+
         EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
         if (enemySpawner != null)
         {
             Debug.Log("Found EnemySpawner, attempting to generate enemies directly");
             try
             {
-                // Directly call EnemySpawner.SpawnWave method to generate 3 enemies
                 int enemyCount = 1;
                 int currentWave = 1;
                 float spawnInterval = 1.0f;
                 WaveManager.Instance.enemyHealthMultiplier = 1;
                 enemySpawner.SpawnWave(enemyCount, currentWave, spawnInterval);
-
-                // Check if enemies are generated
-                //StartCoroutine(CheckEnemySpawn());
             }
             catch (Exception e)
             {
@@ -333,7 +323,6 @@ public class CustomSceneManager : MonoBehaviour
 
         if (MoneyManager.Instance != null)
         {
-            // Give player more gold to build defense towers
             MoneyManager.Instance.UpdateMoney(50);
         }
 
@@ -342,23 +331,7 @@ public class CustomSceneManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-         UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
-        // // Complete tutorial
-        // UpdateTutorialText("Tutorial Part 1 completed!\nYou can now continue to Part 2 or return to the main menu.");
-
-        // // Show next tutorial button
-        // Transform NextTutorialButton = TutorialUI.transform.Find("NextTutorialButton");
-        // if (NextTutorialButton != null)
-        // {
-        //     NextTutorialButton.gameObject.SetActive(true);
-        // }
-
-        // // Show exit to menu button
-        // Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
-        // if (ExitToMenuButton != null)
-        // {
-        //     ExitToMenuButton.gameObject.SetActive(true);
-        // }
+        UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
     }
 
     private void SetTowersUI(bool b){
