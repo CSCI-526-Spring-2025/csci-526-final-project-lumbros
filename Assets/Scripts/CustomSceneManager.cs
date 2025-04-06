@@ -192,14 +192,15 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                tutorialText.text = "Welcome to the game tutorial! First, let's drag the core to a suitable position.";
+                //tutorialText.text = "Welcome to the game tutorial! First, let's drag the core to a suitable position.";
+                tutorialText.text = "Welcome to the game tutorial! The goal of the game is to protect the core for 8 waves.";
             }
         }
 
         // ban player movement and attack
         //DisablePlayerControls();
 
-        UpdateGameState(GAMESTATE.PlaceCore);
+        //UpdateGameState(GAMESTATE.PlaceCore); removing core movement for now
 
         StartCoroutine(TutorialSequence());
     }
@@ -268,19 +269,21 @@ public class CustomSceneManager : MonoBehaviour
         Vector3 initialCorePosition = core ? core.transform.position : Vector3.zero;
 
         // Wait and observe core position changes
-        while (!corePlaced && waitTime < 30f)
-        {
-            yield return new WaitForSeconds(0.5f);
-            waitTime += 0.5f;
+        // while (!corePlaced && waitTime < 30f)
+        // {
+        //     yield return new WaitForSeconds(0.5f);
+        //     waitTime += 0.5f;
 
-            // If core exists and has moved, consider it placed
-            if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
-            {
-                Debug.Log("Core position change detected, considering it placed");
-                yield return new WaitForSeconds(1f); // Wait one second to ensure complete placement
-                corePlaced = true;
-            }
-        }
+        //     // If core exists and has moved, consider it placed
+        //     if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
+        //     {
+        //         Debug.Log("Core position change detected, considering it placed");
+        //         yield return new WaitForSeconds(1f); // Wait one second to ensure complete placement
+        //         corePlaced = true;
+        //     }
+        // }
+
+        yield return new WaitForSeconds(7f);
 
         // After core placement, change state to disable dragging
         UpdateGameState(GAMESTATE.Tutorial);
@@ -303,6 +306,7 @@ public class CustomSceneManager : MonoBehaviour
         UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
         yield return new WaitForSeconds(5f);
         TowerBarUI.SetActive(true);
+        SetTowersUI(false);
         UpdateTutorialText("Build defense towers to protect your core.You can drag the tower from the right bar and place them.");
         // Directly use EnemySpawner to generate enemies, not dependent on WaveManager UI logic
         EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
@@ -312,7 +316,7 @@ public class CustomSceneManager : MonoBehaviour
             try
             {
                 // Directly call EnemySpawner.SpawnWave method to generate 3 enemies
-                int enemyCount = 5;
+                int enemyCount = 1;
                 int currentWave = 1;
                 float spawnInterval = 1.0f;
                 WaveManager.Instance.enemyHealthMultiplier = 1;
@@ -356,6 +360,26 @@ public class CustomSceneManager : MonoBehaviour
         //     ExitToMenuButton.gameObject.SetActive(true);
         // }
     }
+
+    private void SetTowersUI(bool b){
+        //this is hardcode need to fix later.
+        if(TowerBarUI != null){
+            // hide/unhide wall and door
+            for(int i = 9; i < 12; ++i){
+                var gOUI = TowerBarUI.transform.GetChild(i).gameObject;
+                Debug.Log(gOUI.transform.childCount);
+                for(int j = 1; j < 3; ++j){
+                    gOUI.transform.GetChild(j).gameObject.SetActive(b);
+                }
+            }
+
+            // hide/unhide ice, speed, aoe tower
+            for(int i = 12; i < 15; ++i){
+                TowerBarUI.transform.GetChild(i).gameObject.SetActive(b);
+            }
+        }
+    }
+
     private void UpdateTutorialText(string text)
     {
         if (TutorialUI != null)
@@ -396,6 +420,7 @@ public class CustomSceneManager : MonoBehaviour
     }
 
     private IEnumerator TutorialReadTowers(){
+        SetTowersUI(true);
         UpdateTutorialText("The game is pause now. Please take your time to read the tower info on the right by hovering over them.");
         yield return new WaitForSecondsRealtime(5);
         UpdateTutorialText("You can also click on tower to see their stats. Once done, click the 'Pause' Button to continue.");
