@@ -9,10 +9,15 @@ public class HeroTextUI : MonoBehaviour
     private AutoAttack attackInfo;
     private HeroMovement movementInfo; 
     private Health health;
+
+    private GameObject HeroTextGameObject; 
+    bool isDisplay = false;
     // Start is called before the first frame update
     void Start()
     {
-        textComponent =  GameObject.Find("HeroTextUI").GetComponent<TMP_Text>();
+        HeroTextGameObject = GameObject.Find("HeroTextUI");
+        textComponent = HeroTextGameObject.GetComponent<TMP_Text>();
+
         FindHero();
     }
 
@@ -20,8 +25,10 @@ public class HeroTextUI : MonoBehaviour
     void Update()
     {
         FindHero();
-        if(HeroObject!= null)
-            textComponent.text = $"Hero\nHealth: {health.currentHealth} / {health.maxHealth} \nAttack Damage: {attackInfo.damage} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+        if(!isDisplay)
+            textComponent.text = "";
+        else    
+            textComponent.text = $"Health: {health.currentHealth} / {health.maxHealth} \nAttack Damage: {attackInfo.damage} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
     }
 
     void FindHero(){
@@ -31,5 +38,10 @@ public class HeroTextUI : MonoBehaviour
             attackInfo = HeroObject.GetComponent<AutoAttack>();
             movementInfo = HeroObject.GetComponent<HeroMovement>();
         }
+    }
+
+    public void OnClick(){
+        isDisplay = !isDisplay;
+
     }
 }
