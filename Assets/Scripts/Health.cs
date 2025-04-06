@@ -182,7 +182,7 @@ void Reborn()
     {
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
-        healthSlider.transform.position = transform.position + healthBarOffset;
+        //healthSlider.transform.position = transform.position + healthBarOffset;
     }
 
     Debug.Log(gameObject.name + " has reborn!");
