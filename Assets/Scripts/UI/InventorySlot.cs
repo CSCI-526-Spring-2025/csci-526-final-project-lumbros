@@ -10,7 +10,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     // Map object names/types to prefabs
     private Dictionary<string, GameObject> prefabLookup;
     private static GameObject GamerManager; // manage the game state
-    private bool containsItem;
+    public bool containsItem;
     public static System.Action<string> AddedTower;
 
     void Start()

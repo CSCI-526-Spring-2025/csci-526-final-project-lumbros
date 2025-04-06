@@ -58,7 +58,7 @@ void Update()
         FindHero();
         return;
     }
-    Debug.Log("hero found " + isDisplay);
+    //Debug.Log("hero found " + isDisplay);
     int currentHealth = health.currentHealth;
     int maxHealth = health.maxHealth;
 

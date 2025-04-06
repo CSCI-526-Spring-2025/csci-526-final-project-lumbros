@@ -704,8 +704,14 @@ public class CustomSceneManager : MonoBehaviour
 
     public void MoneyPopUp(int money)
     {
-        MoneyPopUpUI.SetActive(true);
+        MoneyPopUpUI.SetActive(false);
+        TimerManager.StartTimer(0.15f, ShowMoneyPopUp, true);
         TimerManager.StartTimer(3f,  RemoveMoneyPopUp, true);
+    }
+
+    public void ShowMoneyPopUp()
+    {
+        MoneyPopUpUI.SetActive(true);
     }
 
     public void RemoveMoneyPopUp(){

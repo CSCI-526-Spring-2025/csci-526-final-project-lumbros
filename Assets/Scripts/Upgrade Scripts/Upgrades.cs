@@ -228,7 +228,7 @@ public class Upgrades : MonoBehaviour
             var upg = selectedUpgrades[i];
 
             upgradeTexts[i].text = upg.Item1;
-            costsTexts[i].text = "$" + upg.Item3;
+            costsTexts[i].text = "" + upg.Item3;
             upgradeButtons[i].onClick.RemoveAllListeners();
             upgradeButtons[i].onClick.AddListener(() => {
                 if (MoneyManager.Instance.mMoney >= upg.Item3)
