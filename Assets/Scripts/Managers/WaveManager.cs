@@ -117,12 +117,12 @@ public class WaveManager : MonoBehaviour
     {
         // For the timer
         CurrWave = true;
-        Debug.Log($"Wave {currentWave} starting...");
+        // Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
         mWavesUI.text = "Wave " + currentWave.ToString();
         enemyCount = WaveKillLimit;
-        Debug.Log($"enemyCount {enemyCount}");
-        Debug.Log($"WK {WaveKillLimit}");
+        // Debug.Log($"enemyCount {enemyCount}");
+        // Debug.Log($"WK {WaveKillLimit}");
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         //enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         SpanIntervalMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
@@ -293,7 +293,6 @@ public class WaveManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("onload");
         mWavesUI = GameObject.Find("WaveTextUI")?.GetComponent<TMP_Text>();
         if(mWavesCountdown == null) mWavesCountdown = GameObject.Find("WaveCountdownUI");
         if(mWavesCountdown != null){

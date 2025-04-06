@@ -527,10 +527,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     gameOverUI.SetActive(true);            
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gameOverUI.SetActive(true);            
+        }
     
     }
 
@@ -669,7 +669,7 @@ public class CustomSceneManager : MonoBehaviour
     public void DisplayWarning()
     {
         WarningUI.SetActive(true);
-        TimerManager.StartTimer(1f,  RemoveWarning, true);
+        TimerManager.StartTimer(3f,  RemoveWarning, true);
     }
 
      public void RemoveWarning(){
@@ -680,7 +680,7 @@ public class CustomSceneManager : MonoBehaviour
     public void MoneyPopUp(int money)
     {
         MoneyPopUpUI.SetActive(true);
-        TimerManager.StartTimer(2f,  RemoveMoneyPopUp, true);
+        TimerManager.StartTimer(3f,  RemoveMoneyPopUp, true);
     }
 
     public void RemoveMoneyPopUp(){
