@@ -22,6 +22,13 @@ public class Health : MonoBehaviour
 
     public string name = "";
 
+    // for flashing
+    public Color originalColor;
+    public Color flash = new Color(255, 255, 255);
+    private SpriteRenderer spriteRenderer;
+    public float delay = 0.1f;
+    public int numOfFlash = 4;
+
     void Start()
     {
         // Set initial health and configure the UI slider
@@ -52,6 +59,17 @@ public class Health : MonoBehaviour
             // }
         }
         InvokeRepeating("AutoHeal", 5f, 5f);
+
+        if(transform.tag == "Tower"){
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            flash = new Color(255, 0, 0);
+            originalColor = spriteRenderer.color;
+        }
+        else if(transform.tag == "Worker"){
+            Transform child = transform.GetChild(0);
+            spriteRenderer = child.GetComponent<SpriteRenderer>();
+            originalColor = spriteRenderer.color;
+        }
     }
 
     void Update()
@@ -84,12 +102,32 @@ public class Health : MonoBehaviour
             {
                 Die(tag);
             }
+            else if(spriteRenderer != null){
+                StartCoroutine(HitFlash());
+            }
         }
     }
+
     public void TakeExpectedDamage(int dmg)
     {
         healthExpect -= dmg;
         if (healthExpect < 0) healthExpect = 0;
+    }
+
+    IEnumerator HitFlash()
+    {
+        int howManyFlash = numOfFlash;
+
+        while(howManyFlash > 0)
+        {
+            spriteRenderer.color = flash; // flash
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            spriteRenderer.color = originalColor; // original color
+            yield return new WaitForSeconds(delay);
+            yield return null;
+            howManyFlash--;
+        }
     }
 
     void Die(string tag)
