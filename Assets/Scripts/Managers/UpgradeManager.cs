@@ -75,8 +75,11 @@
             }
             if (!health.updated)
             {
-                tower.GetComponent<AutoAttack>().damage += towerDamage;
-                tower.GetComponent<AutoAttack>().attackRange += towerRange;
+                if( tower.GetComponent<AutoAttack>() != null){
+                    tower.GetComponent<AutoAttack>().damage += towerDamage;
+                    tower.GetComponent<AutoAttack>().attackRange += towerRange;
+                }
+               
                 health.autoHeal += towerAutoHeal;
                 health.maxHealth += towerHP;
                 health.currentHealth += towerHP;
