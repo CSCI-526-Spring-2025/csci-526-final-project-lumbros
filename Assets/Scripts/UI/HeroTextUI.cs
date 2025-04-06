@@ -29,13 +29,19 @@ public class HeroTextUI : MonoBehaviour
         if (health == null || attackInfo == null || movementInfo == null) return;
 
         FindHero();
-
+        if(HeroObject == null){
+            return;
+        }
         int currentHealth = health.currentHealth;
         int maxHealth = health.maxHealth;
         if(!isDisplay)
+        {
             textComponent.text = "";
-        else    
+        }
+        else
+        {
             textComponent.text = $"Health: {currentHealth} / {maxHealth} \nAttack Damage: {attackInfo.damage} \nAttack Speed: {attackInfo.attackCooldown} \nMovement Speed: {movementInfo.moveSpeed}";
+        }
         
         if(HealthBarTextComponent != null && health != null){
             HealthBarTextComponent.text = $"{currentHealth} / {maxHealth}";
@@ -46,11 +52,13 @@ public class HeroTextUI : MonoBehaviour
     void FindHero(){
 
         HeroObject = GameObject.FindGameObjectWithTag("Player");
-        
         if(HeroObject != null){
             health =  HeroObject.GetComponent<Health>();
             attackInfo = HeroObject.GetComponent<AutoAttack>();
             movementInfo = HeroObject.GetComponent<HeroMovement>();
+        }
+        else{
+            Debug.Log("hero not found");
         }
     }
 
