@@ -26,8 +26,6 @@ public class HeroTextUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health == null || attackInfo == null || movementInfo == null) return;
-
         FindHero();
         if(HeroObject == null){
             return;
