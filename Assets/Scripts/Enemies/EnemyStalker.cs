@@ -23,7 +23,7 @@ public class EnemyStalker : EnemyAbstract
 
         health = 3; // Enemy health
         normalSpeed = 0.5f;
-        chargeSpeed = 10f;
+        chargeSpeed = 8f;
         attackDamage = 2; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time
