@@ -525,10 +525,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameOverUI.SetActive(true);            
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     gameOverUI.SetActive(true);            
+        // }
     
     }
 
