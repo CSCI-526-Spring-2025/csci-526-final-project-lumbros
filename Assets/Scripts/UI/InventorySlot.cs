@@ -79,7 +79,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         Vector3 pos = newItem.transform.position;
         pos.z = 0;
         newItem.transform.position = pos;
-        newItem.transform.localScale = new Vector3(0.15f,0.15f,0.15f);
+        newItem.transform.localScale = new Vector3(0.14f,0.14f,0.14f);
         containsItem = true;
         return newItem;
     }
