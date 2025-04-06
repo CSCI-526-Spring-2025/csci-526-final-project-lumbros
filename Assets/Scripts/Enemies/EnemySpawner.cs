@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public static EnemySpawner Instance { get; private set; }
     public GameObject[] enemyPrefabs; // 敌人预制体数组
     public float mapMinX = -8f;
-    public float mapMaxX = 6f;
+    public float mapMaxX = 5.1f;
     public float mapMinY = -5f;
     public float mapMaxY = 4f;
 
@@ -92,52 +92,47 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnWave(int enemyCount, int currentWave, float SpawnInterval)
     {
         stopSpawning = false; // make sure spawning is enabled
+        StartCoroutine(SpawnEnemies(enemyCount, currentWave, SpawnInterval));
+    }
 
-        if (currentWave % 10 == 0)
+    IEnumerator SpawnEnemies(int enemyCount, int currentWave, float SpawnInterval)
+    {
+        if (currentWave == 8)
         {
             Vector3 spawnPosition = GetRandomEdgePosition();
             GameObject BossEnemy = Instantiate(enemyPrefabs[boss], spawnPosition, Quaternion.identity);
 
             WaveManager.Instance.NotifyBossSpawned(BossEnemy);
-
-            //WaveManager.Instance.NotifyBossSpawned(BossEnemy);
-            return;
         }
-        else 
+        else
         {
-            StartCoroutine(SpawnEnemies(enemyCount, currentWave, SpawnInterval));
-        }
-    }
-
-    IEnumerator SpawnEnemies(int enemyCount, int currentWave, float SpawnInterval)
-    {
-
-        Debug.Log($"Spawning {enemyCount} enemies.");
-        for (int i = 0; i < enemyCount; i++)
-        {
-            if (stopSpawning)
+            Debug.Log($"Spawning {enemyCount} enemies.");
+            for (int i = 0; i < enemyCount; i++)
             {
-                // Necessary for when the game is over but coroutine still exists,
-                // so enemies continue spawning when time unpauses on restart.
-                Debug.Log("Spawning stopped due to game restart.");
-                yield break;
+                if (stopSpawning)
+                {
+                    // Necessary for when the game is over but coroutine still exists,
+                    // so enemies continue spawning when time unpauses on restart.
+                    Debug.Log("Spawning stopped due to game restart.");
+                    yield break;
+                }
+
+                Vector3 spawnPosition = GetRandomEdgePosition();
+
+                GameObject enemyToSpawn = ChooseRandomEnemy(currentWave);
+                //GameObject enemyToSpawn = enemyPrefabs[boss];
+
+                GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+
+                //Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
+                //if (enemyComponent != null)
+                //{
+                //     enemyComponent.health = Mathf.RoundToInt(enemyComponent.health * healthMultiplier);
+                //     enemyComponent.attackDamage *= Mathf.RoundToInt(enemyComponent.attackDamage * speedMultiplier);
+                //}
+
+                yield return new WaitForSeconds(SpawnInterval); // 控制敌人生成节奏
             }
-
-            Vector3 spawnPosition = GetRandomEdgePosition();
-
-            GameObject enemyToSpawn = ChooseRandomEnemy(currentWave);
-            //GameObject enemyToSpawn = enemyPrefabs[boss];
-
-            GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-
-            //Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
-            //if (enemyComponent != null)
-            //{
-            //     enemyComponent.health = Mathf.RoundToInt(enemyComponent.health * healthMultiplier);
-            //     enemyComponent.attackDamage *= Mathf.RoundToInt(enemyComponent.attackDamage * speedMultiplier);
-            //}
-
-            yield return new WaitForSeconds(SpawnInterval); // 控制敌人生成节奏
         }
     }
 
@@ -148,17 +143,16 @@ public class EnemySpawner : MonoBehaviour
         switch (currentWave)
         {
             case 1:
-            case 2:
                 return enemyPrefabs[basic];
+
+            case 2:
+                return enemyPrefabs[stalker];
 
             case 3:
                 return enemyPrefabs[ranged];
 
             case 4:
                 return enemyPrefabs[phantom];
-
-            case 5:
-                return enemyPrefabs[stalker];
             
             default:
             if (randomValue < Enemy0SpawnChance) return enemyPrefabs[basic];

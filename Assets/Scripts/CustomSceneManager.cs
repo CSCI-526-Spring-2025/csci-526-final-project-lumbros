@@ -14,6 +14,7 @@ public enum GAMESTATE{
     GamePlay, // During waves
     GameUpgrade, // During upgrade screen
     GameOver, // On game over screen
+    GameSuccess,
     Tutorial,
     GameTutorialPauseAndReadTowers,
     GameTutorialHeroMoveAndAttack,
@@ -100,6 +101,8 @@ public class CustomSceneManager : MonoBehaviour
                 break;
             case GAMESTATE.GameOver:
                 break;
+            case GAMESTATE.GameSuccess:
+                break;
             case GAMESTATE.Tutorial:
                 break;
             case GAMESTATE.GameTutorialPauseAndReadTowers:
@@ -137,6 +140,7 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         EnemyAbstract.enemyKill += AddKill;
         WaveManager.waveEnd += OnWaveEnd;
+        WaveManager.GameSuccess += HandleGameSuccess;
     }
 
     private void OnDisable()
@@ -144,6 +148,7 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded; 
         EnemyAbstract.enemyKill -= AddKill;
         WaveManager.waveEnd -= OnWaveEnd;
+        WaveManager.GameSuccess -= HandleGameSuccess;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -546,7 +551,7 @@ public class CustomSceneManager : MonoBehaviour
 
         if (WaveManager.Instance != null)
         {
-            waveManager.CheckWaveEnd();
+            waveManager.DelayedCheckWaveEnd();
         }
         // if (!isTutorialMode && totalKills >= killLimit){
         //     UpgradeUI.SetActive(true);
@@ -571,6 +576,17 @@ public class CustomSceneManager : MonoBehaviour
         }
     }
 
+    private void HandleGameSuccess()
+    {
+        Debug.Log("CustomSceneManager receive success");
+
+        if (!isTutorialMode)
+        {
+            UpdateGameState(GAMESTATE.GameSuccess);
+            // gameSuccessUI.SetActive(true); //UI part
+            PauseGame();
+        }
+    }
 
     // Called when you click on an Upgrade
     public void ResetAndLoad(int killLimit)

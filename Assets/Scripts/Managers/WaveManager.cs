@@ -14,12 +14,14 @@ public class WaveManager : MonoBehaviour
     public static event Action<int, int> waveBegin;
     public static event Action<int> waveEnd;
 
+    public static event Action GameSuccess;
+
     /*************************Aaron****************************/
     public int currentWave = 1;    // 当前波次
     public BossEnemy bossEnemy;
     private float enemyStatMultiplier = 1.1f; // 每一波敌人属性增强倍率
-    private float Span_Interval_Multiplier = 1.3f; // 生成间隔加快倍率
-    private float KillNumMultiplier = 1.4f; 
+    private float Span_Interval_Multiplier = 1.4f; // 生成间隔加快倍率
+    private float KillNumMultiplier = 1.3f;
     private float waveInterval = 5f; // 每波修整时间
     // Number we need to kill to move on to the next wave 
     private int WaveKillLimit;
@@ -118,16 +120,14 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
         mWavesUI.text = "Wave " + currentWave.ToString();
-        //int enemyCount = baseEnemyCount + (currentWave - 1) * 3; // 随波次增加敌人
         enemyCount = WaveKillLimit;
         Debug.Log($"enemyCount {enemyCount}");
         Debug.Log($"WK {WaveKillLimit}");
         enemyHealthMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
-        enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
+        //enemyDamageMultiplier = Mathf.Pow(enemyStatMultiplier, currentWave - 1);
         SpanIntervalMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
-        KillNumMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
+        //KillNumMultiplier = Mathf.Pow(Span_Interval_Multiplier, currentWave - 1);
 
-        Debug.Log($"Multiplier {enemyDamageMultiplier}");
         SpawnInterval = 1 / SpanIntervalMultiplier;
 
         enemySpawner.SpawnWave(enemyCount, currentWave, SpawnInterval);
@@ -140,21 +140,36 @@ public class WaveManager : MonoBehaviour
         bossSpawned = true;
     }
 
+    public void DelayedCheckWaveEnd()
+    {
+        StartCoroutine(DelayedCheck());
+    }
+
+    private IEnumerator DelayedCheck()
+    {
+        yield return new WaitForEndOfFrame(); //wait for Destroy
+        CheckWaveEnd();
+    }
+
     public void CheckWaveEnd()
     {
+        Debug.Log($"Check Wave End, currentBoss = {currentBoss}");
         if (isEndingWave) return;
-        if (currentWave % 10 == 0)
+        if (currentWave == 8)
         {
             // Boss wave
             if (!bossSpawned) return;
             if (currentBoss == null)
             {
-                CurrWave = false;
-                waveTimer = 5f;
-                int tempWave = currentWave + 1;
-                mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
-                //StartCoroutine(EndWave());
-                EndWave();
+                // CurrWave = false;
+                // waveTimer = 5f;
+                // int tempWave = currentWave + 1;
+                // mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+                // //StartCoroutine(EndWave());
+                // EndWave();
+                Debug.Log("Final Boss defeated. Game success!");
+                GameSuccess?.Invoke();
+                ClearAllEnemies();
             }
         }
         else if (KillperWave >= WaveKillLimit && !isEndingWave)
@@ -183,12 +198,13 @@ public class WaveManager : MonoBehaviour
             //yield return new WaitForSeconds(waveInterval);
             if (currentWave % 10 == 9)
             {
-                WaveKillLimit = 31;
+                WaveKillLimit = 46;
             }
             //WaveKillLimit = (int)Mathf.Round(WaveKillLimit * KillNumMultiplier);
             else
             {
-                WaveKillLimit = Mathf.CeilToInt(WaveKillLimit_Intial * KillNumMultiplier);
+                //WaveKillLimit = Mathf.CeilToInt(WaveKillLimit_Intial * KillNumMultiplier) + 4;
+                WaveKillLimit = Mathf.CeilToInt(WaveKillLimit * KillNumMultiplier) + 1;
             }
             currentWave++;
 

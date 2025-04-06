@@ -74,6 +74,7 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
             {
                 Instantiate(deathParticle, transform.position, Quaternion.identity);
             }
+            //Debug.Log("Enemy kill event triggered by: " + gameObject.name);
 
             enemyKill?.Invoke(); //
             Destroy(gameObject);

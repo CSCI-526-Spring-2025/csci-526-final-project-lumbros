@@ -15,7 +15,7 @@ public class BossEnemy : EnemyAbstract
 
     public GameObject[] enemyPrefabs; // 小怪 Prefabs
     public int summonCount; // 召唤总数量
-    private float summonRadius = 2.5f; // 召唤半径
+    private float summonRadius = 2f; // 召唤半径
     private float enemySpawnChance = 0.6f; // Enemy 召唤概率（RangedEnemy 概率 = 1 - enemySpawnChance）
     private float rangedEnemySpawnChance = 0.4f;
 
@@ -30,7 +30,7 @@ public class BossEnemy : EnemyAbstract
         int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
 
         // ignorecollider
-        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer"};
+        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer", "Projectile"};
 
         foreach (string layerName in ignoredLayers)
         {
@@ -48,16 +48,13 @@ public class BossEnemy : EnemyAbstract
         }
 
         detectionRange = 5;
-        maxHealth = 50;
-        speed = 0.3f;
-        attackDamage = 2; // Melee attack damage
+        maxHealth =Mathf.CeilToInt(100 * WaveManager.Instance.enemyHealthMultiplier);
+        speed = 0.5f;
+        attackDamage = 4; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time
-        summonCount = 10;
+        summonCount = 15;
         health = maxHealth;
-
-        //初始化血量
-        health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);
     }
 
     protected override void Move()
@@ -169,6 +166,10 @@ public class BossEnemy : EnemyAbstract
         {
             if (canShoot)
             {
+                FireProjectile();
+                yield return new WaitForSeconds(0.1f);
+                FireProjectile();
+                yield return new WaitForSeconds(0.1f);
                 FireProjectile();
                 yield return new WaitForSeconds(shootCooldown);
             }

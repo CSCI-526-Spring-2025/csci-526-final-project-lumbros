@@ -8,7 +8,7 @@ public class EnemyPhantom : EnemyAbstract
         int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
 
         // ignorecollider
-        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer"};
+        string[] ignoredLayers = { "EnemyDisCol", "Default", "Buildings", "DoorLayer", "EnemyEnCol", "NormalLayer", "Projectile"};
 
         foreach (string layerName in ignoredLayers)
         {
@@ -20,7 +20,7 @@ public class EnemyPhantom : EnemyAbstract
         }
 
         health = 3; // Enemy health
-        speed = 1.5f;
+        speed = 1.3f;
         attackDamage = 1; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time

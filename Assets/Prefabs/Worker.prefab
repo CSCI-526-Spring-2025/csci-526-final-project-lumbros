@@ -101,12 +101,12 @@ MonoBehaviour:
   currentHealth: 5
   autoHeal: 0
   updated: 0
-  healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
   healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 5
+  name: 
 --- !u!1 &6902931740620770406
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,12 +223,12 @@ MonoBehaviour:
   currentHealth: 6
   autoHeal: 0
   updated: 0
-  healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
   healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 10
+  name: 
 --- !u!114 &1894957076253402380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c81376493de2c4aaa0e2ed72157334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.7
   health: 1
   acceleration: 5
   maxSpeed: 1
