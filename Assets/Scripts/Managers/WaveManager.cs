@@ -78,7 +78,7 @@ public class WaveManager : MonoBehaviour
         if(newState == GAMESTATE.Tutorial){
             WaveKillLimit = 2;
         }
-        if(newState == GAMESTATE.GameTutorialHeroMoveAndAttack){
+        if(newState == GAMESTATE.GameTutorialHeroAttack){
             StartCoroutine(StartTutorialCoroutine());
         }
         if(newState == GAMESTATE.GamePlay)

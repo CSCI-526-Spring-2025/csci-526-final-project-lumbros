@@ -18,6 +18,7 @@ public enum GAMESTATE{
     Tutorial,
     GameTutorialPauseAndReadTowers,
     GameTutorialHeroMoveAndAttack,
+    GameTutorialHeroAttack, // for triggering enemies spawn
     GameTutorialUpgrades,
     GameTutorialEnd,
 }
@@ -121,6 +122,9 @@ public class CustomSceneManager : MonoBehaviour
                 // spawn text explaining the hero and how to move
                 // then how to hero auto attack
                 {
+                    if(HeroInfoUI != null){
+                        HeroInfoUI.SetActive(true);
+                    }
                     GameObject hero = GameObject.FindGameObjectWithTag("Hero");
                     if(hero != null) Destroy(hero);
                 }
@@ -286,6 +290,10 @@ public class CustomSceneManager : MonoBehaviour
 
         SpawnTutorialMines();
         UpdateTutorialText("Welcome to Brotower!");
+        yield return StartCoroutine(WaitForNextButton());
+        UpdateTutorialText("The goal is to defend the core and survive for 8 waves.");
+        yield return StartCoroutine(WaitForNextButton());
+        UpdateTutorialText("If the core HP reach 0, you lose.");
         yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("These brown structures are mines. They generate resources.");
         yield return StartCoroutine(WaitForNextButton());
@@ -481,16 +489,17 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                tutorialText.text = "Your hero is the blue guy and you can move him with AWSD.";
+                tutorialText.text = "Your hero is the blue guy.";
+                yield return StartCoroutine(WaitForNextButton());
+                tutorialText.text = "If the hero HP reach 0, you also lose the game.";
+                yield return StartCoroutine(WaitForNextButton());
+                tutorialText.text = "You can move the hero with AWSD.";
                 if (HeroDescription != null)
                 {
                     HeroDescription.SetActive(true);
                 }
-                if(HeroInfoUI != null){
-                    HeroInfoUI.SetActive(true);
-                }
 
-                GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+                GameObject hero = GameObject.FindGameObjectWithTag("Player");
                 float waitTime = 0;
                 bool heroMove = false;
                 Vector3 initialHeroPosition = hero ? hero.transform.position : Vector3.zero;
@@ -500,11 +509,12 @@ public class CustomSceneManager : MonoBehaviour
                     yield return new WaitForSeconds(0.5f);
                     waitTime += 0.5f;
 
-                    if (hero && Vector3.Distance(initialHeroPosition, hero.transform.position) > 0.5f)
+                    if (hero && Vector3.Distance(initialHeroPosition, hero.transform.position) > 0.1f)
                     {
                         Debug.Log("Hero position change detected, considering it placed");
                         yield return new WaitForSeconds(1f); 
                         heroMove = true;
+                        UpdateGameState(GAMESTATE.GameTutorialHeroAttack);
                     }
                 }
 
@@ -674,7 +684,8 @@ public class CustomSceneManager : MonoBehaviour
     private void OnWaveEnd(int curwave)
     {
         Debug.Log("Wave cleared, entering upgrade state");
-        if(instance.curState == GAMESTATE.GameTutorialHeroMoveAndAttack){
+        if(instance.curState == GAMESTATE.GameTutorialHeroMoveAndAttack 
+            || instance.curState == GAMESTATE.GameTutorialHeroAttack){
             UpgradeUI.SetActive(true);
             PauseGame();
             UpdateGameState(GAMESTATE.GameTutorialUpgrades);
