@@ -28,7 +28,7 @@ public class CustomSceneManager : MonoBehaviour
     // Static reference to the instance of our SceneManager
     public static CustomSceneManager instance;
     public static Action<GAMESTATE> gameStateChange;
-    public static Action<> triggerEndWave; // hack to tell wave manager go to end wave
+    public static Action triggerEndWave; // hack to tell wave manager go to end wave
     public GAMESTATE curState;
     private Vector2 minBounds = new Vector2(0f, 0f); 
     private Vector2 maxBounds = new Vector2(0f, 0f);  
@@ -685,18 +685,23 @@ public class CustomSceneManager : MonoBehaviour
     private void OnWaveEnd(int curwave)
     {
         Debug.Log("Wave cleared, entering upgrade state");
-        if(instance.curState == GAMESTATE.GameTutorialHeroMoveAndAttack 
-            || instance.curState == GAMESTATE.GameTutorialHeroAttack){
-            UpgradeUI.SetActive(true);
-            PauseGame();
+        if (instance.curState == GAMESTATE.GameTutorialHeroMoveAndAttack
+            || instance.curState == GAMESTATE.GameTutorialHeroAttack)
+        {
             UpdateGameState(GAMESTATE.GameTutorialUpgrades);
+            TimerManager.StartTimer(2f, WaveEnd, true);
         }
         else if (!isTutorialMode)
         {
-            UpgradeUI.SetActive(true);
-            PauseGame();
             UpdateGameState(GAMESTATE.GameUpgrade);
+            TimerManager.StartTimer(2f, WaveEnd, true);
         }
+    }
+
+    private void WaveEnd()
+    {        
+        UpgradeUI.SetActive(true);
+        PauseGame();
     }
 
     private void HandleGameSuccess()

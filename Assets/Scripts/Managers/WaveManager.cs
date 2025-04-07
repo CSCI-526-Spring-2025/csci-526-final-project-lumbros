@@ -22,7 +22,7 @@ public class WaveManager : MonoBehaviour
     private float enemyStatMultiplier = 1.2f; // 每一波敌人属性增强倍率
     private float Span_Interval_Multiplier = 1.4f; // 生成间隔加快倍率
     private float KillNumMultiplier = 1.3f;
-    private float waveInterval = 5f; // 每波修整时间
+    private float waveInterval = 10f; // 每波修整时间
     // Number we need to kill to move on to the next wave 
     private int WaveKillLimit;
     private int WaveKillLimit_Intial = 5;
@@ -38,7 +38,7 @@ public class WaveManager : MonoBehaviour
     private CustomSceneManager sceneManager;
     private bool CurrWave = false;
 
-    private float waveTimer = 5f;
+    private float waveTimer = 10f;
     private int enemyCount;
     private bool bossSpawned = false;
     private GameObject currentBoss = null;
@@ -100,7 +100,7 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator StartWaveCoroutine()
     {
-        waveTimer = 5f;
+        waveTimer = 10f;
 
         /* Uncomment this block to test core drag and place */
         //sceneManager.UpdateGameState(GAMESTATE.PlaceCore);
@@ -166,7 +166,7 @@ public class WaveManager : MonoBehaviour
             if (currentBoss == null)
             {
                 // CurrWave = false;
-                // waveTimer = 5f;
+                // waveTimer = 10f;
                 // int tempWave = currentWave + 1;
                 // mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
                 // //StartCoroutine(EndWave());
@@ -184,9 +184,9 @@ public class WaveManager : MonoBehaviour
         else if (KillperWave >= WaveKillLimit && !isEndingWave)
             {
                 CurrWave = false;
-                waveTimer = 5f;
+                waveTimer = 10f;
                 int tempWave = currentWave + 1;
-                mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+                //mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
                 //StartCoroutine(EndWave());
                 EndWave();
             }
@@ -238,8 +238,10 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mWavesUI != null){
-            mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+        if (mWavesUI != null && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
+                && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
+        {
+            mWavesUI.text = "Wave " + currentWave.ToString();
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
             }
