@@ -55,10 +55,13 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject TowerBarUI;
     public GameObject FinishedGameUI;
     public GameObject Hero;
+    public GameObject HeroDescription;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
-    
+    public Button TutorialNextButton;
+    private bool waitingForNextButton = false;
+    private IEnumerator currentTutorialCoroutine = null;
     public Button PauseButton;
     private Sprite PauseSprite;
     private Sprite ResumeSprite;
@@ -120,6 +123,13 @@ public class CustomSceneManager : MonoBehaviour
                     if(hero != null) Destroy(hero);
                 }
                 Instantiate(instance.Hero);
+                
+                // 在英雄移动攻击教程阶段显示HeroDescription
+                if (HeroDescription != null)
+                {
+                    HeroDescription.SetActive(true);
+                }
+                
                 StartCoroutine(TutorialHeroMoveAndAttack());
                 break;
             case GAMESTATE.GameTutorialUpgrades:
@@ -179,6 +189,12 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
 
+        // 确保HeroDescription在教程开始时隐藏
+        if (HeroDescription != null)
+        {
+            HeroDescription.SetActive(false);
+        }
+
         isTutorialMode = true;
         // 先进入PlaceCore状态，允许核心拖动
         UpdateGameState(GAMESTATE.PlaceCore);
@@ -198,7 +214,9 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(TutorialSequence());
+        //StartCoroutine(TutorialSequence());
+        currentTutorialCoroutine = TutorialSequence();
+        StartCoroutine(currentTutorialCoroutine);
     }
 
     // Called Start Game Button
@@ -262,7 +280,8 @@ public class CustomSceneManager : MonoBehaviour
 
         SpawnTutorialMines();
         UpdateTutorialText("Welcome to brotower! First you can see the browen mines and workers on the map.");
-        yield return new WaitForSeconds(10f);
+        // yield return new WaitForSeconds(10f);
+        yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("Mines generate resources, and workers collect resources and bring them back to the core to earn gold.");
         
         if (MoneyManager.Instance != null)
@@ -274,8 +293,8 @@ public class CustomSceneManager : MonoBehaviour
        
         
 
-        yield return new WaitForSeconds(10f);
-
+        // yield return new WaitForSeconds(10f);
+        yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
         
         float waitTime = 0;
@@ -298,7 +317,8 @@ public class CustomSceneManager : MonoBehaviour
         UpdateGameState(GAMESTATE.Tutorial);
 
         UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
-        yield return new WaitForSeconds(5f);
+        // yield return new WaitForSeconds(5f);
+        yield return StartCoroutine(WaitForNextButton());
         TowerBarUI.SetActive(true);
         SetTowersUI(false);
         UpdateTutorialText("Build defense towers to protect your core. You can drag the tower from the right bar and place them.");
@@ -335,6 +355,28 @@ public class CustomSceneManager : MonoBehaviour
         UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
     }
 
+    private IEnumerator WaitForNextButton()
+    {
+        waitingForNextButton = true;
+        
+        // 确保Next按钮可见
+        if (TutorialNextButton != null)
+        {
+            TutorialNextButton.gameObject.SetActive(true);
+        }
+        
+        // 等待waitingForNextButton变为false（通过点击按钮）
+        while (waitingForNextButton)
+        {
+            yield return null;
+        }
+    }
+    
+    // Next按钮点击处理方法
+    public void OnTutorialNextButtonClicked()
+    {
+        waitingForNextButton = false;
+    }
     private void SetTowersUI(bool b){
         //this is hardcode need to fix later.
         if(TowerBarUI != null){
@@ -396,7 +438,8 @@ public class CustomSceneManager : MonoBehaviour
     private IEnumerator TutorialReadTowers(){
         SetTowersUI(true);
         UpdateTutorialText("The game is pause now. Please take your time to read the tower info on the right by hovering over them.");
-        yield return new WaitForSecondsRealtime(5);
+        // yield return new WaitForSecondsRealtime(5);
+        yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("You can also click on tower to see their stats. Once done, click the 'Pause' Button to continue.");
     }
 
@@ -408,7 +451,12 @@ public class CustomSceneManager : MonoBehaviour
             if (tutorialText != null)
             {
                 tutorialText.text = "Your hero is the blue guy and you can move him with AWSD.";
-                yield return new WaitForSeconds(5);
+                if (HeroDescription != null)
+                {
+                    HeroDescription.SetActive(true);
+                }
+                // yield return new WaitForSeconds(5);
+                yield return StartCoroutine(WaitForNextButton());
                 tutorialText.text = "Your hero will autoattack the closest enemy within its attack range.";
             }
         }
@@ -770,8 +818,25 @@ public class CustomSceneManager : MonoBehaviour
             PauseSprite = Resources.Load<Sprite>("Sprites/Black Pause Button");
         }
 
-         if(ResumeSprite == null){
+        if(ResumeSprite == null){
             ResumeSprite = Resources.Load<Sprite>("Sprites/Black Resume Buttom");
+        }
+        if (TutorialNextButton == null && TutorialUI != null){
+            Transform nextButton = TutorialUI.transform.Find("NextTutorialButton");
+            if (nextButton != null)
+            {
+                TutorialNextButton = nextButton.GetComponent<Button>();
+                
+                if (TutorialNextButton != null)
+                {
+                    TutorialNextButton.onClick.AddListener(OnTutorialNextButtonClicked);
+                }
+            }
+        }
+
+        if (HeroDescription == null)
+        {
+            HeroDescription = GameObject.Find("HeroDescription");
         }
     }
 
