@@ -1628,7 +1628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &131288370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1644,10 +1644,10 @@ RectTransform:
   - {fileID: 333462364}
   m_Father: {fileID: 1798501294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 40.797516, y: -337.5}
+  m_SizeDelta: {x: 100, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131288371
 MonoBehaviour:
@@ -1669,7 +1669,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2099,7 +2099,7 @@ GameObject:
   - component: {fileID: 142585843}
   - component: {fileID: 142585842}
   m_Layer: 5
-  m_Name: SpeedTower
+  m_Name: AOETower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptionPanel: {fileID: 1167779472}
+  descriptionPanel: {fileID: 1363279997}
 --- !u!114 &142585843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1d072c11e68e942be1bb5fa8ab4bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 3018359703589546229, guid: 8d7980b40401f8c459afaf93bb84a726, type: 3}
+  towerPrefab: {fileID: 6585363735888694454, guid: d5611d501aeda6f47844531d4d9490c3, type: 3}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &142585844
 MonoBehaviour:
@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ea6ff5848acf9444790e06419894eab5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05c84cb267eee4cf688ea07ff18f8251, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3548,6 +3548,8 @@ MonoBehaviour:
   TowerBarUI: {fileID: 0}
   FinishedGameUI: {fileID: 0}
   Hero: {fileID: 8904630598106933807, guid: 3aae97666de2141e9ab9bc10d19378c5, type: 3}
+  HeroDescription: {fileID: 0}
+  HeroInfoUI: {fileID: 0}
   heroUpgrade: 1
   tutorialstep: 0
   isTutorialMode: 0
@@ -6658,7 +6660,7 @@ GameObject:
   - component: {fileID: 377681121}
   - component: {fileID: 377681125}
   m_Layer: 5
-  m_Name: Door
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6696,7 +6698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1d072c11e68e942be1bb5fa8ab4bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
+  towerPrefab: {fileID: 1589798161331309981, guid: 5074d85a6e56be64cab1bb83d98e84cc, type: 3}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &377681122
 MonoBehaviour:
@@ -6762,7 +6764,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 50e0f2a5bec2845009edfa9547218aff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d04adb1e165d7406491521f7a8aeaa53, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6792,7 +6794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptionPanel: {fileID: 1005258030}
+  descriptionPanel: {fileID: 2136528674}
 --- !u!1 &380483351
 GameObject:
   m_ObjectHideFlags: 0
@@ -7966,7 +7968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &446536532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7981,10 +7983,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1509826658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100.515015, y: -337.5}
+  m_SizeDelta: {x: 200, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &446536533
 MonoBehaviour:
@@ -8006,7 +8008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wall
+  m_text: Door
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11545,7 +11547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &713242082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11561,10 +11563,10 @@ RectTransform:
   - {fileID: 1703636069}
   m_Father: {fileID: 912621468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 19.97049, y: -337.5}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &713242083
 MonoBehaviour:
@@ -11578,7 +11580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptionPanel: {fileID: 1363279997}
+  descriptionPanel: {fileID: 1167779472}
 --- !u!114 &713242084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11591,7 +11593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1d072c11e68e942be1bb5fa8ab4bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 6585363735888694454, guid: d5611d501aeda6f47844531d4d9490c3, type: 3}
+  towerPrefab: {fileID: 3018359703589546229, guid: 8d7980b40401f8c459afaf93bb84a726, type: 3}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &713242085
 MonoBehaviour:
@@ -11657,7 +11659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05c84cb267eee4cf688ea07ff18f8251, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea6ff5848acf9444790e06419894eab5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12768,7 +12770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &752323114
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12783,10 +12785,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1494588130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 67.5, y: -337.5}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752323115
 MonoBehaviour:
@@ -15300,9 +15302,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Upgrades, Assembly-CSharp
-        m_MethodName: cancel
+      - m_Target: {fileID: 212881655}
+        m_TargetAssemblyTypeName: CustomSceneManager, Assembly-CSharp
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16317,7 +16319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &977738840
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16332,10 +16334,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1494588130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 67.5, y: -337.5}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &977738841
 MonoBehaviour:
@@ -17887,7 +17889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Speed Tower
+  m_text: AOE Tower
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19406,7 +19408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125140105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19421,10 +19423,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 360189614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 43.524994, y: -337.5}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125140106
 MonoBehaviour:
@@ -19446,7 +19448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AOE Tower
+  m_text: Speed Tower
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22622,7 +22624,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 25
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24424,12 +24426,12 @@ GameObject:
   - component: {fileID: 1376968508}
   - component: {fileID: 1376968512}
   m_Layer: 5
-  m_Name: Wall
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1376968506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24445,10 +24447,10 @@ RectTransform:
   - {fileID: 635569159}
   m_Father: {fileID: 1655735441}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 19.97049, y: -337.5}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376968508
 MonoBehaviour:
@@ -24462,7 +24464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1d072c11e68e942be1bb5fa8ab4bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1589798161331309981, guid: 5074d85a6e56be64cab1bb83d98e84cc, type: 3}
+  towerPrefab: {fileID: 1589798161331309981, guid: 68c6ffa09d5db7649a50c329b8573af4, type: 3}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &1376968509
 MonoBehaviour:
@@ -24528,7 +24530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d04adb1e165d7406491521f7a8aeaa53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50e0f2a5bec2845009edfa9547218aff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24558,7 +24560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22de606a59277e42a01bc975bbf62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptionPanel: {fileID: 2136528674}
+  descriptionPanel: {fileID: 1005258030}
 --- !u!1 &1380465405
 GameObject:
   m_ObjectHideFlags: 0
@@ -30795,7 +30797,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Door
+  m_text: Wall
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -39374,7 +39376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2145472538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39390,10 +39392,10 @@ RectTransform:
   - {fileID: 2009901261}
   m_Father: {fileID: 1519493449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 40.097504, y: -337.5}
+  m_SizeDelta: {x: 100, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145472539
 MonoBehaviour:
