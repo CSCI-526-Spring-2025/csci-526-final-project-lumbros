@@ -28,7 +28,7 @@ public class CustomSceneManager : MonoBehaviour
     // Static reference to the instance of our SceneManager
     public static CustomSceneManager instance;
     public static Action<GAMESTATE> gameStateChange;
-    public static Action<> triggerEndWave; // hack to tell wave manager go to end wave
+    public static Action triggerEndWave; // hack to tell wave manager go to end wave
     public GAMESTATE curState;
     private Vector2 minBounds = new Vector2(0f, 0f); 
     private Vector2 maxBounds = new Vector2(0f, 0f);  
