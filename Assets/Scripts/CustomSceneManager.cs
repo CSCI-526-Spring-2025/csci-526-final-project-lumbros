@@ -53,6 +53,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject MoneyPopUpUI;
     public GameObject TutorialUI;
     public GameObject TowerBarUI;
+    public GameObject FinishedGameUI;
     public GameObject Hero;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
@@ -484,6 +485,11 @@ public class CustomSceneManager : MonoBehaviour
         if(TowerInfoUI != null && TowerInfoUI.activeSelf){
             TowerInfoUI.SetActive(false);
         }
+
+        if(FinishedGameUI != null && FinishedGameUI.activeSelf){
+            FinishedGameUI.SetActive(false);
+        }
+
        
         RemoveMoneyPopUp();
         IsInitialized = true;
@@ -531,10 +537,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     gameOverUI.SetActive(true);            
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // HandleGameSuccess();
+        }
     
     }
 
@@ -587,7 +593,7 @@ public class CustomSceneManager : MonoBehaviour
         if (!isTutorialMode)
         {
             UpdateGameState(GAMESTATE.GameSuccess);
-            // gameSuccessUI.SetActive(true); //UI part
+            FinishedGameUI.SetActive(true); //UI part
             PauseGame();
         }
     }
@@ -746,6 +752,11 @@ public class CustomSceneManager : MonoBehaviour
             coreHealthUI = GameObject.Find("CoreTextUI")?.GetComponent<TMP_Text>();
         }
 
+        if(FinishedGameUI == null)
+        {
+            FinishedGameUI =  GameObject.Find("FinishedGameUI");
+        }
+
         if(PauseButton == null){
             GameObject button = GameObject.Find("PauseButton");
 
@@ -902,5 +913,11 @@ public class CustomSceneManager : MonoBehaviour
         {
             Debug.LogError("WorkerSpawner or worker prefab not found");
         }
+    }
+
+    public void ContinueGame(){
+        if(FinishedGameUI)
+            FinishedGameUI.SetActive(false);
+        //continute game
     }
 }
