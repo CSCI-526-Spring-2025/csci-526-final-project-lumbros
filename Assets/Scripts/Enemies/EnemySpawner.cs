@@ -97,7 +97,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies(int enemyCount, int currentWave, float SpawnInterval)
     {
-        if (currentWave == 8)
+        if ((currentWave % 8) == 0)
         {
             Vector3 spawnPosition = GetRandomEdgePosition();
             GameObject BossEnemy = Instantiate(enemyPrefabs[boss], spawnPosition, Quaternion.identity);

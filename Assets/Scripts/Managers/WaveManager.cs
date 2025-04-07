@@ -69,6 +69,7 @@ public class WaveManager : MonoBehaviour
         enemySpawner = FindObjectOfType<EnemySpawner>();
         sceneManager = FindObjectOfType<CustomSceneManager>();
         CustomSceneManager.gameStateChange += OnGameStateChange;
+        CustomSceneManager.triggerEndWave += EndWave;
         //StartWave();
         //CurrWave = true;
     }
@@ -158,7 +159,7 @@ public class WaveManager : MonoBehaviour
     {
         Debug.Log($"Check Wave End, currentBoss = {currentBoss}");
         if (isEndingWave) return;
-        if (currentWave == 8)
+        if ((currentWave % 8) == 0)
         {
             // Boss wave
             if (!bossSpawned) return;
@@ -171,8 +172,13 @@ public class WaveManager : MonoBehaviour
                 // //StartCoroutine(EndWave());
                 // EndWave();
                 Debug.Log("Final Boss defeated. Game success!");
-                GameSuccess?.Invoke();
-                ClearAllEnemies();
+                if(currentWave == 8) {
+                    GameSuccess?.Invoke();
+                    ClearAllEnemies();
+                }
+                else{
+                    EndWave();
+                }
             }
         }
         else if (KillperWave >= WaveKillLimit && !isEndingWave)
