@@ -48,7 +48,7 @@ public class BossEnemy : EnemyAbstract
         }
 
         detectionRange = 5;
-        maxHealth =Mathf.CeilToInt(100 * WaveManager.Instance.enemyHealthMultiplier);
+        maxHealth =Mathf.CeilToInt(180 * WaveManager.Instance.enemyHealthMultiplier);
         speed = 0.5f;
         attackDamage = 4; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
@@ -74,8 +74,8 @@ public class BossEnemy : EnemyAbstract
             target = core;
         }
 
-        // **如果生命值低于 50%，进入弹幕模式**
-        if (!isEnraged && health <= (maxHealth / 2))
+        // **如果生命值低于 75%，进入弹幕模式**
+        if (!isEnraged && health <= (maxHealth * 0.75f))
         {
             isEnraged = true;
             StartCoroutine(ShootPattern());
