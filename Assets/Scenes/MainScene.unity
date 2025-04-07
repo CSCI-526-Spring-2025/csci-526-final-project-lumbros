@@ -6828,7 +6828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -529, y: -86}
+  m_AnchoredPosition: {x: 307, y: 533}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380483353
@@ -10584,15 +10584,15 @@ RectTransform:
   m_LocalScale: {x: 1.4537, y: 1.4537, z: 1.4537}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 820767574}
   - {fileID: 1074531966}
   - {fileID: 380483352}
-  - {fileID: 820767574}
   m_Father: {fileID: 1552986122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.742, y: -366.063}
-  m_SizeDelta: {x: 400.131, y: 202.58}
+  m_AnchoredPosition: {x: 0.742, y: -411.788}
+  m_SizeDelta: {x: 400.131, y: 139.672}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663342697
 MonoBehaviour:
@@ -14094,8 +14094,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 2.1526, y: -1.7411}
+  m_SizeDelta: {x: 385.1233, y: 124.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820767575
 MonoBehaviour:
@@ -14180,7 +14180,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 36.27946, y: 0, z: 37.488747, w: 0}
+  m_margin: {x: 1.6799622, y: 0.8628444, z: -0.12645723, w: 0.7049275}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -17885,7 +17885,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Exit
+  m_text: 'Exit tutorial
 
 '
   m_isRightToLeft: 0
@@ -18000,7 +18000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -528, y: -49}
+  m_AnchoredPosition: {x: 307, y: 560}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1074531967
