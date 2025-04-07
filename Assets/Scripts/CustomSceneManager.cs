@@ -56,6 +56,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject FinishedGameUI;
     public GameObject Hero;
     public GameObject HeroDescription;
+    public GameObject HeroInfoUI;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
@@ -194,10 +195,14 @@ public class CustomSceneManager : MonoBehaviour
         {
             HeroDescription.SetActive(false);
         }
+        if(HeroInfoUI != null){
+            HeroInfoUI.SetActive(false);
+        }
 
         isTutorialMode = true;
         // 先进入PlaceCore状态，允许核心拖动
-        UpdateGameState(GAMESTATE.PlaceCore);
+        //UpdateGameState(GAMESTATE.PlaceCore);
+        UpdateGameState(GAMESTATE.Tutorial);
         TowerBarUI.SetActive(false);
         if (TutorialUI == null)
         {
@@ -299,26 +304,26 @@ public class CustomSceneManager : MonoBehaviour
 
         // yield return new WaitForSeconds(10f);
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
+        // UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
         
-        float waitTime = 0;
-        bool corePlaced = false;
-        Vector3 initialCorePosition = core ? core.transform.position : Vector3.zero;
+        // float waitTime = 0;
+        // bool corePlaced = false;
+        // Vector3 initialCorePosition = core ? core.transform.position : Vector3.zero;
 
-        while (!corePlaced && waitTime < 30f)
-        {
-            yield return new WaitForSeconds(0.5f);
-            waitTime += 0.5f;
+        // while (!corePlaced && waitTime < 30f)
+        // {
+        //     yield return new WaitForSeconds(0.5f);
+        //     waitTime += 0.5f;
 
-            if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
-            {
-                Debug.Log("Core position change detected, considering it placed");
-                yield return new WaitForSeconds(1f); 
-                corePlaced = true;
-            }
-        }
+        //     if (core && Vector3.Distance(initialCorePosition, core.transform.position) > 0.5f)
+        //     {
+        //         Debug.Log("Core position change detected, considering it placed");
+        //         yield return new WaitForSeconds(1f); 
+        //         corePlaced = true;
+        //     }
+        // }
 
-        UpdateGameState(GAMESTATE.Tutorial);
+        // UpdateGameState(GAMESTATE.Tutorial);
 
         UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
         // yield return new WaitForSeconds(5f);
@@ -334,7 +339,7 @@ public class CustomSceneManager : MonoBehaviour
             Debug.Log("Found EnemySpawner, attempting to generate enemies directly");
             try
             {
-                int enemyCount = 1;
+                int enemyCount = 2;
                 int currentWave = 1;
                 float spawnInterval = 1.0f;
                 WaveManager.Instance.enemyHealthMultiplier = 1;
@@ -459,8 +464,30 @@ public class CustomSceneManager : MonoBehaviour
                 {
                     HeroDescription.SetActive(true);
                 }
-                // yield return new WaitForSeconds(5);
-                yield return StartCoroutine(WaitForNextButton());
+                if(HeroInfoUI != null){
+                    HeroInfoUI.SetActive(true);
+                }
+
+                GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+                float waitTime = 0;
+                bool heroMove = false;
+                Vector3 initialHeroPosition = hero ? hero.transform.position : Vector3.zero;
+                Debug.Log("Hero: waiting for hero to move.");
+                while (!heroMove && waitTime < 30f)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    waitTime += 0.5f;
+
+                    if (hero && Vector3.Distance(initialHeroPosition, hero.transform.position) > 0.5f)
+                    {
+                        Debug.Log("Hero position change detected, considering it placed");
+                        yield return new WaitForSeconds(1f); 
+                        heroMove = true;
+                    }
+                }
+
+                yield return new WaitForSeconds(5);
+                // yield return StartCoroutine(WaitForNextButton());
                 tutorialText.text = "Your hero will autoattack the closest enemy within its attack range.";
             }
         }
@@ -841,6 +868,9 @@ public class CustomSceneManager : MonoBehaviour
         if (HeroDescription == null)
         {
             HeroDescription = GameObject.Find("HeroDescription");
+        }
+        if (HeroInfoUI == null){
+            HeroInfoUI = GameObject.Find("HeroInfoUI");
         }
     }
 
