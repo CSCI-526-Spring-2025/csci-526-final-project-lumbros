@@ -55,7 +55,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 GameObject newItem = AddNewItem(prefabToInstantiate);
                 if(newItem != null){
                     MoneyManager.Instance.UpdateMoney(Cost * -1);
-                    // AddedTower?.Invoke(prefabToInstantiate.name);
+                    AddedTower?.Invoke(prefabToInstantiate.name);
                     Debug.Log("In Inventory Slot Dopped " + newItem.tag);
                     // Check if the dropped object is a tower
                     if (newItem.CompareTag("Tower"))

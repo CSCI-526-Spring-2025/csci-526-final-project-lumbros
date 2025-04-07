@@ -62,6 +62,7 @@ public class CustomSceneManager : MonoBehaviour
     public bool isTutorialMode = false;
     public Button TutorialNextButton;
     private bool waitingForNextButton = false;
+    private bool waitingForTowerPlaced = false;
     private IEnumerator currentTutorialCoroutine = null;
     public Button PauseButton;
     private Sprite PauseSprite;
@@ -325,12 +326,16 @@ public class CustomSceneManager : MonoBehaviour
 
         // UpdateGameState(GAMESTATE.Tutorial);
 
-        UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
-        // yield return new WaitForSeconds(5f);
-        yield return StartCoroutine(WaitForNextButton());
+        InventorySlot.AddedTower += TowerPlaced;
         TowerBarUI.SetActive(true);
         SetTowersUI(false);
         UpdateTutorialText("Build defense towers to protect your core. You can drag the tower from the right bar and place them.");
+        yield return StartCoroutine(WaitForTowerPlaced());
+
+        UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
+        // yield return new WaitForSeconds(5f);
+        // yield return StartCoroutine(WaitForNextButton());
+
         
 
         EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
@@ -361,6 +366,7 @@ public class CustomSceneManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        InventorySlot.AddedTower -= TowerPlaced;
         UpdateGameState(GAMESTATE.GameTutorialPauseAndReadTowers);
     }
 
@@ -380,12 +386,28 @@ public class CustomSceneManager : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator WaitForTowerPlaced()
+    {
+        waitingForTowerPlaced = true;
+        
+        // 等待waitingForNextButton变为false（通过点击按钮）
+        while (waitingForTowerPlaced)
+        {
+            yield return null;
+        }
+    }
     
     // Next按钮点击处理方法
     public void OnTutorialNextButtonClicked()
     {
         waitingForNextButton = false;
     }
+
+    private void TowerPlaced(string name){
+        waitingForTowerPlaced = false;
+    }
+
     private void SetTowersUI(bool b){
         //this is hardcode need to fix later.
         if(TowerBarUI != null){
@@ -393,7 +415,7 @@ public class CustomSceneManager : MonoBehaviour
             for(int i = 4; i < 7; ++i){
                 var gOUI = TowerBarUI.transform.GetChild(i).gameObject;
                 Debug.Log(gOUI.transform.childCount);
-                for(int j = 1; j < 3; ++j){
+                for(int j = 1; j < 2; ++j){
                     gOUI.transform.GetChild(j).gameObject.SetActive(b);
                 }
             }
