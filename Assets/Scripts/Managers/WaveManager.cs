@@ -119,7 +119,7 @@ public class WaveManager : MonoBehaviour
         CurrWave = true;
         // Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
-        mWavesUI.text = "Wave " + currentWave.ToString();
+        mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
         enemyCount = WaveKillLimit;
         // Debug.Log($"enemyCount {enemyCount}");
         // Debug.Log($"WK {WaveKillLimit}");
@@ -232,7 +232,7 @@ public class WaveManager : MonoBehaviour
     void Update()
     {
         if (mWavesUI != null){
-            mWavesUI.text = "Wave " + currentWave.ToString();
+            mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
             }

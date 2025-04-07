@@ -509,7 +509,13 @@ public class CustomSceneManager : MonoBehaviour
             if(killLimit == 0){
                 remainingEnemies = 0;
             }
-            mEnemyCountUI.text = "Enemies you need to kill: " + remainingEnemies.ToString();
+            if(WaveManager.Instance.currentWave == 8){   
+                mEnemyCountUI.text = "Kill the boss!";
+            }
+            else{
+                mEnemyCountUI.text = "Enemies you need to kill: " + remainingEnemies.ToString();
+            }
+            
         }
         if(coreHealthUI != null)
         {
