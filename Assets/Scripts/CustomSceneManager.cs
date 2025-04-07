@@ -279,11 +279,15 @@ public class CustomSceneManager : MonoBehaviour
         GameObject core = GameObject.FindGameObjectWithTag("Core");
 
         SpawnTutorialMines();
-        UpdateTutorialText("Welcome to brotower! First you can see the browen mines and workers on the map.");
-        // yield return new WaitForSeconds(10f);
+        UpdateTutorialText("Welcome to Brotower!");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("Mines generate resources, and workers collect resources and bring them back to the core to earn gold.");
-        
+        UpdateTutorialText("These brown structures are mines. They generate resources.");
+        yield return StartCoroutine(WaitForNextButton());
+
+        UpdateTutorialText("The small characters are workers. They collect resources from mines.");
+        yield return StartCoroutine(WaitForNextButton());
+
+        UpdateTutorialText("Workers bring resources to your core to earn gold.");
         if (MoneyManager.Instance != null)
         {
             MoneyManager.Instance.UpdateMoney(30);
@@ -485,10 +489,10 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
         // Show start game button
-        Transform NextTutorialButton = TutorialUI.transform.Find("NextTutorialButton");
-        if (NextTutorialButton != null)
+        Transform StartGameButton = TutorialUI.transform.Find("StartGameButton");
+        if (StartGameButton != null)
         {
-            NextTutorialButton.gameObject.SetActive(true);
+            StartGameButton.gameObject.SetActive(true);
         }
 
         // Show exit to menu button
