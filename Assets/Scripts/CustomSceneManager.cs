@@ -539,7 +539,7 @@ public class CustomSceneManager : MonoBehaviour
         // Debug Press Space and do something
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // HandleGameSuccess();
+            gameOverUI.SetActive(true);
         }
     
     }
@@ -707,7 +707,7 @@ public class CustomSceneManager : MonoBehaviour
     {
         if(gameOverUI == null)
         {
-            gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+            gameOverUI = GameObject.Find("GameOverCanvas");
         }
         if(UpgradeUI == null)
         {
