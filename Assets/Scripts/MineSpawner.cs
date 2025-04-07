@@ -79,6 +79,41 @@ public class MineSpawner : MonoBehaviour
         {
             /* Spawn in grid slots */
             InventorySlot[] slots = GridManager.Instance.GetInventorySlots();
+
+            // Get core location
+            GameObject core = GameObject.FindGameObjectWithTag("Core");
+            if (core == null)
+            {
+                Debug.LogError("Core not found in the scene.");
+                return;
+            }
+            Vector3 corePosition = core.transform.position;
+
+            // Find slot closest to core
+            InventorySlot closestSlot = null;
+            float closestDistance = float.MaxValue;
+            foreach (InventorySlot slot in slots)
+            {
+                float distance = Vector3.Distance(corePosition, slot.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestSlot = slot;
+                }
+            }
+
+            // Set containsItem to true for the closest slot
+            if (closestSlot != null)
+            {
+                closestSlot.containsItem = true;
+                Debug.Log("Core is placed in closest slot found: " + closestSlot.name);
+            }
+            else
+            {
+                Debug.LogError("No slots found in the scene.");
+                return;
+            }
+
             // Choose 3 unique random slots to spawn mines in
             for (int i = 0; i < mineCount; i++)
             {
