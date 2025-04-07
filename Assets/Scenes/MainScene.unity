@@ -17885,7 +17885,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Exit tutorial
+  m_text: 'Exit Tutorial
 
 '
   m_isRightToLeft: 0
