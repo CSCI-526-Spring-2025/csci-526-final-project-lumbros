@@ -549,6 +549,10 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
         // Show start game button
+        Transform TutorialEndPanel = TutorialUI.transform.Find("TutorialEndPanel");
+        if(TutorialEndPanel != null){
+            TutorialEndPanel.gameObject.SetActive(true);
+        }
         Transform StartGameButton = TutorialUI.transform.Find("StartGameButton");
         if (StartGameButton != null)
         {
@@ -649,10 +653,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameOverUI.SetActive(true);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //      TutorialEnd();
+        // }
     
     }
 
