@@ -33,7 +33,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589798161331309981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,12 +150,16 @@ MonoBehaviour:
   currentHealth: 0
   autoHeal: 0
   updated: 0
-  healthSlider: {fileID: 0}
   healthBarOffset: {x: 0, y: -0.5, z: 0}
   heroReborn: 1
   healthExpect: 0
   rebornDelay: 3
   workerRebornDelay: 5
+  name: 
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  flash: {r: 255, g: 255, b: 255, a: 1}
+  delay: 0.1
+  numOfFlash: 4
 --- !u!222 &5331851031401977460
 CanvasRenderer:
   m_ObjectHideFlags: 0

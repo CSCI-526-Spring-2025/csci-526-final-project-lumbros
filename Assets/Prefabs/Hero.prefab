@@ -716,7 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4801c0fbf88d34aab754c03f655e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 2
   currentHealth: 0
   autoHeal: 0
   updated: 0
@@ -726,3 +726,7 @@ MonoBehaviour:
   rebornDelay: 3
   workerRebornDelay: 5
   name: hero
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  flash: {r: 255, g: 255, b: 255, a: 1}
+  delay: 0.1
+  numOfFlash: 4
