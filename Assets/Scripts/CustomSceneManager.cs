@@ -292,9 +292,9 @@ public class CustomSceneManager : MonoBehaviour
         SpawnTutorialMines();
         UpdateTutorialText("Welcome to Brotower!");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("The goal is to defend the core and survive for 8 waves.");
+        UpdateTutorialText("The goal of this game is to defend the core and survive for 8 waves.");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("If the core HP reach 0, you lose.");
+        UpdateTutorialText("If the core HP reaches 0, you lose.");
         yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("These brown structures are mines. They generate resources.");
         yield return StartCoroutine(WaitForNextButton());
@@ -477,10 +477,10 @@ public class CustomSceneManager : MonoBehaviour
 
     private IEnumerator TutorialReadTowers(){
         SetTowersUI(true);
-        UpdateTutorialText("The game is pause now. Please take your time to read the tower info on the right by hovering over them.");
+        UpdateTutorialText("The game is now paused. Take your time to read the tower info on the right by hovering over them.");
         // yield return new WaitForSecondsRealtime(5);
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("You can also click on tower to see their stats. Once done, click the 'Pause' Button to continue.");
+        UpdateTutorialText("You can also click on towers to see their stats. Once done, click the 'Pause' Button to continue.");
     }
 
     private IEnumerator TutorialHeroMoveAndAttack(){
@@ -492,9 +492,9 @@ public class CustomSceneManager : MonoBehaviour
             {
                 tutorialText.text = "Your hero is the blue guy.";
                 yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "If the hero HP reach 0, you also lose the game.";
+                tutorialText.text = "If the hero HP reaches 0, you also lose the game.";
                 yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "You can move the hero with AWSD.";
+                tutorialText.text = "You can move the hero with WASD.";
                 if (HeroDescription != null)
                 {
                     HeroDescription.SetActive(true);
@@ -521,7 +521,7 @@ public class CustomSceneManager : MonoBehaviour
 
                 yield return new WaitForSeconds(5);
                 // yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "Your hero will autoattack the closest enemy within its attack range.";
+                tutorialText.text = "Your hero will automatically attack the closest enemy within its attack range.";
             }
         }
     }
@@ -533,7 +533,7 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                tutorialText.text = "After clearing the wave, you can spend gold to upgrade your hero and tower.";
+                tutorialText.text = "After clearing the wave, you can spend gold to upgrade your hero and towers.";
             }
         }
     }
@@ -545,7 +545,7 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                tutorialText.text = "Tutorial is completed.\nYou can now continue to the game or return to the main menu.";
+                tutorialText.text = "Tutorial complete!\nYou can now continue to the game or return to the main menu.";
             }
         }
         // Show start game button
