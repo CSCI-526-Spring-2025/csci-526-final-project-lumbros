@@ -81,6 +81,11 @@ public class Health : MonoBehaviour
         // }
         immunity -= Time.deltaTime;
         currentHealth = currentHealth;
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = currentHealth;
+        }
 
 
     }
@@ -92,10 +97,11 @@ public class Health : MonoBehaviour
         if(immunity < 0.0f){
             currentHealth -= damage;
             // Update the health bar if it exists
-            if (healthSlider != null)
-            {
-                healthSlider.value = currentHealth;
-            }
+            // if (healthSlider != null)
+            // {
+            //     healthSlider.maxValue = maxHealth;
+            //     healthSlider.value = currentHealth;
+            // }
 
             // Destroy the object if health drops to zero or below
             if (currentHealth <= 0)

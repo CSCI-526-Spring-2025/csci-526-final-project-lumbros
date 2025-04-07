@@ -6312,10 +6312,10 @@ MonoBehaviour:
   - {fileID: 712027675066443393, guid: 018851e70473b014486e4e08d9270faa, type: 3}
   - {fileID: 712027675066443393, guid: a0b1158a65ad3034287ef6104ecf9c06, type: 3}
   - {fileID: 712027675066443393, guid: 717808e546340c14bb6b72bb4fcf704c, type: 3}
-  mapMinX: -7.4
-  mapMaxX: 5.1
-  mapMinY: -4.4
-  mapMaxY: 3.4
+  mapMinX: -5.4
+  mapMaxX: 7.1
+  mapMinY: -3.1
+  mapMaxY: 4.4
   Enemy0SpawnChance: 0.3
   Enemy1SpawnChance: 0.2
   Enemy2SpawnChance: 0.2
@@ -23399,7 +23399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.7413025, y: -2.729309}
+  m_AnchoredPosition: {x: 2.741333, y: -2.729309}
   m_SizeDelta: {x: -352.7888, y: -188.6384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1328155778

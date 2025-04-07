@@ -6,8 +6,8 @@ public class EnemyStalker : EnemyAbstract
     public float normalSpeed = 0.4f;  // 初始移动速度
     public float chargeSpeed = 8f;   // 冲刺速度
     public float detectionRange = 5f; // 发现Player的范围
-    public float chargeDelay = 1.5f;  // 冲刺前的延迟时间
-    public float chargeCooldown = 2f; // 冲刺冷却时间
+    public float chargeDelay = 0.5f;  // 冲刺前的延迟时间
+    public float chargeCooldown = 2.5f; // 冲刺冷却时间
     public float rotationSpeed = 500f; // 旋转速度（越大越快）
     public float rotationOffset = 0; // 角度偏移（让你可以调整朝向）
     private bool isCharging = false;  // 是否正在冲刺
