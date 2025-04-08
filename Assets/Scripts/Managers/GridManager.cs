@@ -67,4 +67,12 @@ public class GridManager : MonoBehaviour
     {
         return mSlots;
     }
+
+    public void EmptyAllSlots()
+    {
+        foreach (InventorySlot slot in mSlots)
+        {
+            slot.EmptySlot();
+        }
+    }
 }

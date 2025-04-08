@@ -95,7 +95,22 @@ public class TowerManager : MonoBehaviour
 
     }
 
-    public bool CanAddTower()
+    public void RefillSlots()
+    {
+        // Set InventorySlot containsItem to true for the towers in the towerSlotMap
+        foreach (var kvp in towerSlotMap)
+        {
+            GameObject tower = kvp.Key;
+            InventorySlot slot = kvp.Value;
+
+            if (tower != null && slot != null)
+            {
+                slot.containsItem = true;
+            }
+        }
+    }
+
+        public bool CanAddTower()
     {
         return curTowerCount < maxTowerCount;
     }

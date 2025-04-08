@@ -62,6 +62,12 @@ public class MineSpawner : MonoBehaviour
             Destroy(mine);
         }
 
+        // Empty all slots
+        GridManager.Instance.EmptyAllSlots();
+
+        // Refill the slots that already have towers
+        TowerManager.Instance.RefillSlots();
+
         if (sceneName == "SampleScene")
         {
             /* Spawn in random positions */

@@ -778,6 +778,7 @@ public class CustomSceneManager : MonoBehaviour
             if(go != null) Destroy(go);
         }
         gameOverUI.SetActive(false);
+        GridManager.Instance.EmptyAllSlots();
         TowerManager.Instance.Reset();
         SceneManager.LoadScene("MainScene");
         ShowStartCanvas();
