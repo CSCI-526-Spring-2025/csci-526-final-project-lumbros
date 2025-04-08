@@ -76,14 +76,23 @@ public class TowerManager : MonoBehaviour
 
     public void DestoryTower(GameObject tower)
     {
-        InventorySlot slot = towerSlotMap[tower];
-        if(slot != null){
+        if (towerSlotMap.TryGetValue(tower, out InventorySlot slot))
+        {
             Debug.Log("TowerManager: removing tower " + tower.name + slot.name);
-            slot.EmptySlot();
+            if (slot != null)
+            {
+                slot.EmptySlot();
+            }
+            towerSlotMap.Remove(tower);
         }
-        towerSlotMap.Remove(tower);
-        Destroy(tower);
-        curTowerCount--;
+        else
+        {
+            Debug.LogWarning("⚠️ TowerManager: Tower not found in slot map: " + tower.name);
+        }
+
+    Destroy(tower);
+    curTowerCount--;
+
     }
 
     public bool CanAddTower()
