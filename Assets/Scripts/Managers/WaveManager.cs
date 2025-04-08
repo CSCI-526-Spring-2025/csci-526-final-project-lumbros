@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 public class WaveManager : MonoBehaviour
 {
-    private TMP_Text mWavesUI;
+    public TMP_Text mWavesUI;
     private GameObject mWavesCountdown;
     private TMP_Text mWavesCountdownUI;
     private int mWaves = 1;
@@ -241,10 +241,14 @@ public class WaveManager : MonoBehaviour
         if (mWavesUI != null && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
                 && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
-            mWavesUI.text = "Wave " + currentWave.ToString();
+            mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
             }
+        }
+        int prevWave = currentWave -1;
+        if(mWavesUI != null && (CustomSceneManager.instance.curState == GAMESTATE.GameUpgrade || CustomSceneManager.instance.curState == GAMESTATE.GameTutorialUpgrades)){  
+            mWavesUI.text = "Wave " + prevWave.ToString() + "/8 Completed!";
         }
 
         if( CurrWave == false 

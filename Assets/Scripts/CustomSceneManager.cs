@@ -38,10 +38,10 @@ public class CustomSceneManager : MonoBehaviour
     public int maxWorkerCount;
     public int curWorkerCount;
     public bool isPause = false;
-    private TMP_Text mEnemyCountUI;
+    public TMP_Text mEnemyCountUI;
 
     private TMP_Text coreHealthUI;
-    
+    private GameObject pausedText;
     private static int GAME_SCREEN_INDEX = 1;
     private List<GameObject> nonDestoryObjects;
     public static bool IsInitialized { get; private set;}
@@ -177,6 +177,7 @@ public class CustomSceneManager : MonoBehaviour
         gameOverUI.SetActive(false);
         WarningUI.SetActive(false);
         TutorialUI.SetActive(false);
+        pausedText.SetActive(false);
         RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
@@ -634,6 +635,9 @@ public class CustomSceneManager : MonoBehaviour
             if(WaveManager.Instance.currentWave == 8){   
                 mEnemyCountUI.text = "Kill the boss!";
             }
+            else if(remainingEnemies == 0){
+                mEnemyCountUI.text = "";
+            }   
             else{
                 mEnemyCountUI.text = "Enemies you need to kill: " + remainingEnemies.ToString();
             }
@@ -744,11 +748,13 @@ public class CustomSceneManager : MonoBehaviour
     }
     private void PauseGame(){
         //change button pic 
+        pausedText.SetActive(true);
         PauseButton.image.sprite = PauseSprite;
         Time.timeScale = 0;
     }
 
      private void Resume(){
+        pausedText.SetActive(false);
         if(instance.curState == GAMESTATE.GameTutorialPauseAndReadTowers){
             UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
         }
@@ -914,6 +920,10 @@ public class CustomSceneManager : MonoBehaviour
         }
         if (HeroInfoUI == null){
             HeroInfoUI = GameObject.Find("HeroInfoUI");
+        }
+
+        if(pausedText == null){
+            pausedText = GameObject.Find("PausedText");
         }
     }
 
