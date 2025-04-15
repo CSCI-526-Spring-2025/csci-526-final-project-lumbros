@@ -123,7 +123,12 @@ public class WaveManager : MonoBehaviour
         CurrWave = true;
         // Debug.Log($"Wave {currentWave} starting...");
         KillperWave = 0; // 重置击杀数
-        mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+        if(currentWave > 8){
+            mWavesUI.text = "Wave " + currentWave.ToString();
+        }
+        else{
+            mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+        }
         enemyCount = WaveKillLimit;
         // Debug.Log($"enemyCount {enemyCount}");
         // Debug.Log($"WK {WaveKillLimit}");
@@ -241,14 +246,27 @@ public class WaveManager : MonoBehaviour
         if (mWavesUI != null && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
                 && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
-            mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+            if(currentWave > 8){
+            mWavesUI.text = "Wave " + currentWave.ToString();
+            }
+            else{
+                mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+            }
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
             }
         }
         int prevWave = currentWave -1;
-        if(mWavesUI != null && (CustomSceneManager.instance.curState == GAMESTATE.GameUpgrade || CustomSceneManager.instance.curState == GAMESTATE.GameTutorialUpgrades)){  
-            mWavesUI.text = "Wave " + prevWave.ToString() + "/8 Completed!";
+        if(mWavesUI != null && (CustomSceneManager.instance.curState == GAMESTATE.GameUpgrade || CustomSceneManager.instance.curState == GAMESTATE.GameTutorialUpgrades)){ 
+
+            if(currentWave > 8){
+                  mWavesUI.text = "Wave " + prevWave.ToString() + " Completed!";
+            }
+            else{
+                 mWavesUI.text = "Wave " + prevWave.ToString() + "/8 Completed!";
+            }
+
+          
         }
 
         if( CurrWave == false 
