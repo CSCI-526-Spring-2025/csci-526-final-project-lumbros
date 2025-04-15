@@ -242,6 +242,7 @@ public class CustomSceneManager : MonoBehaviour
             TutorialUI.SetActive(false);
         }
         isTutorialMode = false;
+        Resume();
         UpdateGameState(GAMESTATE.GameStart);
         Time.timeScale = 1;
         UpdateGameState(GAMESTATE.GamePlay);
