@@ -79,7 +79,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         Vector3 pos = newItem.transform.position;
         pos.z = 0;
         newItem.transform.position = pos;
-        newItem.transform.localScale = new Vector3(0.14f,0.14f,0.14f);
+        float newScale = 0.14f;
+        if(CustomSceneManager.instance.HasNewSprite(prefab.name))
+        {
+            newScale = 0.24f;
+        }
+        newItem.transform.localScale = new Vector3(newScale, newScale, newScale);
         containsItem = true;
         return newItem;
     }

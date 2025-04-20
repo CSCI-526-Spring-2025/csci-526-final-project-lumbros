@@ -77,7 +77,12 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             Destroy(currentTowerPreview.GetComponent<Rigidbody2D>());
             Destroy(currentTowerPreview.GetComponent<BoxCollider2D>());
             // Adjust scale
-            currentTowerPreview.transform.localScale = new Vector3(0.1f, 0.1f, 1f);  
+            float newScale = 0.1f;
+            if (CustomSceneManager.instance.HasNewSprite(towerPrefab.name))
+            {
+                newScale = 0.20f;
+            }
+            currentTowerPreview.transform.localScale = new Vector3(newScale, newScale, newScale);  
             // Make the preview semi-transparent to distinguish it from actual towers
             SpriteRenderer sr = currentTowerPreview.GetComponent<SpriteRenderer>();
             if (sr != null)

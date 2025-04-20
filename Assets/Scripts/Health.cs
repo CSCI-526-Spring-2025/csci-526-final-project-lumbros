@@ -29,6 +29,9 @@ public class Health : MonoBehaviour
     public float delay = 0.1f;
     public int numOfFlash = 4;
 
+    // for health sprite changing
+    public Sprite[] healthSprites; // Array of 4 sprites (full to empty)
+
     void Start()
     {
         // Set initial health and configure the UI slider
@@ -70,6 +73,8 @@ public class Health : MonoBehaviour
             spriteRenderer = child.GetComponent<SpriteRenderer>();
             originalColor = spriteRenderer.color;
         }
+
+        UpdateSprite();
     }
 
     void Update()
@@ -112,6 +117,7 @@ public class Health : MonoBehaviour
                 StartCoroutine(HitFlash());
             }
         }
+        UpdateSprite();
     }
 
     public void TakeExpectedDamage(int dmg)
@@ -205,7 +211,23 @@ void Reborn()
                 healthSlider.value = currentHealth;
             }
 
-            
+            UpdateSprite();
         }
+    }
+
+    void UpdateSprite()
+    {
+        if (healthSprites == null || healthSprites.Length == 0)
+        {
+            return;
+        }
+
+        float healthPercent = (float)currentHealth / maxHealth;
+
+        // Convert health percent to an index: 0 = full, 3 = almost dead
+        int spriteIndex = Mathf.FloorToInt((1 - healthPercent) * (healthSprites.Length));
+        spriteIndex = Mathf.Clamp(spriteIndex, 0, healthSprites.Length - 1);
+
+        spriteRenderer.sprite = healthSprites[spriteIndex];
     }
 }

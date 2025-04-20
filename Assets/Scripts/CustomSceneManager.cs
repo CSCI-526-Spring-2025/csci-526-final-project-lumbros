@@ -69,7 +69,15 @@ public class CustomSceneManager : MonoBehaviour
     public Button PauseButton;
     private Sprite PauseSprite;
     private Sprite ResumeSprite;
-            private void Awake()
+
+    public bool HasNewSprite(string prefabName)
+    {
+        // Temp function while updating sprites
+        HashSet<string> prefabNames = new HashSet<string> { "Wall", "Sniper", "AOETower" };
+        return prefabNames.Contains(prefabName);
+    }
+
+    private void Awake()
     {
         // Check if instance already exists
         if (instance == null)
