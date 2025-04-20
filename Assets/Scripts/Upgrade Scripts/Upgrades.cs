@@ -32,7 +32,7 @@ public class Upgrades : MonoBehaviour
     public static System.Action<string> OnUpgrade;
     public int moneyBefore = 300;
     
-
+    
     private Dictionary<string, List<(string, System.Action, int, float)>> heroUpgrades = new();
     private Dictionary<string, List<(string, System.Action, int, float)>> towerUpgrades = new();
 
@@ -46,85 +46,66 @@ public class Upgrades : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("Manager");
         towers = GameObject.FindGameObjectsWithTag("Tower");
         workers = GameObject.FindGameObjectsWithTag("Worker");
+        
+        float factorTower = DifficultyManager.GetTowerGoldCostMultiplier();
+        float factorHero = DifficultyManager.GetHeroGoldCostMultiplier();
+        AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, Mathf.CeilToInt(3 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Hero Damage", "+4 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 4, Mathf.CeilToInt(4 * factorHero), 1f);
 
-
-    // for (int i = 0; i < workers.Length; i++)
-    // {
-  
-    //     if (workers[i] == null)
-    //     {
-    //         Debug.LogWarning($"workers[{i}] is null");
-    //         continue;
-    //     }
-
-    //     var health = workers[i].GetComponent<Health>();
-    //     if (health == null)
-    //     {
-    //         Debug.LogError($"workers[{i}] has no Health component");
-    //         continue;
-    //     }
-
-    //     Debug.Log("worker data " + i + " : " + health.maxHealth);
-    
-    // }
-
-        AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, 3, 1f);
-        AddUpgrade(heroUpgrades, "Hero Damage", "+4 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 4, 4, 1f);
-
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, 4, 1f);
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, 8, 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, Mathf.CeilToInt(4 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, Mathf.CeilToInt(8 * factorHero), 1f);
 
         AddUpgrade(heroUpgrades, "Hero HP", "+5 to Hero HP", () => {
             Health hp = hero.GetComponent<Health>();
             hp.maxHealth += 5;
             hp.currentHealth += 5;
-        }, 2, 1f);
+        }, Mathf.CeilToInt(2 * factorHero), 1f);
         AddUpgrade(heroUpgrades, "Hero HP", "+10 to Hero HP", () => {
             Health hp = hero.GetComponent<Health>();
             hp.maxHealth += 10;
             hp.currentHealth += 10;
-        }, 4, 1f);
+        }, Mathf.CeilToInt(4 * factorHero), 1f);
 
-        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2, 2, 1f);
-        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+4 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 4, 4, 1f);
+        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+2 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 2, Mathf.CeilToInt(2 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Hero Auto Heal", "+4 to Hero Auto Heal", () => hero.GetComponent<Health>().autoHeal += 4, Mathf.CeilToInt(4 * factorHero), 1f);
 
-        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, 3, 0.5f);
-        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, 4, 0.5f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, Mathf.CeilToInt(3 * factorHero), 0.5f);
+        AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, Mathf.CeilToInt(4 * factorHero), 0.5f);
 
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, 5, 1f);
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +4", () => hero.GetComponent<AutoAttack>().heroBounces += 4, 10, 1f);
+        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, Mathf.CeilToInt(5 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +4", () => hero.GetComponent<AutoAttack>().heroBounces += 4, Mathf.CeilToInt(10 * factorHero), 1f);
 
-        AddUpgrade(heroUpgrades, "Hero Reborn", "The hero can respawn within 10 seconds", () => hero.GetComponent<Health>().heroReborn = true, 10, 0.5f);
+        AddUpgrade(heroUpgrades, "Hero Reborn", "The hero can respawn within 10 seconds", () => hero.GetComponent<Health>().heroReborn = true, Mathf.CeilToInt(10 * factorHero), 0.5f);
 
         AddUpgrade(towerUpgrades, "Tower Range", "+2 to Tower Attack Range", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().attackRange += 2;
             UpgradeManager.Instance.towerRange += 2;
-        }, 3, 1f);
+        }, Mathf.CeilToInt(5 * factorTower), 0.7f);
 
         AddUpgrade(towerUpgrades, "Tower Range", "+3 to Tower Attack Range", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().attackRange += 3;
             UpgradeManager.Instance.towerRange += 3;
-        }, 4, 1f);
+        }, Mathf.CeilToInt(7 * factorTower), 0.7f);
 
         AddUpgrade(towerUpgrades, "Tower Auto Heal", "+1 to Tower Auto Heal", () => {
             foreach (var tower in towers) tower.GetComponent<Health>().autoHeal += 1;
             UpgradeManager.Instance.towerAutoHeal += 1;
-        }, 3, 1f);
+        }, Mathf.CeilToInt(6 * factorTower), 1f);
 
         AddUpgrade(towerUpgrades, "Tower Auto Heal", "+2 to Tower Auto Heal", () => {
             foreach (var tower in towers) tower.GetComponent<Health>().autoHeal += 2;
             UpgradeManager.Instance.towerAutoHeal += 2;
-        }, 5, 1f);
+        }, Mathf.CeilToInt(9 * factorTower), 1f);
 
         AddUpgrade(towerUpgrades, "Tower Damage", "+1 to Tower Damage", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().damage += 1;
             UpgradeManager.Instance.towerDamage += 1;
-        }, 3, 1f);
+        }, Mathf.CeilToInt(4 * factorTower), 1f);
 
         AddUpgrade(towerUpgrades, "Tower Damage", "+2 to Tower Damage", () => {
             foreach (var tower in towers) tower.GetComponent<AutoAttack>().damage += 2;
             UpgradeManager.Instance.towerDamage += 2;
-        }, 5, 1f);
+        }, Mathf.CeilToInt(6 * factorTower), 1f);
 
         AddUpgrade(towerUpgrades, "Tower HP", "+2 to Tower HP", () => {
             foreach (var tower in towers) {
@@ -133,16 +114,16 @@ public class Upgrades : MonoBehaviour
                 hp.currentHealth += 2;
             }
             UpgradeManager.Instance.towerHP += 2;
-        }, 3, 1f);
+        }, Mathf.CeilToInt(4 * factorTower), 1f);
 
-        AddUpgrade(towerUpgrades, "Tower HP", "+4 to Tower HP", () => {
+        AddUpgrade(towerUpgrades, "Tower HP", "+5 to Tower HP", () => {
             foreach (var tower in towers) {
                 var hp = tower.GetComponent<Health>();
-                hp.maxHealth += 4;
-                hp.currentHealth += 4;
+                hp.maxHealth += 5;
+                hp.currentHealth += 5;
             }
-            UpgradeManager.Instance.towerHP += 4;
-        }, 4, 1f);
+            UpgradeManager.Instance.towerHP += 5;
+        }, Mathf.CeilToInt(7 * factorTower), 1f);
 
         AddUpgrade(towerUpgrades, "Worker Auto Heal", "+1 to Worker Auto Heal", () => {
             foreach (var worker in workers){
@@ -150,8 +131,7 @@ public class Upgrades : MonoBehaviour
                     worker.GetComponent<Health>().autoHeal += 1;
                 }
             }
-            // UpgradeManager.Instance.workerAutoHeal += 1;
-        }, 3, 0.3f);
+        }, Mathf.CeilToInt(3 * factorTower), 0.3f);
 
         AddUpgrade(towerUpgrades, "Worker Auto Heal", "+2 to Worker Auto Heal", () => {
             foreach (var worker in workers) {
@@ -160,7 +140,7 @@ public class Upgrades : MonoBehaviour
                 }
             }
             UpgradeManager.Instance.workerAutoHeal += 2;
-        }, 5, 0.1f);
+        }, Mathf.CeilToInt(5 * factorTower), 0.1f);
 
         AddUpgrade(towerUpgrades, "Worker HP", "+2 to Worker HP", () => {
             foreach (var worker in workers) {
@@ -169,10 +149,10 @@ public class Upgrades : MonoBehaviour
                     hp.maxHealth += 2;
                     hp.currentHealth += 2;
                 }
-                
             }
             UpgradeManager.Instance.workerHP += 2;
-        }, 3, 0.3f);
+        }, Mathf.CeilToInt(3 * factorTower), 0.3f);
+
         AddUpgrade(towerUpgrades, "Worker HP", "+4 to Worker HP", () => {
             foreach (var worker in workers) {
                 if(worker.GetComponent<Health>() != null){
@@ -180,10 +160,10 @@ public class Upgrades : MonoBehaviour
                     hp.maxHealth += 4;
                     hp.currentHealth += 4;
                 }
-                
             }
             UpgradeManager.Instance.workerHP += 4;
-        }, 6, 0.1f);
+        }, Mathf.CeilToInt(6 * factorTower), 0.1f);
+
 
         AssignUpgrades(heroUpgrades);
     }
@@ -317,12 +297,10 @@ public class Upgrades : MonoBehaviour
         towers = GameObject.FindGameObjectsWithTag("Tower");
         workers = GameObject.FindGameObjectsWithTag("Worker");
         // Debug.Log("worker debug: " + workers[0]);
-        
         currWave = WaveManager.Instance.currentWave;
 
 
         if (currWave == 2) reset();
-
         Wave.text = "Wave " + (currWave - 1) + " Completed!";
         UpgradeText.text = (phase == 1) ? "Choose an upgrade for hero" : "Choose an upgrade for all towers";
 

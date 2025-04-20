@@ -23,6 +23,8 @@ public class Core : MonoBehaviour
         
         // Set this to not be destroyed when reloading scene
         //DontDestroyOnLoad(gameObject);
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -38,6 +40,16 @@ public class Core : MonoBehaviour
             }
         }
     }
-
+    public static void updateCore()
+    {
+        GameObject core = GameObject.FindGameObjectWithTag("Core");
+        Health hp = core.GetComponent<Health>();
+        if (hp != null)
+        {
+            float factor = DifficultyManager.GetCoreHealthMultiplier();
+            hp.maxHealth = Mathf.CeilToInt(hp.maxHealth * factor);  
+            hp.currentHealth = hp.maxHealth;
+        }
+    }
     
 }

@@ -139,7 +139,7 @@ public class EnemySpawner : MonoBehaviour
     GameObject ChooseRandomEnemy(int currentWave)
     {
         float randomValue = Random.value;
-
+        bool enemySpawn = DifficultyManager.GetEnemySpawn();
         switch (currentWave)
         {
             case 1:
@@ -152,7 +152,12 @@ public class EnemySpawner : MonoBehaviour
                 return enemyPrefabs[ranged];
 
             case 4:
-                return enemyPrefabs[phantom];
+                if(enemySpawn){
+                    return enemyPrefabs[basic];
+                }else{
+                    return enemyPrefabs[phantom];
+                }
+                
             
             default:
             if (randomValue < Enemy0SpawnChance) return enemyPrefabs[basic];

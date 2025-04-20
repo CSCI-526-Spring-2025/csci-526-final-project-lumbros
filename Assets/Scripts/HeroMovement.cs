@@ -20,10 +20,20 @@ public class HeroMovement : MonoBehaviour
             // If instance already exists and it's not this, then destroy this to enforce the singleton.
             Destroy(gameObject);
         }
+
     }
 
     void Start()
     {
+
+        GameObject hero = GameObject.FindGameObjectWithTag("Player");
+        Health hp = hero.GetComponent<Health>();
+        if (hp != null)
+        {
+            float factor = DifficultyManager.GetHeroHealthMultiplier();
+            hp.maxHealth = Mathf.CeilToInt(hp.maxHealth * factor);  
+            hp.currentHealth = hp.maxHealth;
+        }
         rb = GetComponent<Rigidbody2D>();
     }
 

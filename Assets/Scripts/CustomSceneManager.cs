@@ -238,6 +238,22 @@ public class CustomSceneManager : MonoBehaviour
         StartCoroutine(currentTutorialCoroutine);
     }
 
+    public void StartEasyGame(){
+        DifficultyManager.setDifficultyToEasy();
+        Debug.Log("start game: " + DifficultyManager.CurrentDifficulty);
+        StartGame();
+        Core.updateCore();
+        UpgradeManager.updateTower();
+    }
+    public void StartHardGame(){
+        DifficultyManager.setDifficultyToHard();
+        Debug.Log("start game: " + DifficultyManager.CurrentDifficulty);
+        StartGame();
+        Core.updateCore();
+        UpgradeManager.updateTower();
+    }
+
+
     // Called Start Game Button
     public void StartGame(){
         if (isTutorialMode)
