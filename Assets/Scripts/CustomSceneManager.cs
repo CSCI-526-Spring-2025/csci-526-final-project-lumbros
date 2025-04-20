@@ -197,7 +197,6 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
 
-        // 确保HeroDescription在教程开始时隐藏
         if (HeroDescription != null)
         {
             HeroDescription.SetActive(false);
@@ -207,7 +206,7 @@ public class CustomSceneManager : MonoBehaviour
         }
 
         isTutorialMode = true;
-        // 先进入PlaceCore状态，允许核心拖动
+
         //UpdateGameState(GAMESTATE.PlaceCore);
         UpdateGameState(GAMESTATE.Tutorial);
         TowerBarUI.SetActive(false);
@@ -233,6 +232,30 @@ public class CustomSceneManager : MonoBehaviour
 
     // Called Start Game Button
     public void StartGame(){
+        if (isTutorialMode)
+        {
+            GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
+            foreach (GameObject tower in towers)
+            {
+                Destroy(tower);
+            }
+            if (MoneyManager.Instance != null)
+            {
+                int currentMoney = MoneyManager.Instance.mMoney;
+                MoneyManager.Instance.UpdateMoney(-currentMoney);
+                MoneyManager.Instance.UpdateMoney(150);
+            }
+            if (TowerManager.Instance != null)
+            {
+                TowerManager.Instance.towerSlotMap.Clear();
+                TowerManager.Instance.Reset();
+            }
+
+            if (GridManager.Instance != null)
+            {
+                GridManager.Instance.EmptyAllSlots();
+            }
+        }
         StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
@@ -385,16 +408,19 @@ public class CustomSceneManager : MonoBehaviour
     {
         waitingForNextButton = true;
         
-        // 确保Next按钮可见
         if (TutorialNextButton != null)
         {
             TutorialNextButton.gameObject.SetActive(true);
         }
         
-        // 等待waitingForNextButton变为false（通过点击按钮）
         while (waitingForNextButton)
         {
             yield return null;
+        }
+
+        if (TutorialNextButton != null)
+        {
+            TutorialNextButton.gameObject.SetActive(false);
         }
     }
 
@@ -402,14 +428,12 @@ public class CustomSceneManager : MonoBehaviour
     {
         waitingForTowerPlaced = true;
         
-        // 等待waitingForNextButton变为false（通过点击按钮）
         while (waitingForTowerPlaced)
         {
             yield return null;
         }
     }
     
-    // Next按钮点击处理方法
     public void OnTutorialNextButtonClicked()
     {
         waitingForNextButton = false;
