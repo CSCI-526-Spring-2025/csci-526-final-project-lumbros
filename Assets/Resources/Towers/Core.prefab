@@ -124,6 +124,7 @@ MonoBehaviour:
   flash: {r: 255, g: 255, b: 255, a: 1}
   delay: 0.1
   numOfFlash: 4
+  healthSprites: []
 --- !u!114 &2945363033361352495
 MonoBehaviour:
   m_ObjectHideFlags: 0

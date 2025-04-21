@@ -73,7 +73,7 @@ public class CustomSceneManager : MonoBehaviour
     public bool HasNewSprite(string prefabName)
     {
         // Temp function while updating sprites
-        HashSet<string> prefabNames = new HashSet<string> { "Wall", "Sniper", "AOETower" };
+        HashSet<string> prefabNames = new HashSet<string> { "Wall", "Sniper", "AOETower", "IceTower", "Mine" };
         return prefabNames.Contains(prefabName);
     }
 
