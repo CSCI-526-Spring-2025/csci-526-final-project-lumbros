@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class BossEnemy : EnemyAbstract
 {
     public float detectionRange = 5f; // 发现 Player 的范围
@@ -24,7 +24,9 @@ public class BossEnemy : EnemyAbstract
     private bool summonedAt75 = false;
     private bool summonedAt50 = false;
     private bool summonedAt25 = false;
-
+    public Vector3 healthBarOffset = new Vector3(0, -0.5f, 0); // Offset from the object's position
+    private Slider healthSlider;
+    public string name = "";
     protected override void StartCall()
     {
         int enemyLayer = LayerMask.NameToLayer("EnemyDisCol");
@@ -55,7 +57,30 @@ public class BossEnemy : EnemyAbstract
         attackCooldown = 1f; // Attack cooldown time
         summonCount = 15;
         health = maxHealth;
+         
+        if(name == "boss"){
+            CustomSceneManager.instance.bossHealthBar.SetActive(true);
+            healthSlider = GameObject.Find("BossHealthBarSlider").GetComponent<Slider>();
+            Debug.Log(healthSlider);
+            if (healthSlider != null)
+            {
+                Debug.Log("setting maxValue");
+                healthSlider.maxValue = maxHealth;
+                healthSlider.value = health;
+            }
+        }
+
+       
     }
+
+    // void Update()
+    // {
+    //     if (name == "boss" && healthSlider != null)
+    //     {
+    //         healthSlider.maxValue = maxHealth;
+    //         healthSlider.value = health;
+    //     }
+    // }
 
     protected override void Move()
     {
@@ -104,6 +129,12 @@ public class BossEnemy : EnemyAbstract
 
         // **移动向目标**
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+
+        if (name == "boss" && healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
     }
 
     void SummonMinions()

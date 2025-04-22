@@ -85,7 +85,6 @@ public class Health : MonoBehaviour
         //     healthSlider.transform.position = transform.position + healthBarOffset;
         // }
         immunity -= Time.deltaTime;
-        currentHealth = currentHealth;
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxHealth;

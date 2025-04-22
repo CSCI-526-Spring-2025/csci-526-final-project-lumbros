@@ -119,6 +119,9 @@ MonoBehaviour:
   flash: {r: 255, g: 255, b: 255, a: 1}
   delay: 0.1
   numOfFlash: 4
+  healthExpect: 0
+  healthInit: 0
+  healthChanged: 0
   detectionRange: 10
   maxHealth: 10
   projectilePrefab: {fileID: 6947373763395278133, guid: 1c46ebb1bc8c4d042be4a6ec5b948102, type: 3}
@@ -129,6 +132,7 @@ MonoBehaviour:
   - {fileID: 712027675066443393, guid: 1346f14e8afd73a4580b9bede59d705a, type: 3}
   - {fileID: 712027675066443393, guid: 64cbde09b560f2e4c9c1a0d757fb4605, type: 3}
   summonCount: 3
+  name: boss
 --- !u!1 &6640638025385805139
 GameObject:
   m_ObjectHideFlags: 0

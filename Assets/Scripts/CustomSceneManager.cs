@@ -59,6 +59,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject Hero;
     public GameObject HeroDescription;
     public GameObject HeroInfoUI;
+    public GameObject bossHealthBar;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
@@ -186,6 +187,7 @@ public class CustomSceneManager : MonoBehaviour
         WarningUI.SetActive(false);
         TutorialUI.SetActive(false);
         pausedText.SetActive(false);
+        bossHealthBar.SetActive(false);
         RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
@@ -707,10 +709,10 @@ public class CustomSceneManager : MonoBehaviour
 
         
         // Debug Press Space and do something
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //      TutorialEnd();
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            WaveManager.Instance.currentWave = 7;
+        }
     
     }
 
@@ -976,6 +978,10 @@ public class CustomSceneManager : MonoBehaviour
 
         if(pausedText == null){
             pausedText = GameObject.Find("PausedText");
+        }
+
+        if(bossHealthBar == null){
+            bossHealthBar = GameObject.Find("BossHealthBar");
         }
     }
 
