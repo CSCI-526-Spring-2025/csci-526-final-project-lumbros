@@ -60,6 +60,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject HeroDescription;
     public GameObject HeroInfoUI;
     public GameObject bossHealthBar;
+    public GameObject GameModePanel;
     public bool heroUpgrade = true;
     public int tutorialstep = 0;
     public bool isTutorialMode = false;
@@ -188,6 +189,7 @@ public class CustomSceneManager : MonoBehaviour
         TutorialUI.SetActive(false);
         pausedText.SetActive(false);
         bossHealthBar.SetActive(false);
+        GameModePanel.SetActive(false);
         RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
@@ -203,6 +205,7 @@ public class CustomSceneManager : MonoBehaviour
     public void StartTutorial()
     {
         // Hide startUI
+        GameModePanel.SetActive(false);
         StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
@@ -255,6 +258,10 @@ public class CustomSceneManager : MonoBehaviour
         UpgradeManager.updateTower();
     }
 
+    public void ShowGameMode()
+    {
+        GameModePanel.SetActive(true);
+    }
 
     // Called Start Game Button
     public void StartGame(){
@@ -284,6 +291,7 @@ public class CustomSceneManager : MonoBehaviour
                 GridManager.Instance.EmptyAllSlots();
             }
         }
+        GameModePanel.SetActive(false);
         StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
@@ -988,6 +996,11 @@ public class CustomSceneManager : MonoBehaviour
 
         if(bossHealthBar == null){
             bossHealthBar = GameObject.Find("BossHealthBar");
+        }
+
+        if(GameModePanel == null)
+        {
+            GameModePanel = GameObject.Find("GameModePanel");
         }
     }
 
