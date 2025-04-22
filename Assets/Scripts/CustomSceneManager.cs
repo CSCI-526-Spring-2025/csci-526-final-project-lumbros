@@ -257,6 +257,7 @@ public class CustomSceneManager : MonoBehaviour
     // Called Start Game Button
     public void StartGame(){
         UpgradeManager.reset();
+        // FinishedGameUI = DifficultyManager.GetFinishedGameUI();
         if (isTutorialMode)
         {
             GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
@@ -765,9 +766,14 @@ public class CustomSceneManager : MonoBehaviour
     private void HandleGameSuccess()
     {
         Debug.Log("CustomSceneManager receive success");
-
+        
         if (!isTutorialMode)
         {
+            FinishedGameUI = DifficultyManager.GetFinishedGameUI();
+            FinishedGameUI.SetActive(true); 
+            // Debug.Log("CurrentDifficulty7: " + (FinishedGameUI == null));
+            // Debug.Log("CurrentDifficulty8: " + (FinishedGameUI == DifficultyManager.FinishedGameUIHard));
+            
             UpdateGameState(GAMESTATE.GameSuccess);
             FinishedGameUI.SetActive(true); //UI part
             PauseGame();
@@ -934,7 +940,8 @@ public class CustomSceneManager : MonoBehaviour
 
         if(FinishedGameUI == null)
         {
-            FinishedGameUI =  GameObject.Find("FinishedGameUI");
+            FinishedGameUI =  DifficultyManager.GetFinishedGameUI();
+            // FinishedGameUI =  GameObject.Find("FinishedGameUI");
         }
 
         if(PauseButton == null){
