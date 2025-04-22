@@ -719,7 +719,7 @@ public class CustomSceneManager : MonoBehaviour
         // Debug Press Space and do something
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            WaveManager.Instance.currentWave = 7;
+            // WaveManager.Instance.currentWave = 7;
         }
     
     }
