@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4213bf8f8f5407794111a5de6c28ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cost: 70
+  Cost: 100
 --- !u!212 &3706711811933603071
 SpriteRenderer:
   m_ObjectHideFlags: 0
