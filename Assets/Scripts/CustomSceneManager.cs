@@ -622,7 +622,6 @@ public class CustomSceneManager : MonoBehaviour
     }
 
     private void StartingGame(){
-        Debug.Log("starting");
         
         totalKills = 0;
         maxWorkerCount = 5;
