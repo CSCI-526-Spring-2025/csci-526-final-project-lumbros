@@ -256,6 +256,7 @@ public class CustomSceneManager : MonoBehaviour
 
     // Called Start Game Button
     public void StartGame(){
+        UpgradeManager.reset();
         if (isTutorialMode)
         {
             GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
@@ -826,6 +827,7 @@ public class CustomSceneManager : MonoBehaviour
         foreach(GameObject go in nonDestoryObjects){
             if(go != null) Destroy(go);
         }
+        UpgradeManager.reset();
         gameOverUI.SetActive(false);
         GridManager.Instance.EmptyAllSlots();
         TowerManager.Instance.Reset();

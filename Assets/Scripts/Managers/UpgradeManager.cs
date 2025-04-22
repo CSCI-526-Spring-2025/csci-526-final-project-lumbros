@@ -45,7 +45,15 @@ private void Awake()
     void Start()
     {
     }
-
+    public static void reset()
+    {
+        Instance.towerHP = 0;
+        Instance.towerAutoHeal = 0;
+        Instance.towerDamage = 0;
+        Instance.towerRange = 0;
+        Instance.workerHP = 0;
+        Instance.workerAutoHeal = 0;
+    }
     void Update(){
     towers = GameObject.FindGameObjectsWithTag("Tower");
     workers = GameObject.FindGameObjectsWithTag("Worker");
