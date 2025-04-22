@@ -3,11 +3,11 @@ using System.Collections;
 
 public class EnemyStalker : EnemyAbstract
 {
-    public float normalSpeed = 0.4f;  // 初始移动速度
+    public float normalSpeed = 0.3f;  // 初始移动速度
     public float chargeSpeed = 8f;   // 冲刺速度
-    public float detectionRange = 5f; // 发现Player的范围
-    public float chargeDelay = 0.5f;  // 冲刺前的延迟时间
-    public float chargeCooldown = 2.5f; // 冲刺冷却时间
+    public float detectionRange = 5.5f; // 发现Player的范围
+    public float chargeDelay = 1.0f;  // 冲刺前的延迟时间
+    public float chargeCooldown = 3.0f; // 冲刺冷却时间
     public float rotationSpeed = 500f; // 旋转速度（越大越快）
     public float rotationOffset = 0; // 角度偏移（让你可以调整朝向）
     private bool isCharging = false;  // 是否正在冲刺
@@ -21,9 +21,9 @@ public class EnemyStalker : EnemyAbstract
     {
         enemyType = "Enemy - Stalker";
 
-        health = 3; // Enemy health
+        health = 5; // Enemy health
         normalSpeed = 0.5f;
-        chargeSpeed = 8f;
+        chargeSpeed = 6.5f;
         attackDamage = 2; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time

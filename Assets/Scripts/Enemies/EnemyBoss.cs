@@ -50,7 +50,7 @@ public class BossEnemy : EnemyAbstract
         }
 
         detectionRange = 5;
-        maxHealth =Mathf.CeilToInt(180 * WaveManager.Instance.enemyHealthMultiplier);
+        maxHealth =Mathf.CeilToInt(200 * WaveManager.Instance.enemyHealthMultiplier);
         speed = 0.5f;
         attackDamage = 4; // Melee attack damage
         attackRange = 0.5f; // Melee attack range

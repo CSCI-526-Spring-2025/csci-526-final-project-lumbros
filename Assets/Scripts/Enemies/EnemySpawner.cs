@@ -140,30 +140,47 @@ public class EnemySpawner : MonoBehaviour
     {
         float randomValue = Random.value;
         bool enemySpawn = DifficultyManager.GetEnemySpawn();
-        switch (currentWave)
+        if (enemySpawn == false)
         {
-            case 1:
-                return enemyPrefabs[basic];
-
-            case 2:
-                return enemyPrefabs[stalker];
-
-            case 3:
-                return enemyPrefabs[ranged];
-
-            case 4:
-                if(enemySpawn){
+            switch (currentWave)
+            {
+                    case 1:
                     return enemyPrefabs[basic];
-                }else{
-                    return enemyPrefabs[phantom];
-                }
+
+                case 2:
+                    return enemyPrefabs[stalker];
+
+                case 3:
+                    return enemyPrefabs[ranged];
+
+                default:
+                if (randomValue < 0.4) return enemyPrefabs[basic];
+                if (randomValue < 0.7) return enemyPrefabs[ranged];
+                return enemyPrefabs[stalker];
+            }
+        }
+        else
+        {
+            switch (currentWave)
+            {
+                case 1:
+                return enemyPrefabs[basic];
+                case 2:
+                    return enemyPrefabs[stalker];
+
+                case 3:
+                    return enemyPrefabs[ranged];
+
+                case 4:
+                    return enemyPrefabs[phantom];                    
                 
+                default:
+                if (randomValue < Enemy0SpawnChance) return enemyPrefabs[basic];
+                if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance) return enemyPrefabs[ranged];
+                if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
+                return enemyPrefabs[phantom];
+            }
             
-            default:
-            if (randomValue < Enemy0SpawnChance) return enemyPrefabs[basic];
-            if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance) return enemyPrefabs[ranged];
-            if (randomValue < Enemy0SpawnChance + Enemy1SpawnChance + Enemy2SpawnChance) return enemyPrefabs[stalker];
-            return enemyPrefabs[phantom];
         }
         //return enemyPrefabs[ranged];
     }

@@ -7,8 +7,8 @@ public class Enemy : EnemyAbstract
     {
         enemyType = "Enemy - Basic";
 
-        health = 5; // Enemy health
-        speed = 0.6f;
+        health = 7; // Enemy health
+        speed = 0.4f;
         attackDamage = 1; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time

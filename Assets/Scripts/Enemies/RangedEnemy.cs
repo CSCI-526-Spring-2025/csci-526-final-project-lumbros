@@ -11,11 +11,11 @@ public class RangedEnemy : EnemyAbstract
     {
         enemyType = "Enemy - Range";
 
-        health = 4; // Enemy health
-        speed = 0.5f;
+        health = 5; // Enemy health
+        speed = 0.3f;
         attackDamage = 1; // Melee attack damage
-        attackRange = 4f; // Melee attack range
-        attackCooldown = 2f; // Attack cooldown time
+        attackRange = 3.5f; // Melee attack range
+        attackCooldown = 2.5f; // Attack cooldown time
         target = FindClosestTarget();
         //初始化血量
         health = Mathf.CeilToInt(health * WaveManager.Instance.enemyHealthMultiplier);

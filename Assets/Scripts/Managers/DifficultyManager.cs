@@ -123,6 +123,15 @@ public class DifficultyManager : MonoBehaviour
             default: return true;
         }
     }
+    public static bool GetEnemyWave()
+    {
+        switch (CurrentDifficulty)
+        {
+            case DifficultyLevel.Easy: return true;
+            case DifficultyLevel.Hard: return false;
+            default: return true;
+        }
+    }
     void Start(){
 
     }
