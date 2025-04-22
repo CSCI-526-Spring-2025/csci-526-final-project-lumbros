@@ -10,7 +10,8 @@ public enum DifficultyLevel { Easy, Hard }
 public class DifficultyManager : MonoBehaviour
 {
     public static DifficultyLevel CurrentDifficulty = DifficultyLevel.Easy;
-
+    public static GameObject FinishedGameUIHard;
+    public static GameObject FinishedGameUIEasy;
     public static DifficultyManager Instance;
 
     private void Awake()
@@ -24,6 +25,13 @@ public class DifficultyManager : MonoBehaviour
         {
             Destroy(gameObject); 
         }
+        
+        FinishedGameUIHard = GameObject.Find("FinishedGameUI-Hard");
+        FinishedGameUIHard.SetActive(false);
+        FinishedGameUIEasy = GameObject.Find("FinishedGameUI-Easy");
+        FinishedGameUIEasy.SetActive(false);
+        DontDestroyOnLoad(FinishedGameUIHard);
+        DontDestroyOnLoad(FinishedGameUIEasy);
     }
 
     public static void setDifficultyToEasy(){
@@ -45,6 +53,24 @@ public class DifficultyManager : MonoBehaviour
                 return 2.0f; 
             default:
                 return 1f;
+        }
+    }
+    public static GameObject GetFinishedGameUI()
+    {
+
+      Debug.Log("CurrentDifficulty1: " + CurrentDifficulty);
+        Debug.Log("CurrentDifficulty3: " + (FinishedGameUIHard == null));
+        Debug.Log("CurrentDifficulty2: ");
+        Debug.Log("CurrentDifficulty1: " + (FinishedGameUIEasy == null));
+        switch (CurrentDifficulty)
+        {
+            
+            case DifficultyLevel.Easy:
+                return FinishedGameUIEasy; 
+            case DifficultyLevel.Hard:
+                return FinishedGameUIHard;
+            default:
+                return FinishedGameUIHard;
         }
     }
     public static float GetTowerGoldCostMultiplier()
@@ -79,7 +105,7 @@ public class DifficultyManager : MonoBehaviour
     }
     public static int GetTowerHealthFactor()
     {
-        Debug.Log("CurrentDifficulty: " + CurrentDifficulty);
+       
 
         switch (CurrentDifficulty)
         {
