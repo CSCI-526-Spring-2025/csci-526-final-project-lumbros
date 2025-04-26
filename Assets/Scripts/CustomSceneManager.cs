@@ -296,6 +296,7 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
         waveManager.LoadStartingWave();
+        SetTutoritalOverUI(false);
         if (TutorialUI != null)
         {
             TutorialUI.SetActive(false);
@@ -527,6 +528,7 @@ public class CustomSceneManager : MonoBehaviour
     {
         if (TutorialUI != null)
         {
+            SetTutoritalOverUI(false);
             TutorialUI.SetActive(false);
         }
 
@@ -610,22 +612,33 @@ public class CustomSceneManager : MonoBehaviour
                 tutorialText.text = "Tutorial complete!\nYou can now continue to the game or return to the main menu.";
             }
         }
+        SetTutoritalOverUI(true);
+    }
+
+    private void SetTutoritalOverUI(bool setActive)
+    {
         // Show start game button
         Transform TutorialEndPanel = TutorialUI.transform.Find("TutorialEndPanel");
-        if(TutorialEndPanel != null){
-            TutorialEndPanel.gameObject.SetActive(true);
-        }
-        Transform StartGameButton = TutorialUI.transform.Find("StartGameButton");
-        if (StartGameButton != null)
+        if (TutorialEndPanel != null)
         {
-            StartGameButton.gameObject.SetActive(true);
+            TutorialEndPanel.gameObject.SetActive(setActive);
+        }
+        Transform StartGameButtonEasy = TutorialUI.transform.Find("StartGameButtonEasy");
+        if (StartGameButtonEasy != null)
+        {
+            StartGameButtonEasy.gameObject.SetActive(setActive);
+        }
+        Transform StartGameButtonHard = TutorialUI.transform.Find("StartGameButtonHard");
+        if (StartGameButtonHard != null)
+        {
+            StartGameButtonHard.gameObject.SetActive(setActive);
         }
 
         // Show exit to menu button
         Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
         if (ExitToMenuButton != null)
         {
-            ExitToMenuButton.gameObject.SetActive(true);
+            ExitToMenuButton.gameObject.SetActive(setActive);
         }
     }
 
