@@ -57,17 +57,29 @@ public class BaseBuildingDragger : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         if (currentTowerPreview != null)
         {
-            // Get the final position where player wants to place the tower
+            // 获取最终位置
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;
 
-            // Create the actual tower at the chosen position
+            // 添加的代码开始 - 检查是否在核心附近
+            GameObject core = GameObject.FindGameObjectWithTag("Core");
+            if (core != null)
+            {
+                float distance = Vector3.Distance(worldPos, core.transform.position);
+                if (distance < 1.0f) // 如果太靠近核心
+                {
+                    Debug.Log("无法在核心上放置防御塔");
+                    Destroy(currentTowerPreview);
+                    return; // 直接返回，不创建塔
+                }
+            }
+            // 添加的代码结束
+
+            // 创建实际的塔
             Instantiate(towerPrefab, worldPos, Quaternion.identity);
 
-            // Clean up by destroying the preview
+            // 清理预览
             Destroy(currentTowerPreview);
-
-            // manager.GetComponent<CustomSceneManager>().AddTower();
         }
     }
 }

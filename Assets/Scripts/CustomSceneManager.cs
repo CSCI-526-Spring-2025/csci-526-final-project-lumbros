@@ -210,6 +210,34 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
 
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        if (gridManager != null)
+        {
+            InventorySlot[] slots = gridManager.GetInventorySlots();
+            if (slots != null && slots.Length > 0)
+            {
+                GameObject core = GameObject.FindGameObjectWithTag("Core");
+                if (core != null)
+                {
+                    InventorySlot closestSlot = null;
+                    float closestDistance = float.MaxValue;
+                    foreach (InventorySlot slot in slots)
+                    {
+                        float distance = Vector3.Distance(core.transform.position, slot.transform.position);
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            closestSlot = slot;
+                        }
+                    }
+
+                    if (closestSlot != null)
+                    {
+                        closestSlot.containsItem = true;
+                    }
+                }
+            }
+        }
         if (HeroDescription != null)
         {
             HeroDescription.SetActive(false);
@@ -352,6 +380,7 @@ public class CustomSceneManager : MonoBehaviour
         GameObject core = GameObject.FindGameObjectWithTag("Core");
 
         SpawnTutorialMines();
+
         UpdateTutorialText("Welcome to Brotower!");
         yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("The goal of this game is to defend the core and survive for 8 waves.");
@@ -1109,6 +1138,7 @@ public class CustomSceneManager : MonoBehaviour
             Debug.LogError("MineSpawner or mine prefab not found");
         }
     }
+
 
     private void SpawnTutorialWorkers()
     {
