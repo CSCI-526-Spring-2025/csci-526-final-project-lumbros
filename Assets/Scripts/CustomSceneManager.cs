@@ -383,21 +383,21 @@ public class CustomSceneManager : MonoBehaviour
 
         UpdateTutorialText("Welcome to Brotower!");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("The goal of this game is to defend the core and survive for 8 waves.");
+        UpdateTutorialText("Defend the core and survive for 8 waves.");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("If the core HP reaches 0, you lose.");
-        yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("These brown structures are mines. They generate resources.");
-        yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("If the core HP reaches 0, you lose.");
+        //yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("These brown structures are mines. They generate resources.");
+        //yield return StartCoroutine(WaitForNextButton());
 
-        UpdateTutorialText("The small characters are workers. They collect resources from mines.");
-        yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("The small characters are workers. They collect resources from mines.");
+        //yield return StartCoroutine(WaitForNextButton());
 
         UpdateTutorialText("Workers bring resources to your core to earn gold.");
-        if (MoneyManager.Instance != null)
-        {
-            MoneyManager.Instance.UpdateMoney(30);
-        }
+        //if (MoneyManager.Instance != null)
+        //{
+        //    MoneyManager.Instance.UpdateMoney(30);
+        //}
 
 
        
@@ -429,10 +429,10 @@ public class CustomSceneManager : MonoBehaviour
         InventorySlot.AddedTower += TowerPlaced;
         TowerBarUI.SetActive(true);
         SetTowersUI(false);
-        UpdateTutorialText("Build defense towers to protect your core. You can drag the tower from the right bar and place them.");
+        UpdateTutorialText("Drag the tower from the right bar and place them to protect your core.");
         yield return StartCoroutine(WaitForTowerPlaced());
 
-        UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
+        UpdateTutorialText("Beware! Enemies will attack your core.");
         // yield return new WaitForSeconds(5f);
         // yield return StartCoroutine(WaitForNextButton());
 
@@ -587,7 +587,7 @@ public class CustomSceneManager : MonoBehaviour
                 yield return StartCoroutine(WaitForNextButton());
                 tutorialText.text = "If the hero HP reaches 0, you also lose the game.";
                 yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "You can move the hero with WASD.";
+                tutorialText.text = "Move the hero with WASD.";
                 if (HeroDescription != null)
                 {
                     HeroDescription.SetActive(true);
@@ -614,7 +614,7 @@ public class CustomSceneManager : MonoBehaviour
 
                 yield return new WaitForSeconds(5);
                 // yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "Your hero will automatically attack the closest enemy within its attack range.";
+                tutorialText.text = "Hero automatically attacks the closest enemy in its range.";
             }
         }
     }
