@@ -112,8 +112,11 @@ public class CustomSceneManager : MonoBehaviour
                     if(hero != null) Destroy(hero);
                 }
                 Instantiate(instance.Hero);
+                PauseButton.gameObject.SetActive(true); //turn on pause in case it was turn off
+                if (isPause) pause();
                 break;
             case GAMESTATE.GamePlay:
+                PauseButton.gameObject.SetActive(true); //turn on pause in case it was turn off
                 break;
             case GAMESTATE.GameUpgrade:
                 break;
@@ -122,6 +125,8 @@ public class CustomSceneManager : MonoBehaviour
             case GAMESTATE.GameSuccess:
                 break;
             case GAMESTATE.Tutorial:
+                PauseButton.gameObject.SetActive(true); //turn on pause in case it was turn off
+                if(isPause) pause();
                 break;
             case GAMESTATE.GameTutorialPauseAndReadTowers:
                 //instance.pause();
@@ -330,7 +335,7 @@ public class CustomSceneManager : MonoBehaviour
             TutorialUI.SetActive(false);
         }
         isTutorialMode = false;
-        Resume();
+        if (isPause) pause();
         UpdateGameState(GAMESTATE.GameStart);
         Time.timeScale = 1;
         UpdateGameState(GAMESTATE.GamePlay);
@@ -570,11 +575,11 @@ public class CustomSceneManager : MonoBehaviour
 
     private IEnumerator TutorialReadTowers(){
         SetTowersUI(true);
-        UpdateTutorialText("The game is now paused. Take your time to read the tower info on the right by hovering over them.");
+        UpdateTutorialText("Take your time to read the tower info on the right by hovering over them.");
         // yield return new WaitForSecondsRealtime(5);
         yield return new WaitForSecondsRealtime(5);
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("You can also click on towers to see their stats. Once done, click the 'Pause' Button to continue.");
+        UpdateTutorialText("You can also click on towers to see their stats.");
         yield return new WaitForSecondsRealtime(3);
         yield return StartCoroutine(WaitForNextButton());
         UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
@@ -626,6 +631,7 @@ public class CustomSceneManager : MonoBehaviour
     private void TutorialUpgrades(){
         if (TutorialUI != null)
         {
+            PauseButton.gameObject.SetActive(false);
             TutorialUI.SetActive(true);
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
@@ -813,9 +819,11 @@ public class CustomSceneManager : MonoBehaviour
     }
 
     private void WaveEnd()
-    {        
+    {
+        PauseButton.gameObject.SetActive(false);
         UpgradeUI.SetActive(true);
-        PauseGame();
+        //PauseGame();
+        if (!isPause) pause();
     }
 
     private void HandleGameSuccess()
@@ -831,7 +839,8 @@ public class CustomSceneManager : MonoBehaviour
             
             UpdateGameState(GAMESTATE.GameSuccess);
             FinishedGameUI.SetActive(true); //UI part
-            PauseGame();
+            //PauseGame();
+            if(!isPause) pause();
         }
     }
 
@@ -847,7 +856,7 @@ public class CustomSceneManager : MonoBehaviour
         }
         else{
             UpdateGameState(GAMESTATE.GamePlay);
-            Resume();
+            if(isPause) pause();
         }
     }
 
