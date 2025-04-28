@@ -513,14 +513,14 @@ public class CustomSceneManager : MonoBehaviour
         //this is hardcode need to fix later.
         if(TowerBarUI != null){
             // hide/unhide wall and door
-            for(int i = 3; i < 5; ++i){
+            for(int i = 3; i < 7; ++i){
                 var gOUI = TowerBarUI.transform.GetChild(i).gameObject;
                 //Debug.Log(gOUI.transform.childCount);
-                for(int j = 1; j < 4; ++j){
+                for(int j = i%2; j < 2; ++j){
                     gOUI.transform.GetChild(j).gameObject.SetActive(b);
                 }
             }
-            var ui = TowerBarUI.transform.GetChild(6).gameObject;
+            var ui = TowerBarUI.transform.GetChild(8).gameObject;
             for (int j = 1; j < 4; ++j)
             {
                 ui.transform.GetChild(j).gameObject.SetActive(b);

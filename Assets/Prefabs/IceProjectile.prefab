@@ -180,5 +180,5 @@ MonoBehaviour:
   damage: 1
   bouncesLeft: 0
   isEnemyProjectile: 0
-  slowAmount: 0.5
+  slowAmount: 0.8
   slowDuration: 3
