@@ -9,6 +9,9 @@ public class MineSpawner : MonoBehaviour
     public int mineCount = 3;
     public Vector2 minSpawnRange = new Vector2(-4.5f, -4.5f);
     public Vector2 maxSpawnRange = new Vector2(4.5f, 4.5f);
+    Vector2 corePos;
+    private float exclusionHalfSize = 1.0f;
+
 
     private static CustomSceneManager manager;
     
@@ -33,6 +36,7 @@ public class MineSpawner : MonoBehaviour
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<CustomSceneManager>();
+        corePos = GameObject.FindGameObjectWithTag("Core").transform.position;
         CustomSceneManager.gameStateChange += OnGameStateChange;
     }
 
@@ -50,6 +54,7 @@ public class MineSpawner : MonoBehaviour
         SpawnMines();
         
     }
+
 
     void SpawnMines()
     {
@@ -73,9 +78,31 @@ public class MineSpawner : MonoBehaviour
             /* Spawn in random positions */
             for (int i = 0; i < mineCount; i++)
             {
-                Vector2 randomPosition = new Vector2(
-                    Random.Range(minSpawnRange.x, maxSpawnRange.x),
-                    Random.Range(minSpawnRange.y, maxSpawnRange.y)
+                // Vector2 randomPosition = new Vector2(
+                //     Random.Range(minSpawnRange.x, maxSpawnRange.x),
+                //     Random.Range(minSpawnRange.y, maxSpawnRange.y)
+                // );
+                Vector2 randomPosition;
+                int maxTries = 100;
+                int attempts = 0;
+
+                do
+                {
+                    randomPosition = new Vector2(
+                        Random.Range(minSpawnRange.x, maxSpawnRange.x),
+                        Random.Range(minSpawnRange.y, maxSpawnRange.y)
+                    );
+
+                    attempts++;
+                    if (attempts > maxTries)
+                    {
+                        Debug.LogWarning("Mine spawn: too many attempts, fallback to random position near edge.");
+                        break;
+                    }
+
+                } while (
+                    Mathf.Abs(randomPosition.x - corePos.x) <= exclusionHalfSize &&
+                    Mathf.Abs(randomPosition.y - corePos.y) <= exclusionHalfSize
                 );
 
                 Instantiate(minePrefab, randomPosition, Quaternion.identity);

@@ -140,7 +140,7 @@ public class EnemySpawner : MonoBehaviour
     {
         float randomValue = Random.value;
         bool enemySpawn = DifficultyManager.GetEnemySpawn();
-        if (enemySpawn == false)
+        if (enemySpawn == true)
         {
             switch (currentWave)
             {

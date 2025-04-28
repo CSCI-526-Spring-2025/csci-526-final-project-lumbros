@@ -21,8 +21,8 @@ public class WaveManager : MonoBehaviour
     public BossEnemy bossEnemy;
     private float enemyStatMultiplier = 1.2f; // 每一波敌人属性增强倍率
     private float enemyStatMultiplier_D = 1.2f;
-    private float Span_Interval_Multiplier = 1.5f; // 生成间隔加快倍率
-    private float Span_Interval_Multiplier_D = 1.55f;
+    private float Span_Interval_Multiplier = 1.3f; // 生成间隔加快倍率
+    private float Span_Interval_Multiplier_D = 1.4f;
     private float KillNumMultiplier = 1.1f;
     private float KillNumMultiplier_D = 1.15f;
     private float waveInterval = 10f; // 每波修整时间
@@ -124,7 +124,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave(bool Difficulty)
     {
-        if (Difficulty == false)
+        if (Difficulty == true) //easy
         {
             // For the timer
             CurrWave = true;
@@ -149,7 +149,7 @@ public class WaveManager : MonoBehaviour
             enemySpawner.SpawnWave(enemyCount, currentWave, SpawnInterval);
             waveBegin?.Invoke(currentWave, WaveKillLimit);
         }
-        if (Difficulty == true)
+        else
         {
             // For the timer
             CurrWave = true;
@@ -264,7 +264,7 @@ public class WaveManager : MonoBehaviour
 
     void UpdateWaveKillLimit(bool Difficulty)
     {
-        if(Difficulty == false)
+        if(Difficulty == true)
         {
             WaveKillLimit = Mathf.CeilToInt(WaveKillLimit * KillNumMultiplier) + 6;
         }

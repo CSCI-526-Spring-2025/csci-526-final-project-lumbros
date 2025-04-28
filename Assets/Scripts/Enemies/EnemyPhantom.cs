@@ -20,7 +20,7 @@ public class EnemyPhantom : EnemyAbstract
         }
 
         health = 5; // Enemy health
-        speed = 1f;
+        speed = 0.8f;
         attackDamage = 1; // Melee attack damage
         attackRange = 0.5f; // Melee attack range
         attackCooldown = 1f; // Attack cooldown time
