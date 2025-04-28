@@ -294,14 +294,17 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        string waveText = "Wave ";
+        if (CustomSceneManager.instance.curState >= GAMESTATE.Tutorial && CustomSceneManager.instance.curState <= GAMESTATE.GameTutorialEnd)
+            waveText = "Tutorial ";
         if (mWavesUI != null && (CustomSceneManager.instance.curState != GAMESTATE.GameTutorialUpgrades
                 && CustomSceneManager.instance.curState != GAMESTATE.GameUpgrade))
         {
             if(currentWave > 8){
-            mWavesUI.text = "Wave " + currentWave.ToString();
+            mWavesUI.text = waveText + currentWave.ToString();
             }
             else{
-                mWavesUI.text = "Wave " + currentWave.ToString() + "/8";
+                mWavesUI.text = waveText + currentWave.ToString() + "/8";
             }
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
@@ -311,10 +314,10 @@ public class WaveManager : MonoBehaviour
         if(mWavesUI != null && (CustomSceneManager.instance.curState == GAMESTATE.GameUpgrade || CustomSceneManager.instance.curState == GAMESTATE.GameTutorialUpgrades)){ 
 
             if(currentWave > 8){
-                  mWavesUI.text = "Wave " + prevWave.ToString() + " Completed!";
+                  mWavesUI.text = waveText + prevWave.ToString() + " Completed!";
             }
             else{
-                 mWavesUI.text = "Wave " + prevWave.ToString() + "/8 Completed!";
+                 mWavesUI.text = waveText + prevWave.ToString() + "/8 Completed!";
             }
 
           
@@ -330,7 +333,7 @@ public class WaveManager : MonoBehaviour
                 waveTimer = 0f;
             }
             int tempWave = currentWave + 1;
-            mWavesUI.text = "Wave "  + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+            mWavesUI.text = waveText + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
             mWavesCountdownUI.text = FormatTime(waveTimer);
             if(!mWavesCountdown.activeSelf){
                 mWavesCountdown.SetActive(true);

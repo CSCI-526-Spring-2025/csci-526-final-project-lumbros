@@ -923,7 +923,7 @@ public class CustomSceneManager : MonoBehaviour
 
     public bool IsGameStarted()
     {
-        return curState == GAMESTATE.GamePlay || curState == GAMESTATE.GameUpgrade;
+        return curState == GAMESTATE.GamePlay || curState == GAMESTATE.GameUpgrade || (curState >= GAMESTATE.Tutorial && curState < GAMESTATE.GameTutorialEnd);
     }
 
     public void DisplayWarning()
