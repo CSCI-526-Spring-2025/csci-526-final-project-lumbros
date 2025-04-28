@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinishGameUI : MonoBehaviour
+public class FinishGameHardUI : MonoBehaviour
 {
     // Static reference to the instance of our GameOverUI
-    public static FinishGameUI instance;
+    public static FinishGameHardUI instance;
 
     private void Awake()
     {

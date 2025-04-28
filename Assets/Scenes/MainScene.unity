@@ -31040,7 +31040,7 @@ GameObject:
   - component: {fileID: 1705335879}
   - component: {fileID: 1705335878}
   - component: {fileID: 1705335877}
-  - component: {fileID: 1705335876}
+  - component: {fileID: 1705335881}
   m_Layer: 5
   m_Name: FinishedGameUI-Hard
   m_TagString: Untagged
@@ -31048,18 +31048,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1705335876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705335875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ddfebc79b1f547459034805c4b865e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1705335877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31145,6 +31133,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1705335881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705335875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10eb4d3eed8d7de42a865f28a3ad388c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1715053590
 PrefabInstance:
   m_ObjectHideFlags: 0
