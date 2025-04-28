@@ -1005,11 +1005,11 @@ public class CustomSceneManager : MonoBehaviour
         }
 
         if(PauseSprite == null){
-            PauseSprite = Resources.Load<Sprite>("Sprites/Black Pause Button");
+            PauseSprite = Resources.Load<Sprite>("Sprites/Pause Button");
         }
 
         if(ResumeSprite == null){
-            ResumeSprite = Resources.Load<Sprite>("Sprites/Black Resume Buttom");
+            ResumeSprite = Resources.Load<Sprite>("Sprites/Resume Button");
         }
         if (TutorialNextButton == null && TutorialUI != null){
             Transform nextButton = TutorialUI.transform.Find("NextTutorialButton");
