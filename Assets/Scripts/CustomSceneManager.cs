@@ -210,6 +210,34 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
 
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        if (gridManager != null)
+        {
+            InventorySlot[] slots = gridManager.GetInventorySlots();
+            if (slots != null && slots.Length > 0)
+            {
+                GameObject core = GameObject.FindGameObjectWithTag("Core");
+                if (core != null)
+                {
+                    InventorySlot closestSlot = null;
+                    float closestDistance = float.MaxValue;
+                    foreach (InventorySlot slot in slots)
+                    {
+                        float distance = Vector3.Distance(core.transform.position, slot.transform.position);
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            closestSlot = slot;
+                        }
+                    }
+
+                    if (closestSlot != null)
+                    {
+                        closestSlot.containsItem = true;
+                    }
+                }
+            }
+        }
         if (HeroDescription != null)
         {
             HeroDescription.SetActive(false);
@@ -296,6 +324,7 @@ public class CustomSceneManager : MonoBehaviour
         FindUIObjects();
         StartingGame();
         waveManager.LoadStartingWave();
+        SetTutoritalOverUI(false);
         if (TutorialUI != null)
         {
             TutorialUI.SetActive(false);
@@ -351,23 +380,24 @@ public class CustomSceneManager : MonoBehaviour
         GameObject core = GameObject.FindGameObjectWithTag("Core");
 
         SpawnTutorialMines();
+
         UpdateTutorialText("Welcome to Brotower!");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("The goal of this game is to defend the core and survive for 8 waves.");
+        UpdateTutorialText("Defend the core and survive for 8 waves.");
         yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("If the core HP reaches 0, you lose.");
-        yield return StartCoroutine(WaitForNextButton());
-        UpdateTutorialText("These brown structures are mines. They generate resources.");
-        yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("If the core HP reaches 0, you lose.");
+        //yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("These brown structures are mines. They generate resources.");
+        //yield return StartCoroutine(WaitForNextButton());
 
-        UpdateTutorialText("The small characters are workers. They collect resources from mines.");
-        yield return StartCoroutine(WaitForNextButton());
+        //UpdateTutorialText("The small characters are workers. They collect resources from mines.");
+        //yield return StartCoroutine(WaitForNextButton());
 
         UpdateTutorialText("Workers bring resources to your core to earn gold.");
-        if (MoneyManager.Instance != null)
-        {
-            MoneyManager.Instance.UpdateMoney(30);
-        }
+        //if (MoneyManager.Instance != null)
+        //{
+        //    MoneyManager.Instance.UpdateMoney(30);
+        //}
 
 
        
@@ -399,10 +429,10 @@ public class CustomSceneManager : MonoBehaviour
         InventorySlot.AddedTower += TowerPlaced;
         TowerBarUI.SetActive(true);
         SetTowersUI(false);
-        UpdateTutorialText("Build defense towers to protect your core. You can drag the tower from the right bar and place them.");
+        UpdateTutorialText("Drag the tower from the right bar and place them to protect your core.");
         yield return StartCoroutine(WaitForTowerPlaced());
 
-        UpdateTutorialText("Beware! Enemies will attack your core. The first wave of enemies is coming.");
+        UpdateTutorialText("Beware! Enemies will attack your core.");
         // yield return new WaitForSeconds(5f);
         // yield return StartCoroutine(WaitForNextButton());
 
@@ -483,17 +513,17 @@ public class CustomSceneManager : MonoBehaviour
         //this is hardcode need to fix later.
         if(TowerBarUI != null){
             // hide/unhide wall and door
-            for(int i = 4; i < 7; ++i){
+            for(int i = 3; i < 5; ++i){
                 var gOUI = TowerBarUI.transform.GetChild(i).gameObject;
-                Debug.Log(gOUI.transform.childCount);
-                for(int j = 1; j < 2; ++j){
+                //Debug.Log(gOUI.transform.childCount);
+                for(int j = 1; j < 4; ++j){
                     gOUI.transform.GetChild(j).gameObject.SetActive(b);
                 }
             }
-
-            // hide/unhide ice, speed, aoe tower
-            for(int i = 7; i < 10; ++i){
-                TowerBarUI.transform.GetChild(i).gameObject.SetActive(b);
+            var ui = TowerBarUI.transform.GetChild(6).gameObject;
+            for (int j = 1; j < 4; ++j)
+            {
+                ui.transform.GetChild(j).gameObject.SetActive(b);
             }
         }
     }
@@ -527,6 +557,7 @@ public class CustomSceneManager : MonoBehaviour
     {
         if (TutorialUI != null)
         {
+            SetTutoritalOverUI(false);
             TutorialUI.SetActive(false);
         }
 
@@ -556,7 +587,7 @@ public class CustomSceneManager : MonoBehaviour
                 yield return StartCoroutine(WaitForNextButton());
                 tutorialText.text = "If the hero HP reaches 0, you also lose the game.";
                 yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "You can move the hero with WASD.";
+                tutorialText.text = "Move the hero with WASD.";
                 if (HeroDescription != null)
                 {
                     HeroDescription.SetActive(true);
@@ -583,7 +614,7 @@ public class CustomSceneManager : MonoBehaviour
 
                 yield return new WaitForSeconds(5);
                 // yield return StartCoroutine(WaitForNextButton());
-                tutorialText.text = "Your hero will automatically attack the closest enemy within its attack range.";
+                tutorialText.text = "Hero automatically attacks the closest enemy in its range.";
             }
         }
     }
@@ -610,22 +641,33 @@ public class CustomSceneManager : MonoBehaviour
                 tutorialText.text = "Tutorial complete!\nYou can now continue to the game or return to the main menu.";
             }
         }
+        SetTutoritalOverUI(true);
+    }
+
+    private void SetTutoritalOverUI(bool setActive)
+    {
         // Show start game button
         Transform TutorialEndPanel = TutorialUI.transform.Find("TutorialEndPanel");
-        if(TutorialEndPanel != null){
-            TutorialEndPanel.gameObject.SetActive(true);
-        }
-        Transform StartGameButton = TutorialUI.transform.Find("StartGameButton");
-        if (StartGameButton != null)
+        if (TutorialEndPanel != null)
         {
-            StartGameButton.gameObject.SetActive(true);
+            TutorialEndPanel.gameObject.SetActive(setActive);
+        }
+        Transform StartGameButtonEasy = TutorialUI.transform.Find("StartGameButtonEasy");
+        if (StartGameButtonEasy != null)
+        {
+            StartGameButtonEasy.gameObject.SetActive(setActive);
+        }
+        Transform StartGameButtonHard = TutorialUI.transform.Find("StartGameButtonHard");
+        if (StartGameButtonHard != null)
+        {
+            StartGameButtonHard.gameObject.SetActive(setActive);
         }
 
         // Show exit to menu button
         Transform ExitToMenuButton = TutorialUI.transform.Find("ExitToMenuButton");
         if (ExitToMenuButton != null)
         {
-            ExitToMenuButton.gameObject.SetActive(true);
+            ExitToMenuButton.gameObject.SetActive(setActive);
         }
     }
 
@@ -719,7 +761,7 @@ public class CustomSceneManager : MonoBehaviour
         // Debug Press Space and do something
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            WaveManager.Instance.currentWave = 7;
+            // WaveManager.Instance.currentWave = 7;
         }
     
     }
@@ -963,11 +1005,11 @@ public class CustomSceneManager : MonoBehaviour
         }
 
         if(PauseSprite == null){
-            PauseSprite = Resources.Load<Sprite>("Sprites/Black Pause Button");
+            PauseSprite = Resources.Load<Sprite>("Sprites/Pause Button");
         }
 
         if(ResumeSprite == null){
-            ResumeSprite = Resources.Load<Sprite>("Sprites/Black Resume Buttom");
+            ResumeSprite = Resources.Load<Sprite>("Sprites/Resume Button");
         }
         if (TutorialNextButton == null && TutorialUI != null){
             Transform nextButton = TutorialUI.transform.Find("NextTutorialButton");
@@ -1096,6 +1138,7 @@ public class CustomSceneManager : MonoBehaviour
             Debug.LogError("MineSpawner or mine prefab not found");
         }
     }
+
 
     private void SpawnTutorialWorkers()
     {

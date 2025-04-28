@@ -131,7 +131,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6947373763395278133, guid: 209abd1876100d0438ed6a8b26714443, type: 3}
   attackRange: 5
   attackCooldown: 1
-  damage: 2
+  damage: 3
   heroBounces: 0
   isEnemy: 0
 --- !u!114 &5999875819943144269
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4213bf8f8f5407794111a5de6c28ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cost: 50
+  Cost: 30
 --- !u!212 &-6599253738065545858
 SpriteRenderer:
   m_ObjectHideFlags: 0

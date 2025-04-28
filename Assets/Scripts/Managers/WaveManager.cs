@@ -260,6 +260,8 @@ public class WaveManager : MonoBehaviour
             //StartWave();
             isEndingWave = false;
         }
+
+        CustomSceneManager.instance.bossHealthBar.SetActive(false);
     }
 
     void UpdateWaveKillLimit(bool Difficulty)
