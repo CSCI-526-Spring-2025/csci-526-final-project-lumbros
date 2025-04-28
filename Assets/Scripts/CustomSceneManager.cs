@@ -124,7 +124,7 @@ public class CustomSceneManager : MonoBehaviour
             case GAMESTATE.Tutorial:
                 break;
             case GAMESTATE.GameTutorialPauseAndReadTowers:
-                instance.pause();
+                //instance.pause();
                 // spawn text tell player the game is pause and they can take their time to read the towers on the right
                 // whenever the player is ready, they can unpause to move on
                 StartCoroutine(TutorialReadTowers());
@@ -572,8 +572,12 @@ public class CustomSceneManager : MonoBehaviour
         SetTowersUI(true);
         UpdateTutorialText("The game is now paused. Take your time to read the tower info on the right by hovering over them.");
         // yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(5);
         yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("You can also click on towers to see their stats. Once done, click the 'Pause' Button to continue.");
+        yield return new WaitForSecondsRealtime(3);
+        yield return StartCoroutine(WaitForNextButton());
+        UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
     }
 
     private IEnumerator TutorialHeroMoveAndAttack(){
@@ -862,9 +866,9 @@ public class CustomSceneManager : MonoBehaviour
 
      private void Resume(){
         pausedText.SetActive(false);
-        if(instance.curState == GAMESTATE.GameTutorialPauseAndReadTowers){
-            UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
-        }
+        //if(instance.curState == GAMESTATE.GameTutorialPauseAndReadTowers){
+        //    UpdateGameState(GAMESTATE.GameTutorialHeroMoveAndAttack);
+        //}
             //change button pic 
         PauseButton.image.sprite = ResumeSprite;
         Time.timeScale = 1;
