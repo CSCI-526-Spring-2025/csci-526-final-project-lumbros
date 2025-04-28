@@ -7,9 +7,9 @@ public class EnemySpawner : MonoBehaviour
     public static EnemySpawner Instance { get; private set; }
     public GameObject[] enemyPrefabs; // 敌人预制体数组
     public float mapMinX = -8f;
-    public float mapMaxX = 5.1f;
+    public float mapMaxX = 3.7f;
     public float mapMinY = -5f;
-    public float mapMaxY = 4f;
+    public float mapMaxY = 3.7f;
 
     public float Enemy0SpawnChance = 0.3f;
     public float Enemy1SpawnChance = 0.2f;
