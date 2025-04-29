@@ -31,7 +31,7 @@ public class Upgrades : MonoBehaviour
     public bool changed = false;
     public static System.Action<string> OnUpgrade;
     public int moneyBefore = 300;
-    
+    public GameObject moonProjectilePrefab;
     
     private Dictionary<string, List<(string, System.Action, int, float)>> heroUpgrades = new();
     private Dictionary<string, List<(string, System.Action, int, float)>> towerUpgrades = new();
@@ -52,8 +52,8 @@ public class Upgrades : MonoBehaviour
         AddUpgrade(heroUpgrades, "Hero Damage", "+2 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 2, Mathf.CeilToInt(3 * factorHero), 1f);
         AddUpgrade(heroUpgrades, "Hero Damage", "+4 to Hero Damage", () => hero.GetComponent<AutoAttack>().damage += 4, Mathf.CeilToInt(4 * factorHero), 1f);
 
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.7x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, Mathf.CeilToInt(4 * factorHero), 1f);
-        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (0.5x)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, Mathf.CeilToInt(8 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (x1.4)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.7f, Mathf.CeilToInt(4 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Attack Speed", "Increase Hero Attack Speed (x2)", () => hero.GetComponent<AutoAttack>().attackCooldown *= 0.4f, Mathf.CeilToInt(8 * factorHero), 1f);
 
         AddUpgrade(heroUpgrades, "Hero HP", "+5 to Hero HP", () => {
             Health hp = hero.GetComponent<Health>();
@@ -72,8 +72,18 @@ public class Upgrades : MonoBehaviour
         AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +1", () => hero.GetComponent<HeroMovement>().moveSpeed += 1, Mathf.CeilToInt(3 * factorHero), 0.5f);
         AddUpgrade(heroUpgrades, "Hero Move Speed", "Increase Move Speed +2", () => hero.GetComponent<HeroMovement>().moveSpeed += 2, Mathf.CeilToInt(4 * factorHero), 0.5f);
 
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +2", () => hero.GetComponent<AutoAttack>().heroBounces += 2, Mathf.CeilToInt(5 * factorHero), 1f);
-        AddUpgrade(heroUpgrades, "Hero Bounce", "Hero Projectiles Bounce +4", () => hero.GetComponent<AutoAttack>().heroBounces += 4, Mathf.CeilToInt(10 * factorHero), 1f);
+        // AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +2 times)", () => hero.GetComponent<AutoAttack>().heroBounces += 2, Mathf.CeilToInt(5 * factorHero), 100f);
+        AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +2 times)", () => {
+            var autoAttack = hero.GetComponent<AutoAttack>();
+            autoAttack.heroBounces += 2;
+            autoAttack.projectilePrefab = moonProjectilePrefab; 
+        }, Mathf.CeilToInt(5 * factorHero), 100f);
+        // AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +4 times)", () => hero.GetComponent<AutoAttack>().heroBounces += 4, Mathf.CeilToInt(10 * factorHero), 1f);
+        AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +4 times)", () => {
+            var autoAttack = hero.GetComponent<AutoAttack>();
+            autoAttack.heroBounces += 4;
+            autoAttack.projectilePrefab = moonProjectilePrefab; 
+        }, Mathf.CeilToInt(10 * factorHero), 1f);
 
         AddUpgrade(heroUpgrades, "Hero Reborn", "The hero can respawn within 10 seconds", () => hero.GetComponent<Health>().heroReborn = true, Mathf.CeilToInt(10 * factorHero), 0.5f);
 

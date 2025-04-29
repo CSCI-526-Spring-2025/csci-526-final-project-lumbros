@@ -399,7 +399,7 @@ public class CustomSceneManager : MonoBehaviour
         //UpdateTutorialText("The small characters are workers. They collect resources from mines.");
         //yield return StartCoroutine(WaitForNextButton());
 
-        UpdateTutorialText("Workers bring resources to your core to earn gold.");
+        UpdateTutorialText("Workers bring resources to your core to earn gold. But they are fragile!");
         //if (MoneyManager.Instance != null)
         //{
         //    MoneyManager.Instance.UpdateMoney(30);
@@ -413,7 +413,6 @@ public class CustomSceneManager : MonoBehaviour
         yield return StartCoroutine(WaitForNextButton());
         UpdateTutorialText("Note: The mine is invincible and cannot be destroyed by enemies!!");
         yield return StartCoroutine(WaitForNextButton());
-
         // UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
         
         // float waitTime = 0;
