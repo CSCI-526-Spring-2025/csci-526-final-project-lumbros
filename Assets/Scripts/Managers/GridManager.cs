@@ -41,6 +41,9 @@ public class GridManager : MonoBehaviour
             Image img = slot.GetComponent<Image>();  
             if (img != null) 
             {
+                if(CustomSceneManager.instance.curState == GAMESTATE.Tutorial && !slot.onlyTutorial){
+                    continue;
+                }
                 Color color = img.color; 
                 color.a = 1f;              
                 img.color = color; 

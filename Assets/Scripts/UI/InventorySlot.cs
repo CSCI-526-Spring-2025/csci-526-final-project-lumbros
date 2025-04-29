@@ -12,6 +12,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private static GameObject GamerManager; // manage the game state
     public bool containsItem;
     public static System.Action<string> AddedTower;
+    public bool onlyTutorial = false;
 
     void Start()
     {
@@ -32,6 +33,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         if (containsItem)
             return;
+
+        if(CustomSceneManager.instance.curState == GAMESTATE.Tutorial && !onlyTutorial){
+            return;
+        }
 
         // Get the name of the dropped object
         GameObject dropped = eventData.pointerDrag;
