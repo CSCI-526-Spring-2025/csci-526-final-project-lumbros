@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using System;
 public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI[] upgradeTexts;
@@ -178,6 +178,12 @@ public class Upgrades : MonoBehaviour
 
     void AssignUpgrades(Dictionary<string, List<(string, System.Action, int, float)>> upgradeList)
     {
+        try{
+            GameObject.Find("PausedText").SetActive(false);
+        }catch(Exception e){
+            
+        }
+
         List<string> availableCategories = new(upgradeList.Keys);
         List<(string, System.Action, int, float)> weightedPool = new();
 
@@ -197,7 +203,7 @@ public class Upgrades : MonoBehaviour
         List<(string, System.Action, int, float)> selectedUpgrades = new();
         while (selectedUpgrades.Count < 3 && weightedPool.Count > 0)
         {
-            int idx = Random.Range(0, weightedPool.Count);
+            int idx = UnityEngine.Random.Range(0, weightedPool.Count);
             selectedUpgrades.Add(weightedPool[idx]);
             weightedPool.RemoveAll(u => u.Item1 == weightedPool[idx].Item1);
         }
@@ -233,6 +239,8 @@ public class Upgrades : MonoBehaviour
 
     public void ApplyUpgrade()
     {
+
+       
         selectedUpgrade?.Invoke();
         OnUpgrade?.Invoke(selectedUpgradeName);
 

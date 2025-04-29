@@ -1231,6 +1231,7 @@ GameObject:
   - component: {fileID: 87428562}
   - component: {fileID: 87428561}
   - component: {fileID: 87428560}
+  - component: {fileID: 87428565}
   m_Layer: 5
   m_Name: IceTower
   m_TagString: Untagged
@@ -1367,6 +1368,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87428558}
   m_CullTransparentMesh: 1
+--- !u!114 &87428565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87428558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b34b50c72ad1e438742f069909d2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredMoney: 70
 --- !u!1 &91108703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,6 +2107,7 @@ GameObject:
   - component: {fileID: 142585844}
   - component: {fileID: 142585843}
   - component: {fileID: 142585842}
+  - component: {fileID: 142585847}
   m_Layer: 5
   m_Name: AOETower
   m_TagString: Untagged
@@ -2229,6 +2244,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142585840}
   m_CullTransparentMesh: 1
+--- !u!114 &142585847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142585840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b34b50c72ad1e438742f069909d2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredMoney: 100
 --- !u!1001 &146102896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3683,9 +3711,10 @@ MonoBehaviour:
   GameModePanel: {fileID: 0}
   heroUpgrade: 1
   tutorialstep: 0
-  isTutorialMode: 0
+  isTutorialMode: 1
   TutorialNextButton: {fileID: 0}
   PauseButton: {fileID: 0}
+  pausedTextObj: {fileID: 62914068}
 --- !u!4 &212881656
 Transform:
   m_ObjectHideFlags: 0
@@ -6940,6 +6969,7 @@ GameObject:
   - component: {fileID: 377681122}
   - component: {fileID: 377681121}
   - component: {fileID: 377681125}
+  - component: {fileID: 377681126}
   m_Layer: 5
   m_Name: Wall
   m_TagString: Untagged
@@ -7076,6 +7106,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionPanel: {fileID: 2136528674}
+--- !u!114 &377681126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377681118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b34b50c72ad1e438742f069909d2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredMoney: 25
 --- !u!1 &380483351
 GameObject:
   m_ObjectHideFlags: 0
@@ -31447,6 +31490,7 @@ GameObject:
   - component: {fileID: 1734015103}
   - component: {fileID: 1734015102}
   - component: {fileID: 1734015106}
+  - component: {fileID: 1734015107}
   m_Layer: 5
   m_Name: Sniper
   m_TagString: Untagged
@@ -31583,6 +31627,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionPanel: {fileID: 1326026694}
+--- !u!114 &1734015107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734015100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b34b50c72ad1e438742f069909d2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredMoney: 30
 --- !u!1001 &1736608728
 PrefabInstance:
   m_ObjectHideFlags: 0

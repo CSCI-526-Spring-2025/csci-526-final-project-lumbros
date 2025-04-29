@@ -69,6 +69,7 @@ public class CustomSceneManager : MonoBehaviour
     private bool waitingForTowerPlaced = false;
     private IEnumerator currentTutorialCoroutine = null;
     public Button PauseButton;
+    public GameObject pausedTextObj;
     private Sprite PauseSprite;
     private Sprite ResumeSprite;
 
@@ -632,6 +633,7 @@ public class CustomSceneManager : MonoBehaviour
         if (TutorialUI != null)
         {
             PauseButton.gameObject.SetActive(false);
+            pausedText.SetActive(false);
             TutorialUI.SetActive(true);
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
@@ -823,6 +825,7 @@ public class CustomSceneManager : MonoBehaviour
         PauseButton.gameObject.SetActive(false);
         UpgradeUI.SetActive(true);
         //PauseGame();
+        Debug.Log("wave end~");
         if (!isPause) pause();
     }
 
@@ -867,6 +870,12 @@ public class CustomSceneManager : MonoBehaviour
         UpdateGameState(GAMESTATE.GameOver);
     }
     private void PauseGame(){
+        //change button pic 
+        pausedText.SetActive(true);
+        PauseButton.image.sprite = PauseSprite;
+        Time.timeScale = 0;
+    }
+    private void PauseGameUpgrade(){
         //change button pic 
         pausedText.SetActive(true);
         PauseButton.image.sprite = PauseSprite;
