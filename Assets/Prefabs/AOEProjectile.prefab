@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.028301895, g: 0.002269492, b: 0.002269492, a: 1}
+  m_Color: {r: 0.7735849, g: 0.46309844, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -180,5 +180,6 @@ MonoBehaviour:
   damage: 3
   bouncesLeft: 0
   isEnemyProjectile: 0
-  explosionRadius: 50
+  explosionRadius: 3
   splashDamage: 3
+  explosionParticle: {fileID: 363485551943917016, guid: dcfc143e740344d478dfc4daaf895a16, type: 3}

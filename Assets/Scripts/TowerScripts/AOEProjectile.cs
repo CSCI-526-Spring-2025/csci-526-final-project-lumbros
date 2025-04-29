@@ -6,6 +6,7 @@ public class AOEProjectile : Projectile
 {
     public float explosionRadius = 2f;    // Area of effect radius
     public int splashDamage = 1;          // Splash damage amount
+    public ParticleSystem explosionParticle;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,7 +15,11 @@ public class AOEProjectile : Projectile
         {
             // Find all colliders within explosion radius
             Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+            if(explosionParticle != null){
+                Instantiate(explosionParticle, transform.position, Quaternion.identity);
+            }
 
+            int count = 0;
             // Apply damage to all enemies in range
             foreach (Collider2D collider in nearbyColliders)
             {
@@ -26,7 +31,24 @@ public class AOEProjectile : Projectile
                     if (damageable != null)
                     {
                         damageable.TakeDamage(damage, transform);
+                        count++;
                     }
+                }
+            }
+
+            count = 0;
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject target in targets)
+            {
+                var damageable = target.GetComponent<IDamageable>();
+                if ( damageable != null && damageable.getHealthExpected() <= 0)
+                {
+                    continue;
+                }
+                float distance = Vector2.Distance(transform.position, target.transform.position);
+                if (distance < explosionRadius)
+                {
+                    count++;
                 }
             }
         }
