@@ -12,31 +12,35 @@ public class IceProjectile : Projectile
     {
         if (other.CompareTag("Enemy"))
         {
-            Enemy normalEnemy = other.GetComponent<Enemy>();
-            RangedEnemy rangedEnemy = other.GetComponent<RangedEnemy>();
+            EnemyAbstract normalEnemy = other.GetComponent<EnemyAbstract>();
+            StartCoroutine(ApplySlowEffect(normalEnemy));
+            // Enemy normalEnemy = other.GetComponent<Enemy>();
+            // RangedEnemy rangedEnemy = other.GetComponent<RangedEnemy>();
 
-            if (normalEnemy != null)
-            {
-                StartCoroutine(ApplySlowEffect(normalEnemy));
-            }
-            else if (rangedEnemy != null)
-            {
-                StartCoroutine(ApplySlowEffect(rangedEnemy));
-            }
+            // if (normalEnemy != null)
+            // {
+            //     StartCoroutine(ApplySlowEffect(normalEnemy));
+            // }
+            // else if (rangedEnemy != null)
+            // {
+            //     StartCoroutine(ApplySlowEffect(rangedEnemy));
+            // }
         }
     }
 
-    IEnumerator ApplySlowEffect(MonoBehaviour enemy)
+    IEnumerator ApplySlowEffect(EnemyAbstract enemy)
     {
         var speedField = enemy.GetType().GetField("speed");
         float originalSpeed = (float)speedField.GetValue(enemy);
         speedField.SetValue(enemy, originalSpeed * slowAmount);
+        enemy.SetSlowDebuff(true);
 
         yield return new WaitForSeconds(slowDuration);
 
         if (enemy != null)
         {
             speedField.SetValue(enemy, originalSpeed);
+            enemy.SetSlowDebuff(false);
         }
     }
     void OnBecameInvisible()

@@ -70,6 +70,7 @@ public class Health : MonoBehaviour
         }
         else if(transform.tag == "Worker"){
             Transform child = transform.GetChild(0);
+            flash = new Color(1.0f, 1.0f, 1.0f, 0.2f);
             spriteRenderer = child.GetComponent<SpriteRenderer>();
             originalColor = spriteRenderer.color;
         }

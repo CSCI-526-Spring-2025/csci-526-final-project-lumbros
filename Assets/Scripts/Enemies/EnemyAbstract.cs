@@ -23,6 +23,8 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
     // for flashing
     private Color originalColor;
     public Color flash = new Color(255, 255, 255);
+    public Color slowDebuffColor;
+    public Color outlineColor;
     private SpriteRenderer spriteRenderer;
     public float delay = 0.1f;
     public int numOfFlash = 4;
@@ -54,6 +56,8 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
 
         spriteRenderer = child.GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        slowDebuffColor = new Color(28/255.0f, 188/255.0f, 188/255.0f);
+        outlineColor = new Color(188/255.0f, 28/255.0f, 28/255.0f);
 
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 2f;
@@ -94,6 +98,16 @@ public abstract class EnemyAbstract : MonoBehaviour, IDamageable
         return healthExpect;
     }
     
+    public void SetSlowDebuff(bool setDebuff){
+        Color setColor;
+        if(setDebuff){
+            setColor = slowDebuffColor;
+        }
+        else{
+            setColor = outlineColor;
+        }
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = setColor;
+    }
 
     IEnumerator EnemyHitFlash()
     {
