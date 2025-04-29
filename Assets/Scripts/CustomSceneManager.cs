@@ -127,6 +127,10 @@ public class CustomSceneManager : MonoBehaviour
             case GAMESTATE.GameSuccess:
                 break;
             case GAMESTATE.Tutorial:
+                {
+                    GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+                    if (hero != null) Destroy(hero);
+                }
                 PauseButton.gameObject.SetActive(true); //turn on pause in case it was turn off
                 if(isPause) pause();
                 break;
@@ -841,7 +845,7 @@ public class CustomSceneManager : MonoBehaviour
         
         if (!isTutorialMode)
         {
-            FinishedGameUI = DifficultyManager.GetFinishedGameUI();
+            FinishedGameUI = DifficultyManager.Instance.GetFinishedGameUI();
             FinishedGameUI.SetActive(true); 
             // Debug.Log("CurrentDifficulty7: " + (FinishedGameUI == null));
             // Debug.Log("CurrentDifficulty8: " + (FinishedGameUI == DifficultyManager.FinishedGameUIHard));
@@ -1019,7 +1023,7 @@ public class CustomSceneManager : MonoBehaviour
 
         if(FinishedGameUI == null)
         {
-            FinishedGameUI =  DifficultyManager.GetFinishedGameUI();
+            FinishedGameUI =  DifficultyManager.Instance.GetFinishedGameUI();
             // FinishedGameUI =  GameObject.Find("FinishedGameUI");
         }
 

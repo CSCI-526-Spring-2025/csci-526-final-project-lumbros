@@ -19,6 +19,10 @@ public class DifficultyManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            FinishedGameUIHard = GameObject.Find("FinishedGameUI-Hard");
+            FinishedGameUIHard.SetActive(false);
+            FinishedGameUIEasy = GameObject.Find("FinishedGameUI-Easy");
+            FinishedGameUIEasy.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -26,10 +30,7 @@ public class DifficultyManager : MonoBehaviour
             Destroy(gameObject); 
         }
         
-        FinishedGameUIHard = GameObject.Find("FinishedGameUI-Hard");
-        FinishedGameUIHard.SetActive(false);
-        FinishedGameUIEasy = GameObject.Find("FinishedGameUI-Easy");
-        FinishedGameUIEasy.SetActive(false);
+        //DontDestroyOnLoad(gameObject);
         //DontDestroyOnLoad(FinishedGameUIHard);
         //DontDestroyOnLoad(FinishedGameUIEasy);
     }
@@ -55,7 +56,7 @@ public class DifficultyManager : MonoBehaviour
                 return 1f;
         }
     }
-    public static GameObject GetFinishedGameUI()
+    public GameObject GetFinishedGameUI()
     {
 
       Debug.Log("CurrentDifficulty1: " + CurrentDifficulty);
@@ -105,8 +106,6 @@ public class DifficultyManager : MonoBehaviour
     }
     public static int GetTowerHealthFactor()
     {
-       
-
         switch (CurrentDifficulty)
         {
             case DifficultyLevel.Easy: return 3;
