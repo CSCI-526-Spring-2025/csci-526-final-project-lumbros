@@ -58,6 +58,7 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject FinishedGameUI;
     public GameObject Hero;
     public GameObject HeroDescription;
+    public GameObject HeroDescriptionButton;
     public GameObject HeroInfoUI;
     public GameObject bossHealthBar;
     public GameObject GameModePanel;
@@ -151,6 +152,7 @@ public class CustomSceneManager : MonoBehaviour
                 if (HeroDescription != null)
                 {
                     HeroDescription.SetActive(true);
+                    HeroDescriptionButton.SetActive(true);
                 }
                 
                 StartCoroutine(TutorialHeroMoveAndAttack());
@@ -247,6 +249,7 @@ public class CustomSceneManager : MonoBehaviour
         if (HeroDescription != null)
         {
             HeroDescription.SetActive(false);
+            HeroDescriptionButton.SetActive(false);
         }
         if(HeroInfoUI != null){
             HeroInfoUI.SetActive(false);
@@ -1052,6 +1055,12 @@ public class CustomSceneManager : MonoBehaviour
         {
             HeroDescription = GameObject.Find("HeroDescription");
         }
+
+        if (HeroDescriptionButton == null)
+        {
+            HeroDescriptionButton = GameObject.Find("HeroInfoButton");
+        }
+
         if (HeroInfoUI == null){
             HeroInfoUI = GameObject.Find("HeroInfoUI");
         }
