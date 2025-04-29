@@ -305,6 +305,8 @@ public class WaveManager : MonoBehaviour
             }
             else{
                 mWavesUI.text = waveText + currentWave.ToString() + "/8";
+                if (CustomSceneManager.instance.curState >= GAMESTATE.Tutorial && CustomSceneManager.instance.curState <= GAMESTATE.GameTutorialEnd)
+                    mWavesUI.text = waveText;
             }
             if(mWavesCountdown.activeSelf){
                 DisableCountdown();
@@ -318,6 +320,8 @@ public class WaveManager : MonoBehaviour
             }
             else{
                  mWavesUI.text = waveText + prevWave.ToString() + "/8 Completed!";
+                 if (CustomSceneManager.instance.curState >= GAMESTATE.Tutorial && CustomSceneManager.instance.curState <= GAMESTATE.GameTutorialEnd)
+                    mWavesUI.text = waveText;
             }
 
           
@@ -335,6 +339,8 @@ public class WaveManager : MonoBehaviour
             }
             int tempWave = currentWave + 1;
             mWavesUI.text = waveText + currentWave.ToString() + " starting in " + FormatTime(waveTimer);
+            if (CustomSceneManager.instance.curState >= GAMESTATE.Tutorial && CustomSceneManager.instance.curState <= GAMESTATE.GameTutorialEnd)
+                mWavesUI.text = waveText;
             mWavesCountdownUI.text = FormatTime(waveTimer);
             if(!mWavesCountdown.activeSelf){
                 mWavesCountdown.SetActive(true);
