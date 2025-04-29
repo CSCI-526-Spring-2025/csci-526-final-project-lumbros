@@ -411,6 +411,9 @@ public class CustomSceneManager : MonoBehaviour
 
         // yield return new WaitForSeconds(10f);
         yield return StartCoroutine(WaitForNextButton());
+        UpdateTutorialText("Note: The mine is invincible and cannot be destroyed by enemies!!");
+        yield return StartCoroutine(WaitForNextButton());
+
         // UpdateTutorialText("Now, please drag the green core to a suitable position. The core is the base you need to protect.");
         
         // float waitTime = 0;
