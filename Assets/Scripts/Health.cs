@@ -117,7 +117,10 @@ public class Health : MonoBehaviour
                 StartCoroutine(HitFlash());
             }
         }
-        UpdateSprite();
+        if (spriteRenderer != null && healthSprites != null && healthSprites.Length != 0)
+        {
+            UpdateSprite();
+        }
     }
 
     public void TakeExpectedDamage(int dmg)

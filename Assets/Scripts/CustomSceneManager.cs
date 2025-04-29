@@ -727,9 +727,15 @@ public class CustomSceneManager : MonoBehaviour
             TowerInfoUI.SetActive(false);
         }
 
-        if(FinishedGameUI != null && FinishedGameUI.activeSelf){
-            FinishedGameUI.SetActive(false);
-        }
+        // if(FinishedGameUI != null && FinishedGameUI.activeSelf){
+        //     FinishedGameUI.SetActive(false);
+        // }
+
+        if (DifficultyManager.FinishedGameUIHard != null)
+            DifficultyManager.FinishedGameUIHard.SetActive(false);
+        if (DifficultyManager.FinishedGameUIEasy != null)
+            DifficultyManager.FinishedGameUIEasy.SetActive(false);
+
 
        
         RemoveMoneyPopUp();
@@ -845,6 +851,7 @@ public class CustomSceneManager : MonoBehaviour
         
         if (!isTutorialMode)
         {
+            Debug.Log("game finish!!");
             FinishedGameUI = DifficultyManager.Instance.GetFinishedGameUI();
             FinishedGameUI.SetActive(true); 
             // Debug.Log("CurrentDifficulty7: " + (FinishedGameUI == null));

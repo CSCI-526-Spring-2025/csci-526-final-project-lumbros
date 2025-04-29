@@ -21,7 +21,7 @@ public class WaveManager : MonoBehaviour
     public BossEnemy bossEnemy;
     private float enemyStatMultiplier = 1.2f; // 每一波敌人属性增强倍率
     private float enemyStatMultiplier_D = 1.2f;
-    private float Span_Interval_Multiplier = 1.3f; // 生成间隔加快倍率
+    private float Span_Interval_Multiplier = 1.35f; // 生成间隔加快倍率
     private float Span_Interval_Multiplier_D = 1.4f;
     private float KillNumMultiplier = 1.1f;
     private float KillNumMultiplier_D = 1.15f;
