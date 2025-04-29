@@ -77,7 +77,7 @@ public class Upgrades : MonoBehaviour
             var autoAttack = hero.GetComponent<AutoAttack>();
             autoAttack.heroBounces += 2;
             autoAttack.projectilePrefab = moonProjectilePrefab; 
-        }, Mathf.CeilToInt(5 * factorHero), 100f);
+        }, Mathf.CeilToInt(5 * factorHero), 1f);
         // AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +4 times)", () => hero.GetComponent<AutoAttack>().heroBounces += 4, Mathf.CeilToInt(10 * factorHero), 1f);
         AddUpgrade(heroUpgrades, "Bullet Bounce", "Hero Bullets Can Bounce (Bounce +4 times)", () => {
             var autoAttack = hero.GetComponent<AutoAttack>();
