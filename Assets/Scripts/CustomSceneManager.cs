@@ -595,7 +595,7 @@ public class CustomSceneManager : MonoBehaviour
             TMP_Text tutorialText = TutorialUI.GetComponentInChildren<TMP_Text>();
             if (tutorialText != null)
             {
-                tutorialText.text = "Your hero is the blue guy.";
+                tutorialText.text = "This floating character is your hero.";
                 yield return StartCoroutine(WaitForNextButton());
                 tutorialText.text = "If the hero HP reaches 0, you also lose the game.";
                 yield return StartCoroutine(WaitForNextButton());
