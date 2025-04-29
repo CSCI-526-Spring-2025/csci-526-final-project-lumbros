@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class HeroMovement : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class HeroMovement : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
     private Vector2 movement;
+
+    public Animator animator;
 
     private void Awake()
     {
@@ -35,13 +38,38 @@ public class HeroMovement : MonoBehaviour
             hp.currentHealth = hp.maxHealth;
         }
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal"); 
         movement.y = Input.GetAxisRaw("Vertical");   
-        movement = movement.normalized; 
+        movement = movement.normalized;
+
+        // Update animator parameters
+        float x = movement.x;
+        float y = movement.y;
+
+        if(x == 0 && y == 0)
+        {
+            return;
+        }
+
+        // set moveX to 1 if x is greater than y
+        if (Mathf.Abs(x) > Mathf.Abs(y))
+        {
+            x = x > 0 ? -1 : 1;
+            y = 0;
+        }
+        else
+        {
+            y = y > 0 ? 1 : -1;
+            x = 0;
+        }
+
+        animator.SetFloat("moveX", x);
+        animator.SetFloat("moveY", y);
     }
 
     void FixedUpdate()
