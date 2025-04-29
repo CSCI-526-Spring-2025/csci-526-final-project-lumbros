@@ -730,3 +730,4 @@ MonoBehaviour:
   flash: {r: 255, g: 255, b: 255, a: 1}
   delay: 0.1
   numOfFlash: 4
+  healthSprites: []
