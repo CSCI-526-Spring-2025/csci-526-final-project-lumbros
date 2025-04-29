@@ -30,8 +30,8 @@ public class DifficultyManager : MonoBehaviour
         FinishedGameUIHard.SetActive(false);
         FinishedGameUIEasy = GameObject.Find("FinishedGameUI-Easy");
         FinishedGameUIEasy.SetActive(false);
-        DontDestroyOnLoad(FinishedGameUIHard);
-        DontDestroyOnLoad(FinishedGameUIEasy);
+        //DontDestroyOnLoad(FinishedGameUIHard);
+        //DontDestroyOnLoad(FinishedGameUIEasy);
     }
 
     public static void setDifficultyToEasy(){

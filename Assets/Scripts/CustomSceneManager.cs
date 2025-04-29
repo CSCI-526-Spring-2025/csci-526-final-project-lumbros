@@ -387,6 +387,7 @@ public class CustomSceneManager : MonoBehaviour
     private IEnumerator TutorialSequence()
     {
         GameObject core = GameObject.FindGameObjectWithTag("Core");
+        waveManager.LoadStartingWave();
 
         SpawnTutorialMines();
 
