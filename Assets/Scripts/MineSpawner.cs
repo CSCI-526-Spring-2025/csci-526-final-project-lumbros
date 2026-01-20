@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -111,7 +112,8 @@ public class MineSpawner : MonoBehaviour
         else if (sceneName == "MainScene")
         {
             /* Spawn in grid slots */
-            InventorySlot[] slots = GridManager.Instance.GetInventorySlots();
+           // InventorySlot[] slots = GridManager.Instance.GetInventorySlots();
+            List<InventorySlot> slots = GridManager.Instance.GetInventorySlots();
 
             // Get core location
             GameObject core = GameObject.FindGameObjectWithTag("Core");
@@ -150,7 +152,7 @@ public class MineSpawner : MonoBehaviour
             // Choose 3 unique random slots to spawn mines in
             for (int i = 0; i < mineCount; i++)
             {
-                int randomSlotIndex = Random.Range(0, slots.Length);
+                int randomSlotIndex = Random.Range(0, /*slots.Length*/ slots.Count);
                 InventorySlot slot = slots[randomSlotIndex];
                 if (!slot.CanAddItem())
                 {

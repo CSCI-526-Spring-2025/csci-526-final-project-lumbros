@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
-    private InventorySlot[] mSlots;
+    //private InventorySlot[] mSlots;
+    private List<InventorySlot> mSlots;
+    public InventorySlot slotPrefab;
+    public GameObject gridObject;
 
    
     private void Awake()
@@ -29,7 +33,25 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mSlots = FindObjectsOfType<InventorySlot>();
+        //mSlots = FindObjectsOfType<InventorySlot>();
+
+        Vector3 initPos = new Vector3(37.5f, -37.5f, 0.0f);
+        float size = 75;
+        int rowLength = 11;// 11;
+        int colLength = 17;// 17;
+        mSlots = new List<InventorySlot>();
+        for (int row = 0; row < rowLength; row++)
+        {
+            for (int col = 0; col < colLength; col++)
+            {
+                InventorySlot slot = Instantiate(slotPrefab, initPos + new Vector3(size * row, size * (col+1), 0.0f), Quaternion.identity);
+                slot.gameObject.transform.parent = gridObject.transform;
+                slot.transform.localScale = Vector3.one;
+                slot.transform.localPosition = initPos + new Vector3(size * row, size * col, 0.0f);
+                mSlots.Add(slot);
+            }
+        }
+
         HideGrid();
     }
 
@@ -66,7 +88,12 @@ public class GridManager : MonoBehaviour
 
     }
 
-    public InventorySlot[] GetInventorySlots()
+    //public InventorySlot[] GetInventorySlots()
+    //{
+    //    return mSlots;
+    //}
+
+    public List<InventorySlot> GetInventorySlots()
     {
         return mSlots;
     }

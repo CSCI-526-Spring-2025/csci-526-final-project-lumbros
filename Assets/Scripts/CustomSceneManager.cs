@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 using UnityEngine.UI;
+
 public enum GAMESTATE{
     BeforeGameStart, // Before "Start Game" is clicked on StartCanvas
     PlaceCore, // When Core is draggable,
@@ -38,16 +39,14 @@ public class CustomSceneManager : MonoBehaviour
     public int maxWorkerCount;
     public int curWorkerCount;
     public bool isPause = false;
-    public TMP_Text mEnemyCountUI;
 
-    private TMP_Text coreHealthUI;
-    private GameObject pausedText;
     private static int GAME_SCREEN_INDEX = 1;
     private List<GameObject> nonDestoryObjects;
     public static bool IsInitialized { get; private set;}
-    public GameObject gameOverUI;
     public WaveManager waveManager;
     private int lastCheckedKills = 0;
+
+    public GameObject gameOverUI;
     public GameObject UpgradeUI;
     public GameObject StartUI;
     public GameObject WarningUI;
@@ -62,17 +61,21 @@ public class CustomSceneManager : MonoBehaviour
     public GameObject HeroInfoUI;
     public GameObject bossHealthBar;
     public GameObject GameModePanel;
-    public bool heroUpgrade = true;
-    public int tutorialstep = 0;
-    public bool isTutorialMode = false;
-    public Button TutorialNextButton;
-    private bool waitingForNextButton = false;
-    private bool waitingForTowerPlaced = false;
-    private IEnumerator currentTutorialCoroutine = null;
+    public TMP_Text mEnemyCountUI;
+    private TMP_Text coreHealthUI;
     public Button PauseButton;
     public GameObject pausedTextObj;
     private Sprite PauseSprite;
     private Sprite ResumeSprite;
+    public Button TutorialNextButton;
+    private GameObject pausedText;
+
+    public bool heroUpgrade = true;
+    public int tutorialstep = 0;
+    public bool isTutorialMode = false;
+    private bool waitingForNextButton = false;
+    private bool waitingForTowerPlaced = false;
+    private IEnumerator currentTutorialCoroutine = null;
 
     public bool HasNewSprite(string prefabName)
     {
@@ -202,11 +205,10 @@ public class CustomSceneManager : MonoBehaviour
         pausedText.SetActive(false);
         bossHealthBar.SetActive(false);
         GameModePanel.SetActive(false);
-        RemoveMoneyPopUp();
+        UIManager.Instance.RemoveMoneyPopUp();
         minBounds = GameObject.Find("MinBounds").transform.position;
         maxBounds = GameObject.Find("MaxBounds").transform.position;
     }
-
 
     void Start() 
     {
@@ -218,15 +220,16 @@ public class CustomSceneManager : MonoBehaviour
     {
         // Hide startUI
         GameModePanel.SetActive(false);
-        StartUI.SetActive(false);
+        //StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
 
         GridManager gridManager = FindObjectOfType<GridManager>();
         if (gridManager != null)
         {
-            InventorySlot[] slots = gridManager.GetInventorySlots();
-            if (slots != null && slots.Length > 0)
+            //InventorySlot[] slots = gridManager.GetInventorySlots();
+            List<InventorySlot> slots = gridManager.GetInventorySlots();
+            if (slots != null && /*slots.Length*/ slots.Count > 0)
             {
                 GameObject core = GameObject.FindGameObjectWithTag("Core");
                 if (core != null)
@@ -291,6 +294,7 @@ public class CustomSceneManager : MonoBehaviour
         Core.updateCore();
         UpgradeManager.updateTower();
     }
+
     public void StartHardGame(){
         DifficultyManager.setDifficultyToHard();
         Debug.Log("start game: " + DifficultyManager.CurrentDifficulty);
@@ -333,7 +337,7 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
         GameModePanel.SetActive(false);
-        StartUI.SetActive(false);
+        //StartUI.SetActive(false);
         FindUIObjects();
         StartingGame();
         waveManager.LoadStartingWave();
@@ -388,6 +392,7 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
     }
+
     private IEnumerator TutorialSequence()
     {
         GameObject core = GameObject.FindGameObjectWithTag("Core");
@@ -555,6 +560,7 @@ public class CustomSceneManager : MonoBehaviour
             }
         }
     }
+
     public void FinishTutorial()
     {
         if (TutorialUI != null)
@@ -738,7 +744,7 @@ public class CustomSceneManager : MonoBehaviour
 
 
        
-        RemoveMoneyPopUp();
+        UIManager.Instance.RemoveMoneyPopUp();
         IsInitialized = true;
     }
 
@@ -886,12 +892,14 @@ public class CustomSceneManager : MonoBehaviour
         gameOverUI.SetActive(true); // Show the Game Over UI
         UpdateGameState(GAMESTATE.GameOver);
     }
+
     private void PauseGame(){
         //change button pic 
         pausedText.SetActive(true);
         PauseButton.image.sprite = PauseSprite;
         Time.timeScale = 0;
     }
+
     private void PauseGameUpgrade(){
         //change button pic 
         pausedText.SetActive(true);
@@ -928,7 +936,7 @@ public class CustomSceneManager : MonoBehaviour
         GridManager.Instance.EmptyAllSlots();
         TowerManager.Instance.Reset();
         SceneManager.LoadScene("MainScene");
-        ShowStartCanvas();
+        //ShowStartCanvas();
         curWorkerCount = 0;
         UpdateGameState(GAMESTATE.BeforeGameStart);
     }
@@ -943,40 +951,9 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public void ShowStartCanvas(){
-        StartUI.SetActive(true);
-    }
-
     public bool IsGameStarted()
     {
         return curState == GAMESTATE.GamePlay || curState == GAMESTATE.GameUpgrade || (curState >= GAMESTATE.Tutorial && curState < GAMESTATE.GameTutorialEnd);
-    }
-
-    public void DisplayWarning()
-    {
-        WarningUI.SetActive(true);
-        TimerManager.StartTimer(3f,  RemoveWarning, true);
-    }
-
-     public void RemoveWarning(){
-        WarningUI.SetActive(false);
-        
-    }
-
-    public void MoneyPopUp(int money)
-    {
-        MoneyPopUpUI.SetActive(false);
-        TimerManager.StartTimer(0.15f, ShowMoneyPopUp, true);
-        TimerManager.StartTimer(3f,  RemoveMoneyPopUp, true);
-    }
-
-    public void ShowMoneyPopUp()
-    {
-        MoneyPopUpUI.SetActive(true);
-    }
-
-    public void RemoveMoneyPopUp(){
-        MoneyPopUpUI.SetActive(false);
     }
 
     private void FindUIObjects()
@@ -1100,6 +1077,7 @@ public class CustomSceneManager : MonoBehaviour
     {
         return maxBounds;
     }
+
     private void SpawnTutorialMines()
     {
         Debug.Log("Attempting to generate mines in tutorial");
@@ -1126,22 +1104,23 @@ public class CustomSceneManager : MonoBehaviour
                 GridManager gridManager = FindObjectOfType<GridManager>();
                 if (gridManager != null)
                 {
-                    InventorySlot[] slots = gridManager.GetInventorySlots();
-                    if (slots != null && slots.Length > 0)
+                    //InventorySlot[] slots = gridManager.GetInventorySlots();
+                    List<InventorySlot> slots = gridManager.GetInventorySlots();
+                    if (slots != null && /*slots.Length*/ slots.Count > 0)
                     {
-                        Debug.Log($"Found {slots.Length} grid slots");
+                        Debug.Log($"Found {/*slots.Length*/ slots.Count} grid slots");
 
                         // Generate 3 mines in random grid slots
                         int minesCreated = 0;
                         List<int> usedSlotIndices = new List<int>(); // Track used slots
 
-                        while (minesCreated < 3 && usedSlotIndices.Count < slots.Length)
+                        while (minesCreated < 3 && usedSlotIndices.Count < /*slots.Length*/ slots.Count)
                         {
                             // Select a random unused slot
                             int randomSlotIndex;
                             do
                             {
-                                randomSlotIndex = UnityEngine.Random.Range(0, slots.Length);
+                                randomSlotIndex = UnityEngine.Random.Range(0, /*slots.Length*/ slots.Count);
                             } while (usedSlotIndices.Contains(randomSlotIndex));
 
                             InventorySlot slot = slots[randomSlotIndex];
@@ -1183,7 +1162,6 @@ public class CustomSceneManager : MonoBehaviour
             Debug.LogError("MineSpawner or mine prefab not found");
         }
     }
-
 
     private void SpawnTutorialWorkers()
     {

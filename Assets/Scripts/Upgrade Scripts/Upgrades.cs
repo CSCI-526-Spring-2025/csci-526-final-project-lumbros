@@ -240,7 +240,7 @@ public class Upgrades : MonoBehaviour
 
                     ApplyUpgrade();
                 }
-                else CustomSceneManager.instance.DisplayWarning();
+                else UIManager.Instance.DisplayWarning();
             });
 
             upgradeButtons[i].interactable = MoneyManager.Instance.mMoney >= upg.Item3;

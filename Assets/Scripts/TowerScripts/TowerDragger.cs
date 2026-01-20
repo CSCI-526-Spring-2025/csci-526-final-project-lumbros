@@ -50,7 +50,7 @@ public class TowerDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         GameObject TowerDetailsPopupUI = CustomSceneManager.instance.TowerInfoUI;
         TowerDetailsPopupUI.SetActive(false);
         if(MoneyManager.Instance.mMoney < mCost){
-            CustomSceneManager.instance.DisplayWarning();
+            UIManager.Instance.DisplayWarning();
         }
         if ( MoneyManager.Instance.mMoney >= mCost)
         {
